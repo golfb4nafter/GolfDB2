@@ -176,6 +176,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="App_Data\GolfDB20161207-01.dacpac" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -185,6 +186,31 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\CourseDatas\Create.cshtml" />
+    <Content Include="Views\CourseDatas\Delete.cshtml" />
+    <Content Include="Views\CourseDatas\Details.cshtml" />
+    <Content Include="Views\CourseDatas\Edit.cshtml" />
+    <Content Include="Views\CourseDatas\Index.cshtml" />
+    <Content Include="Views\GeoDatas\Create.cshtml" />
+    <Content Include="Views\GeoDatas\Delete.cshtml" />
+    <Content Include="Views\GeoDatas\Details.cshtml" />
+    <Content Include="Views\GeoDatas\Edit.cshtml" />
+    <Content Include="Views\GeoDatas\Index.cshtml" />
+    <Content Include="Views\GeoObjectTypes\Create.cshtml" />
+    <Content Include="Views\GeoObjectTypes\Delete.cshtml" />
+    <Content Include="Views\GeoObjectTypes\Details.cshtml" />
+    <Content Include="Views\GeoObjectTypes\Edit.cshtml" />
+    <Content Include="Views\GeoObjectTypes\Index.cshtml" />
+    <Content Include="Views\GeoSpatialTables\Create.cshtml" />
+    <Content Include="Views\GeoSpatialTables\Delete.cshtml" />
+    <Content Include="Views\GeoSpatialTables\Details.cshtml" />
+    <Content Include="Views\GeoSpatialTables\Edit.cshtml" />
+    <Content Include="Views\GeoSpatialTables\Index.cshtml" />
+    <Content Include="Views\Holes\Create.cshtml" />
+    <Content Include="Views\Holes\Delete.cshtml" />
+    <Content Include="Views\Holes\Details.cshtml" />
+    <Content Include="Views\Holes\Edit.cshtml" />
+    <Content Include="Views\Holes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -254,6 +280,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CourseDatasController.cs" />
+    <Compile Include="Controllers\GeoDatasController.cs" />
+    <Compile Include="Controllers\GeoObjectTypesController.cs" />
+    <Compile Include="Controllers\GeoSpatialTablesController.cs" />
+    <Compile Include="Controllers\HolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
@@ -263,6 +294,12 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\CourseData.cs" />
+    <Compile Include="Models\GeoData.cs" />
+    <Compile Include="Models\GeoObjectType.cs" />
+    <Compile Include="Models\GeoSpatialTable.cs" />
+    <Compile Include="Models\GolfDB.cs" />
+    <Compile Include="Models\Hole.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

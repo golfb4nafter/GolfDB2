@@ -1,0 +1,63 @@
+﻿@model IEnumerable<GolfDB2.Models.GeoData>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GeoSpatialDataId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GeoObjectDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GeoObjectType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoleId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GeoSpatialDataId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GeoObjectDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GeoObjectType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoleId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
