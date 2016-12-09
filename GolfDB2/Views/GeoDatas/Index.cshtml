@@ -12,22 +12,28 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.GeoSpatialDataId)
+            @*@Html.DisplayNameFor(model => model.GeoSpatialDataId)*@
+            @Html.DisplayName("Course Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GeoObjectDescription)
+            @*@Html.DisplayNameFor(model => model.GeoObjectDescription)*@
+            @Html.DisplayName("Description")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GeoObjectType)
+            @*@Html.DisplayNameFor(model => model.GeoObjectType)*@
+            @Html.DisplayName("GPS")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HoleId)
+            @*@Html.DisplayNameFor(model => model.HoleId)*@
+            @Html.DisplayName("Object Type")
         </th>
         <th>
+            @*@Html.DisplayName("Hole Number")*@
             @Html.DisplayNameFor(model => model.OrderNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CourseId)
+            @*@Html.DisplayNameFor(model => model.CourseId)*@
+            @Html.DisplayName("Order Number (back to front)")
         </th>
         <th></th>
     </tr>
@@ -35,22 +41,26 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.GeoSpatialDataId)
+            @*@Html.DisplayFor(modelItem => item.CourseId)*@
+            @Html.DisplayName(GolfDB2.Models.MiscLists.GetCourseNameById(item.CourseId))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GeoObjectDescription)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GeoObjectType)
+            @*@Html.DisplayFor(modelItem => item.GeoSpatialDataId)*@
+            @Html.DisplayName(GolfDB2.Models.MiscLists.GetGeoSpatialDataPointDescriptionById(item.GeoSpatialDataId))
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HoleId)
+            @*@Html.DisplayFor(modelItem => item.GeoObjectType)*@
+            @Html.DisplayName(GolfDB2.Models.MiscLists.GetObjectTypeById(item.GeoObjectType))
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.HoleId)*@
+            @Html.DisplayName(GolfDB2.Models.MiscLists.GetHoleNumberByHoleId(item.HoleId).ToString())
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.OrderNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

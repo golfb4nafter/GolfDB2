@@ -6,7 +6,6 @@
 
 <h2>Edit</h2>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -17,38 +16,57 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
+        @*Course Name*@
         <div class="form-group">
-            @Html.LabelFor(model => model.GeoSpatialDataId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Course Name", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GeoSpatialDataId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GeoSpatialDataId, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.CourseId,
+                                      new SelectList(GolfDB2.Models.MiscLists.CourseNamesList, "Text", "Value"),
+                                      new { @onchange = "testAjaxCallback(this.value)" })
+                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @*Description*@
         <div class="form-group">
-            @Html.LabelFor(model => model.GeoObjectDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Description", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.GeoObjectDescription, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.GeoObjectDescription, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @*Description*@
         <div class="form-group">
-            @Html.LabelFor(model => model.GeoObjectType, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Description", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GeoObjectType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.GeoObjectDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GeoObjectDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*GPS*@
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.GeoSpatialDataId, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("GPS", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.GeoSpatialDataId, new SelectList(GolfDB2.Models.MiscLists.GeoSpatialDataList, "Text", "Value"))
+                @Html.ValidationMessageFor(model => model.GeoSpatialDataId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Object Type*@
+        <div class="form-group">
+            @Html.Label("Object Type", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.GeoObjectType, new SelectList(GolfDB2.Models.MiscLists.ObjectTypeList, "Text", "Value"))
                 @Html.ValidationMessageFor(model => model.GeoObjectType, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @*Hole Number*@
         <div class="form-group">
-            @Html.LabelFor(model => model.HoleId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Hole Number", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.HoleId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.HoleId, new SelectList(GolfDB2.Models.MiscLists.CurrentHoleList, "Text", "Value"))
                 @Html.ValidationMessageFor(model => model.HoleId, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.OrderNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -56,15 +74,6 @@
                 @Html.ValidationMessageFor(model => model.OrderNumber, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CourseId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

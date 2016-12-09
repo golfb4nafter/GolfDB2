@@ -10,116 +10,107 @@ using GolfDB2.Models;
 
 namespace GolfDB2.Controllers
 {
-    public class HolesController : Controller
+    public class LabelsController : Controller
     {
         private GolfDB db = new GolfDB();
 
-        // GET: Holes
+        // GET: Labels
         public ActionResult Index()
         {
-            MiscLists.UpdateCourseIdNameList();
-            return View(db.Holes.ToList());
+            return View(db.Labels.ToList());
         }
 
-        // GET: Holes/Details/5
+        // GET: Labels/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
-            if (hole == null)
+            Labels labels = db.Labels.Find(id);
+            if (labels == null)
             {
                 return HttpNotFound();
             }
-            return View(hole);
+            return View(labels);
         }
 
-        // GET: Holes/Create
+        // GET: Labels/Create
         public ActionResult Create()
         {
-            MiscLists.UpdateCourseIdNameList();
             return View();
         }
 
-        // POST: Holes/Create
+        // POST: Labels/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CourseId,Nine,Number,PhotoUrl,Description")] Hole hole)
+        public ActionResult Create([Bind(Include = "Id,CourseId,Label,Notes")] Labels labels)
         {
-            MiscLists.UpdateCourseIdNameList();
-
             if (ModelState.IsValid)
             {
-                db.Holes.Add(hole);
+                db.Labels.Add(labels);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(hole);
+            return View(labels);
         }
 
-        // GET: Holes/Edit/5
+        // GET: Labels/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
-            if (hole == null)
+            Labels labels = db.Labels.Find(id);
+            if (labels == null)
             {
                 return HttpNotFound();
             }
-
-            MiscLists.UpdateCourseIdNameList();
-
-            return View(hole);
+            return View(labels);
         }
 
-        // POST: Holes/Edit/5
+        // POST: Labels/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CourseId,Nine,Number,PhotoUrl,Description")] Hole hole)
+        public ActionResult Edit([Bind(Include = "Id,CourseId,Label,Notes")] Labels labels)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(hole).State = EntityState.Modified;
+                db.Entry(labels).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            MiscLists.UpdateCourseIdNameList();
-            return View(hole);
+            return View(labels);
         }
 
-        // GET: Holes/Delete/5
+        // GET: Labels/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
-            if (hole == null)
+            Labels labels = db.Labels.Find(id);
+            if (labels == null)
             {
                 return HttpNotFound();
             }
-            return View(hole);
+            return View(labels);
         }
 
-        // POST: Holes/Delete/5
+        // POST: Labels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Hole hole = db.Holes.Find(id);
-            db.Holes.Remove(hole);
+            Labels labels = db.Labels.Find(id);
+            db.Labels.Remove(labels);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -32,10 +32,12 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CourseId)
+            @*@Html.DisplayFor(modelItem => item.CourseId)*@
+            @Html.DisplayName(GolfDB2.Models.MiscLists.GetCourseNameById(item.CourseId))
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Nine)
+            @*@Html.DisplayFor(modelItem => item.Nine)*@
+            @Html.DisplayName(GolfDB2.Models.MiscLists.GetNineNameById(item.Nine))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Number)

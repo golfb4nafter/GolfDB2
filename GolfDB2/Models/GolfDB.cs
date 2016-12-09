@@ -1,10 +1,10 @@
+using System;
+using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+
 namespace GolfDB2.Models
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class GolfDB : DbContext
     {
         public GolfDB()
@@ -32,5 +32,7 @@ namespace GolfDB2.Models
                 .Property(e => e.GeoObjectDescription)
                 .IsUnicode(false);
         }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.Labels> Labels { get; set; }
     }
 }

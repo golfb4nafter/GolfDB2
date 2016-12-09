@@ -18,7 +18,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CourseId, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.CourseId, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.CourseId, new SelectList(GolfDB2.Models.MiscLists.CourseNamesList, "Text", "Value"))
                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +27,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Nine, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nine, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.Nine, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.Nine, new SelectList(GolfDB2.Models.MiscLists.NineNamesList, "Value", "Text"))
                 @Html.ValidationMessageFor(model => model.Nine, "", new { @class = "text-danger" })
             </div>
         </div>
