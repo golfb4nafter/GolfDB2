@@ -11,8 +11,10 @@ namespace GolfDB2.Models
     {
         public int Id { get; set; }
 
-        public int CourseId { get; set; }
+        // OwnerId is the Model Id of the owning object.
+        public int OwnerId { get; set; }
         public int Ordinal { get; set; }
+        public string LabelType { get; set; }
         public string Label { get; set; }
         public string Notes { get; set; }
     }

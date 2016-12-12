@@ -46,7 +46,7 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CourseId,Label,Notes")] Labels labels)
+        public ActionResult Create([Bind(Include = "Id,OwnerId,Ordinal,LabelType,Label,Notes")] Labels labels)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CourseId,Label,Notes")] Labels labels)
+        public ActionResult Edit([Bind(Include = "Id,OwnerId,Ordinal,LabelType,Label,Notes")] Labels labels)
         {
             if (ModelState.IsValid)
             {

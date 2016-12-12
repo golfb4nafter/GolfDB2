@@ -17,7 +17,6 @@ namespace GolfDB2.Controllers
         // GET: Holes
         public ActionResult Index()
         {
-            MiscLists.UpdateCourseIdNameList();
             return View(db.Holes.ToList());
         }
 
@@ -39,7 +38,6 @@ namespace GolfDB2.Controllers
         // GET: Holes/Create
         public ActionResult Create()
         {
-            MiscLists.UpdateCourseIdNameList();
             return View();
         }
 
@@ -50,8 +48,6 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,CourseId,Nine,Number,PhotoUrl,Description")] Hole hole)
         {
-            MiscLists.UpdateCourseIdNameList();
-
             if (ModelState.IsValid)
             {
                 db.Holes.Add(hole);
@@ -75,8 +71,6 @@ namespace GolfDB2.Controllers
                 return HttpNotFound();
             }
 
-            MiscLists.UpdateCourseIdNameList();
-
             return View(hole);
         }
 
@@ -94,7 +88,6 @@ namespace GolfDB2.Controllers
                 return RedirectToAction("Index");
             }
 
-            MiscLists.UpdateCourseIdNameList();
             return View(hole);
         }
 
