@@ -51,15 +51,17 @@ namespace GolfDB2.Models
         public static string GetCourseNamesList(string connectionString)
         {
             string query = "SELECT Id, CourseName FROM CourseData ORDER BY CourseName";
-
-            return null;
+            List<SqlListParam> parms = new List<SqlListParam>();
+            return SqlLists.SqlQuery(query, parms, connectionString);
         }
 
-        public static string GetHoleListByCourseId(int courseId)
+        public static string GetHoleListByCourseId(int courseId, string connectionString)
         {
-            string query = "SELECT Id, Number FROM Hole WHERE CourseId='" + courseId.ToString() + "' ORDER BY Number";
-
-            return null;
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "key", ordinal = 0, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "val", ordinal = 1, type = ParamType.int32 });
+            string query = string.Format("SELECT Id, Number FROM Hole WHERE CourseId={0}", courseId);
+            return SqlLists.SqlQuery(query, parms, connectionString);
         }
 
         public static string GetHoleListByCourseIdInternal(int courseId)

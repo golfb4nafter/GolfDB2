@@ -16,11 +16,11 @@ namespace GolfDB2.Controllers
 {
     public class HoleListController : ApiController
     {
-        // GET: api/HoleList/5
+        // GET: api/HoleList/1
         [ResponseType(typeof(SelectListItem))]
         public IHttpActionResult GetHole(int id)
         {
-            return Json(MiscLists.GetHoleListByCourseId(id));
+            return Json(MiscLists.GetHoleListByCourseId(id, null));
         }
 
         protected override void Dispose(bool disposing)
