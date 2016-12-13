@@ -318,7 +318,10 @@
     <Compile Include="Controllers\GeoDatasController.cs" />
     <Compile Include="Controllers\GeoObjectTypesController.cs" />
     <Compile Include="Controllers\GeoSpatialTablesController.cs" />
-    <Compile Include="Controllers\HoleListController.cs" />
+    <Compile Include="Controllers\RApiGPSController.cs" />
+    <Compile Include="Controllers\RApiObjectListController.cs" />
+    <Compile Include="Controllers\RApiCourseController.cs" />
+    <Compile Include="Controllers\RApiHoleListController.cs" />
     <Compile Include="Controllers\HolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LabelsController.cs" />

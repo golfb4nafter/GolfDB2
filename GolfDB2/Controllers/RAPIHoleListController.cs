@@ -14,9 +14,9 @@ using System.Web.Mvc;
 
 namespace GolfDB2.Controllers
 {
-    public class HoleListController : ApiController
+    public class RApiHoleListController : ApiController
     {
-        // GET: api/HoleList/1
+        // GET: api/RAPIHoleList/1
         [ResponseType(typeof(SelectListItem))]
         public IHttpActionResult GetHole(int id)
         {
