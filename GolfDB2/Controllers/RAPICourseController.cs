@@ -9,24 +9,9 @@ namespace GolfDB2.Controllers
     {
         // GET: api/RAPICourse/1
         [ResponseType(typeof(SelectListItem))]
-        public IHttpActionResult GetHole(int id)
+        public IHttpActionResult GetCourseNamesList(int id)
         {
             return Json(MiscLists.GetCourseNamesList(null));
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
-    }
-
-    public class RApiCourseNameController : ApiController
-    {
-        // GET: api/RAPICourseName/1
-        [ResponseType(typeof(SelectListItem))]
-        public IHttpActionResult GetHole(int id)
-        {
-            return Json(MiscLists.GetCourseNameById(id));
         }
 
         protected override void Dispose(bool disposing)

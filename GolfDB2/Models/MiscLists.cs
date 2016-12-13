@@ -73,16 +73,6 @@ namespace GolfDB2.Models
         /// </summary>
         /// <param name="connectionString"></param>
         /// <returns></returns>
-        public static string GetCourseNamesList()
-        {
-            return GetCourseNamesList(null);
-        }
-
-        /// <summary>
-        /// api/RapiCourse
-        /// </summary>
-        /// <param name="connectionString"></param>
-        /// <returns></returns>
         public static string GetCourseNamesList(string connectionString)
         {
             string query = "SELECT Id, CourseName FROM CourseData ORDER BY CourseName";
@@ -107,11 +97,12 @@ namespace GolfDB2.Models
             return SqlLists.SqlQuery(query, parms, connectionString);
         }
 
-        public static int GetHoleNumberByHoleId(int holeId)
-        {
-            return GetHoleNumberByHoleId(holeId, null);
-        }
-
+        /// <summary>
+        /// api/RAPIHoleNumber/1
+        /// </summary>
+        /// <param name="holeId"></param>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         public static int GetHoleNumberByHoleId(int holeId, string connectionString)
         {
             List<SqlListParam> parms = new List<SqlListParam>();
@@ -123,6 +114,12 @@ namespace GolfDB2.Models
             return int.Parse(kvp.Value);
         }
 
+        /// <summary>
+        /// api/RApiGpsDescription/1
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         public static string GetGeoSpatialDataPointDescriptionById(int id, string connectionString)
         {
             List<SqlListParam> parms = new List<SqlListParam>();
@@ -134,6 +131,12 @@ namespace GolfDB2.Models
             return kvp.Value;
         }
 
+        /// <summary>
+        /// api/RapiGPS/1
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         public static string GetGeoSpatialDataPointsByCourseId(int courseId, string connectionString)
         {
             List<SqlListParam> parms = new List<SqlListParam>();
@@ -143,6 +146,12 @@ namespace GolfDB2.Models
             return SqlLists.SqlQuery(query, parms, connectionString);
         }
 
+        /// <summary>
+        /// api/RApiObjectType/3
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         public static string GetObjectTypeById(int id, string connectionString)
         {
             List<SqlListParam> parms = new List<SqlListParam>();
@@ -154,11 +163,11 @@ namespace GolfDB2.Models
             return kvp.Value;
         }
 
-        public static string GetObjectTypeList()
-        {
-            return GetObjectTypeList(null);
-        }
-
+        /// <summary>
+        /// api/RApiObjectList
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         public static string GetObjectTypeList(string connectionString)
         {
             List<SqlListParam> parms = new List<SqlListParam>();

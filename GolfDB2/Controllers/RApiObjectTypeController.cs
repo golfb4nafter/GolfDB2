@@ -5,13 +5,13 @@ using System.Web.Mvc;
 
 namespace GolfDB2.Controllers
 {
-    public class RApiObjectListController : ApiController
+    public class RApiObjectTypeController : ApiController
     {
-        // GET: api/RApiObjectTypeList
+        // GET: api/RApiObjectType/1
         [ResponseType(typeof(JsonResult))]
-        public IHttpActionResult GetObjectTypeList()
+        public IHttpActionResult GetObjectType(int id)
         {
-            return Json(MiscLists.GetObjectTypeList(null));
+            return Json(MiscLists.GetObjectTypeById(id, null));
         }
 
         protected override void Dispose(bool disposing)

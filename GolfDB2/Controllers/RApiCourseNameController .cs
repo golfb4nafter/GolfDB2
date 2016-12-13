@@ -5,13 +5,13 @@ using System.Web.Mvc;
 
 namespace GolfDB2.Controllers
 {
-    public class RApiGPSController : ApiController
+    public class RApiCourseNameController : ApiController
     {
-        // GET: api/RApiGpsPointList
-        [ResponseType(typeof(JsonResult))]
-        public IHttpActionResult GetGpsPointList(int id)
+        // GET: api/RAPICourseName/1
+        [ResponseType(typeof(SelectListItem))]
+        public IHttpActionResult GetCourseName(int id)
         {
-            return Json(MiscLists.GetGeoSpatialDataPointsByCourseId(id, null));
+            return Json(MiscLists.GetCourseNameById(id));
         }
 
         protected override void Dispose(bool disposing)

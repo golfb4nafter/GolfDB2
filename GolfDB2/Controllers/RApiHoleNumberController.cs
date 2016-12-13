@@ -14,13 +14,13 @@ using System.Web.Mvc;
 
 namespace GolfDB2.Controllers
 {
-    public class RApiHoleListController : ApiController
+    public class RApiHoleNumberController : ApiController
     {
-        // GET: api/RAPIHoleList/1
+        // GET: api/RAPIHoleNumber/1
         [ResponseType(typeof(SelectListItem))]
-        public IHttpActionResult GetHoleList(int id)
+        public IHttpActionResult GetHoleNumber(int id)
         {
-            return Json(MiscLists.GetHoleListByCourseId(id, null));
+            return Json(MiscLists.GetHoleNumberByHoleId(id, null));
         }
 
         protected override void Dispose(bool disposing)
