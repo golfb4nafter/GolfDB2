@@ -49,15 +49,15 @@
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.GeoSpatialDataId)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetGeoSpatialDataPointDescriptionById(item.GeoSpatialDataId))
+            @Html.DisplayName(GolfDB2.Models.MiscLists.GetGeoSpatialDataPointDescriptionById(item.GeoSpatialDataId,null))
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.GeoObjectType)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetObjectTypeById(item.GeoObjectType))
+            @Html.DisplayName(GolfDB2.Models.MiscLists.GetObjectTypeById(item.GeoObjectType,null))
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.HoleId)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetHoleNumberByHoleId(item.HoleId).ToString())
+            @Html.DisplayName(GolfDB2.Models.MiscLists.GetHoleNumberByHoleId(item.HoleId,null).ToString())
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.OrderNumber)
