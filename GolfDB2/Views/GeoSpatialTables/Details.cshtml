@@ -1,0 +1,58 @@
+﻿@model GolfDB2.Models.GeoSpatialTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>GeoSpatialTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Longitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Altitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Altitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GoogleMapsViewUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoogleMapsViewUrl)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
