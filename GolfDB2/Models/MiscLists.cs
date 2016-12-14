@@ -29,10 +29,17 @@ namespace GolfDB2.Models
         public static string GetNineLabelsByCourseIdAndType(int courseId, string labelType, string connectionString)
         {
             List<SqlListParam> parms = new List<SqlListParam>();
-            parms.Add(new SqlListParam() { name = "Key", ordinal = 0, type = ParamType.int32 });
-            parms.Add(new SqlListParam() { name = "Value", ordinal = 1, type = ParamType.charString });
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "Text", ordinal = 1, type = ParamType.charString });
             string query = string.Format("SELECT Id, Label FROM Labels WHERE OwnerId={0} AND LabelType='{1}' ORDER BY Ordinal", courseId, labelType);
             return SqlLists.SqlQuery(query, parms, connectionString);
+        }
+
+        public static List<SelectListItem> GetNineLabelsSelectListByCourseIdAndType(int courseId, string connectionString)
+        {
+            string json = GetNineLabelsByCourseIdAndType(courseId, "Nine", connectionString);
+            List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
+            return items;
         }
 
         public static string GetNineNameByCourseIdAndZeroBasedOrdinal(int courseId, int ordinal, ref int id, string connectionString)

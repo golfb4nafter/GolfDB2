@@ -325,6 +325,7 @@
     <Compile Include="Controllers\RApiCourseNameController .cs" />
     <Compile Include="Controllers\RApiGPSDescriptionController.cs" />
     <Compile Include="Controllers\RApiGPSPointListController.cs" />
+    <Compile Include="Controllers\RApiNineLabelsListController.cs" />
     <Compile Include="Controllers\RApiHoleNumberController.cs" />
     <Compile Include="Controllers\RApiObjectTypeController.cs" />
     <Compile Include="Controllers\RApiObjectListController.cs" />

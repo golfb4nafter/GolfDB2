@@ -7,12 +7,27 @@
 <h2>Create</h2>
 
 <script type="text/javascript">
-    function testAjaxCallback(val) {
-        $.get("/api/HoleList/" + val, "", function (data) {
+    function courseNameChanged(val) {
+        updateHoleList(val);
+        updateGPSList(val);
+    }
+
+    function updateHoleList(val) {
+        $.get("/api/RAPIHoleList/" + val, "", function (data) {
             $('#HoleId').empty();
             json = JSON.parse(data);
             $.each(json, function (i, obj) {
-                $('#HoleId').append($('<option>').text(obj.text).attr('value', obj.val));
+                $('#HoleId').append($('<option>').text(json[i].Text).attr('value', json[i].Value));
+            });
+        });
+    }
+
+    function updateGPSList(val) {
+        $.get("/api/RApiGpsPointList/" + val, "", function (data) {
+            $('#GeoSpatialDataId').empty();
+            json = JSON.parse(data);
+            $.each(json, function (i, obj) {
+                $('#GeoSpatialDataId').append($('<option>').text(json[i].Text).attr('value', json[i].Value));
             });
         });
     }
@@ -33,7 +48,7 @@
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.CourseId,
                                       GolfDB2.Models.MiscLists.GetCourseNamesSelectList(),
-                                      new { @onchange = "testAjaxCallback(this.value)" })
+                                      new { @onchange = "courseNameChanged(this.value)" })
                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -66,8 +81,7 @@
         <div class="form-group">
             @Html.Label("Hole Number", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.HoleId,
-                GolfDB2.Models.MiscLists.GetHoleListByCourseId(1))
+                @Html.DropDownListFor(model => model.HoleId, GolfDB2.Models.MiscLists.GetHoleListByCourseId(1))
                 @Html.ValidationMessageFor(model => model.HoleId, "", new { @class = "text-danger" })
             </div>
         </div>
