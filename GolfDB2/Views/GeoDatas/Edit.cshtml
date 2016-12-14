@@ -6,10 +6,23 @@
 
 <h2>Edit</h2>
 
+<script type="text/javascript">
+    function testAjaxCallback(val) {
+        $.get("/api/HoleList/" + val, "", function (data) {
+            $('#HoleId').empty();
+            json = JSON.parse(data);
+            $.each(json, function (i, obj) {
+                $('#HoleId').append($('<option>').text(obj.text).attr('value', obj.val));
+            });
+        });
+    }
+</script>
+
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>GeoData</h4>
         <hr />
@@ -21,8 +34,8 @@
             @Html.Label("Course Name", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.CourseId,
-                                      new SelectList(GolfDB2.Models.MiscLists.CourseNamesList, "Text", "Value"),
-                                      new { @onchange = "testAjaxCallback(this.value)" })
+                    new SelectList(new List<SelectListItem>()),
+                    new { @onchange = "testAjaxCallback(this.value)" })
                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -47,7 +60,8 @@
             @*@Html.LabelFor(model => model.GeoSpatialDataId, htmlAttributes: new { @class = "control-label col-md-2" })*@
             @Html.Label("GPS", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.GeoSpatialDataId, new SelectList(GolfDB2.Models.MiscLists.GeoSpatialDataList, "Text", "Value"))
+                @Html.DropDownListFor(model => model.GeoSpatialDataId, new SelectList(new List<SelectListItem>()),
+                    new { @onchange = "testAjaxCallback(this.value)" })
                 @Html.ValidationMessageFor(model => model.GeoSpatialDataId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -55,7 +69,8 @@
         <div class="form-group">
             @Html.Label("Object Type", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.GeoObjectType, new SelectList(GolfDB2.Models.MiscLists.ObjectTypeList, "Text", "Value"))
+                @Html.DropDownListFor(model => model.GeoObjectType, new SelectList(new List<SelectListItem>()),
+                    new { @onchange = "testAjaxCallback(this.value)" })
                 @Html.ValidationMessageFor(model => model.GeoObjectType, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -63,7 +78,8 @@
         <div class="form-group">
             @Html.Label("Hole Number", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.HoleId, new SelectList(GolfDB2.Models.MiscLists.CurrentHoleList, "Text", "Value"))
+                @Html.DropDownListFor(model => model.HoleId, new SelectList(new List<SelectListItem>()),
+                    new { @onchange = "testAjaxCallback(this.value)" })
                 @Html.ValidationMessageFor(model => model.HoleId, "", new { @class = "text-danger" })
             </div>
         </div>

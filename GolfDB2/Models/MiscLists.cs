@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
@@ -49,11 +50,6 @@ namespace GolfDB2.Models
             return kvp.Value;
         }
 
-        public static string GetCourseNameById(int? id)
-        {
-            return GetCourseNameById(id, null);
-        }
-
         public static string GetCourseNameById(int? id, string connectionString)
         {
             if (id == null || id < 0)
@@ -77,9 +73,16 @@ namespace GolfDB2.Models
         {
             string query = "SELECT Id, CourseName FROM CourseData ORDER BY CourseName";
             List<SqlListParam> parms = new List<SqlListParam>();
-            parms.Add(new SqlListParam() { name = "Key", ordinal = 0, type = ParamType.int32 });
-            parms.Add(new SqlListParam() { name = "Value", ordinal = 1, type = ParamType.charString });
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "Text", ordinal = 1, type = ParamType.charString });
             return SqlLists.SqlQuery(query, parms, connectionString);
+        }
+
+        public static List<SelectListItem> GetCourseNamesSelectList()
+        {
+            string json = GetCourseNamesList(null);
+            List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
+            return items;
         }
 
         /// <summary>
@@ -91,10 +94,17 @@ namespace GolfDB2.Models
         public static string GetHoleListByCourseId(int courseId, string connectionString)
         {
             List<SqlListParam> parms = new List<SqlListParam>();
-            parms.Add(new SqlListParam() { name = "Key", ordinal = 0, type = ParamType.int32 });
-            parms.Add(new SqlListParam() { name = "Value", ordinal = 1, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "Text", ordinal = 1, type = ParamType.int32 });
             string query = string.Format("SELECT Id, Number FROM Hole WHERE CourseId={0} ORDER BY Number", courseId);
             return SqlLists.SqlQuery(query, parms, connectionString);
+        }
+
+        public static List<SelectListItem> GetHoleListByCourseId(int courseId)
+        {
+            string json = GetHoleListByCourseId(courseId, null);
+            List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
+            return items;
         }
 
         /// <summary>
@@ -140,10 +150,17 @@ namespace GolfDB2.Models
         public static string GetGeoSpatialDataPointsByCourseId(int courseId, string connectionString)
         {
             List<SqlListParam> parms = new List<SqlListParam>();
-            parms.Add(new SqlListParam() { name = "Key", ordinal = 0, type = ParamType.int32 });
-            parms.Add(new SqlListParam() { name = "Value", ordinal = 1, type = ParamType.charString });
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "Text", ordinal = 1, type = ParamType.charString });
             string query = string.Format("SELECT Id, LocationDescription FROM GeoSpatialTable WHERE CourseId = {0} ORDER BY cast(LocationDescription as nvarchar(max))", courseId);
             return SqlLists.SqlQuery(query, parms, connectionString);
+        }
+
+        public static List<SelectListItem> GetGeoSpatialDataPointsByCourseId(int courseId)
+        {
+            string json = GetGeoSpatialDataPointsByCourseId(courseId, null);
+            List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
+            return items;
         }
 
         /// <summary>
@@ -171,10 +188,17 @@ namespace GolfDB2.Models
         public static string GetObjectTypeList(string connectionString)
         {
             List<SqlListParam> parms = new List<SqlListParam>();
-            parms.Add(new SqlListParam() { name = "Key", ordinal = 0, type = ParamType.int32 });
-            parms.Add(new SqlListParam() { name = "Value", ordinal = 1, type = ParamType.charString });
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "Text", ordinal = 1, type = ParamType.charString });
             string query = string.Format("SELECT ID, GeoObjectType FROM GeoObjectType ORDER BY GeoObjectType");
             return SqlLists.SqlQuery(query, parms, connectionString);
+        }
+
+        public static List<SelectListItem> GetObjectTypeSelectList()
+        {
+            string json = GetObjectTypeList(null);
+            List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
+            return items;
         }
     }
 }

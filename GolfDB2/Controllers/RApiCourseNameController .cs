@@ -11,7 +11,7 @@ namespace GolfDB2.Controllers
         [ResponseType(typeof(SelectListItem))]
         public IHttpActionResult GetCourseName(int id)
         {
-            return Json(MiscLists.GetCourseNameById(id));
+            return Json(MiscLists.GetCourseNameById(id, null));
         }
 
         protected override void Dispose(bool disposing)

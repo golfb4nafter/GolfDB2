@@ -25,11 +25,11 @@
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.HoleId)*@
-            @Html.DisplayName("Object Type")
+            @Html.DisplayName("Type")
         </th>
         <th>
             @*@Html.DisplayName("Hole Number")*@
-            @Html.DisplayNameFor(model => model.OrderNumber)
+            @Html.DisplayName("Hole Number")
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.CourseId)*@
@@ -42,7 +42,7 @@
     <tr>
         <td>
             @*@Html.DisplayFor(modelItem => item.CourseId)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetCourseNameById(item.CourseId))
+            @Html.DisplayName(GolfDB2.Models.MiscLists.GetCourseNameById(item.CourseId, null))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GeoObjectDescription)
