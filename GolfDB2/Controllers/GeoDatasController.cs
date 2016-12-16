@@ -17,12 +17,18 @@ namespace GolfDB2.Controllers
         // GET: GeoDatas
         public ActionResult Index()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View(db.GeoDatas.ToList());
         }
 
         // GET: GeoDatas/Details/5
         public ActionResult Details(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +44,9 @@ namespace GolfDB2.Controllers
         // GET: GeoDatas/Create
         public ActionResult Create()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View();
         }
 
@@ -46,8 +55,11 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,GeoSpatialDataId,GeoObjectDescription,GeoObjectType,HoleId,OrderNumber,CourseId")] GeoData geoData)
+        public ActionResult Create([Bind(Include = "Id,GeoSpatialDataId,GeoObjectDescription,GeoObjectType,HoleId,OrderNumber,CourseId,YardsToFront,YardsToMiddle,YardsToBack")] GeoData geoData)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.GeoDatas.Add(geoData);
@@ -61,6 +73,9 @@ namespace GolfDB2.Controllers
         // GET: GeoDatas/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -78,8 +93,11 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,GeoSpatialDataId,GeoObjectDescription,GeoObjectType,HoleId,OrderNumber,CourseId")] GeoData geoData)
+        public ActionResult Edit([Bind(Include = "Id,GeoSpatialDataId,GeoObjectDescription,GeoObjectType,HoleId,OrderNumber,CourseId,YardsToFront,YardsToMiddle,YardsToBack")] GeoData geoData)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.Entry(geoData).State = EntityState.Modified;
@@ -92,6 +110,9 @@ namespace GolfDB2.Controllers
         // GET: GeoDatas/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

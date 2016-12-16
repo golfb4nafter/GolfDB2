@@ -36,7 +36,7 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>GeoData</h4>
         <hr />
@@ -83,6 +83,29 @@
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.HoleId, GolfDB2.Models.MiscLists.GetHoleListByCourseId(1))
                 @Html.ValidationMessageFor(model => model.HoleId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Yards to front, middle, back, of green*@
+        <div class="form-group">
+            @Html.Label("Yards to Green Front", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.YardsToFront, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.YardsToFront, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.Label("Yards to Green Middle", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.YardsToMiddle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.YardsToMiddle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Yards to Green Middle", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.YardsToBack, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.YardsToBack, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">

@@ -5,31 +5,74 @@
 <div class="jumbotron">
     <h1>GOLFB4NAFTER</h1>
     <p class="lead">A Rapid prototype for a Golf event management system.</p>
+<p>Usertype=
+    @if (User.IsInRole("CourseAdmin"))
+    {
+@:CourseAdmin
+    }
+    @if (User.IsInRole("Admin"))
+    {
+@:Admin
+    }
+    @if (User.IsInRole("EventAdmin"))
+    {
+@:EventAdmin
+    }
+</p>
 </div>
 
 <div>
     <table>
-        <tr><th>Admin Links (CRUD)</th></tr>
         <tr>
-            <th><a id="courseLink" href="/CourseDatas">Course Data</a></th>
-        </tr>
-        <tr>
-            <th><a id="geoDatasLink" href="/GeoDatas">Geo/GPS Data</a></th>
-        </tr>
-        <tr>
-            <th><a id="geoObjectTypesLink" href="/GeoObjectTypes">Object Types</a></th>
-        </tr>
-        <tr>
-            <th><a id="geoSpatialTablesLink" href="/GeoSpatialTables">GPS Data points</a></th>
-        </tr>
-        <tr>
-            <th><a id="holesLink" href="/Holes">Holes Data</a></th>
-        </tr>
-        <tr>
-            <th><a id="lablesLink" href="/Labels">Item Labels Data</a></th>
+            <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
+                <table>
+                    <tr><th>Admin Links (CRUD)</th></tr>
+@if (Request.IsAuthenticated && (User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+{
+                    <tr>
+                        <th><a id="courseLink" href="/CourseDatas">Course Data</a></th>
+                    </tr>
+                    <tr>
+                        <th><a id="geoDatasLink" href="/GeoDatas">Geo/GPS Data</a></th>
+                    </tr>
+                    <tr>
+                        <th><a id="geoObjectTypesLink" href="/GeoObjectTypes">Object Types</a></th>
+                    </tr>
+                    <tr>
+                        <th><a id="geoSpatialTablesLink" href="/GeoSpatialTables">GPS Data points</a></th>
+                    </tr>
+                    <tr>
+                        <th><a id="holesLink" href="/Holes">Holes Data</a></th>
+                    </tr>
+                    <tr>
+                        <th><a id="lablesLink" href="/Labels">Item Labels Data</a></th>
+                    </tr>
+}
+                </table>
+            </td>
+            <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
+                <table>
+                    <tr><th>Events</th></tr>
+@if (Request.IsAuthenticated && (User.IsInRole("CourseAdmin") || User.IsInRole("Admin") || User.IsInRole("EventAdmin")))
+{
+                    <tr>
+                        <th><a id="courseLink" href="/CourseDatas">Schedule Event</a></th>
+                    </tr>
+                    <tr>
+                        <th><a id="courseLink" href="/CourseDatas">Team/Golfer Admin</a></th>
+                    </tr>
+}
+                    <tr>
+                        <th><a id="courseLink" href="/CourseDatas">Watch Event</a></th>
+                    </tr>
+                    <tr>
+                        <th><a id="courseLink" href="/CourseDatas">Event Scorecard</a></th>
+                    </tr>
+                    <tr>
+                        <th><a id="courseLink" href="/CourseDatas">Event Signup</a></th>
+                    </tr>
+                </table>
+            </td>
         </tr>
     </table>
-
-
-
 </div>

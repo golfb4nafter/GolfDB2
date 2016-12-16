@@ -227,7 +227,7 @@
     <Content Include="Views\GeoDatas\Delete.cshtml" />
     <Content Include="Views\GeoDatas\Details.cshtml" />
     <Content Include="Views\GeoDatas\Edit.cshtml" />
-    <Content Include="Views\GeoDatas\Index.cshtml" />
+    <Content Include="Views\GeoDatas\SaveIndex.cshtml" />
     <Content Include="Views\GeoObjectTypes\Create.cshtml" />
     <Content Include="Views\GeoObjectTypes\Delete.cshtml" />
     <Content Include="Views\GeoObjectTypes\Details.cshtml" />
@@ -248,6 +248,7 @@
     <Content Include="Views\Labels\Details.cshtml" />
     <Content Include="Views\Labels\Edit.cshtml" />
     <Content Include="Views\Labels\Index.cshtml" />
+    <Content Include="Views\GeoDatas\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

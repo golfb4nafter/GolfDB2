@@ -17,12 +17,18 @@ namespace GolfDB2.Controllers
         // GET: GeoSpatialTables
         public ActionResult Index()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View(db.GeoSpatialTables.ToList());
         }
 
         // GET: GeoSpatialTables/Details/5
         public ActionResult Details(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +44,9 @@ namespace GolfDB2.Controllers
         // GET: GeoSpatialTables/Create
         public ActionResult Create()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View();
         }
 
@@ -48,6 +57,9 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,CourseId,Latitude,Longitude,Altitude,LocationDescription,GoogleMapsViewUrl")] GeoSpatialTable geoSpatialTable)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.GeoSpatialTables.Add(geoSpatialTable);
@@ -61,6 +73,9 @@ namespace GolfDB2.Controllers
         // GET: GeoSpatialTables/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +95,9 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,CourseId,Latitude,Longitude,Altitude,LocationDescription,GoogleMapsViewUrl")] GeoSpatialTable geoSpatialTable)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.Entry(geoSpatialTable).State = EntityState.Modified;
@@ -92,6 +110,9 @@ namespace GolfDB2.Controllers
         // GET: GeoSpatialTables/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -17,12 +19,19 @@ namespace GolfDB2.Controllers
         // GET: CourseDatas
         public ActionResult Index()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View(db.CourseDatas.ToList());
+
         }
 
         // GET: CourseDatas/Details/5
         public ActionResult Details(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -32,12 +41,16 @@ namespace GolfDB2.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(courseData);
         }
 
         // GET: CourseDatas/Create
         public ActionResult Create()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View();
         }
 
@@ -48,6 +61,9 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,CourseName,Address1,Address2,City,State,PostalCode,Email,Phone,Url,GoogleMapUrl,NumberOfHoles,NumberOfNines")] CourseData courseData)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.CourseDatas.Add(courseData);
@@ -61,6 +77,9 @@ namespace GolfDB2.Controllers
         // GET: CourseDatas/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +99,9 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,CourseName,Address1,Address2,City,State,PostalCode,Email,Phone,Url,GoogleMapUrl,NumberOfHoles,NumberOfNines")] CourseData courseData)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.Entry(courseData).State = EntityState.Modified;
@@ -92,6 +114,9 @@ namespace GolfDB2.Controllers
         // GET: CourseDatas/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

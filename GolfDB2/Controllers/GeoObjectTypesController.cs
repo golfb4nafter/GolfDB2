@@ -17,12 +17,18 @@ namespace GolfDB2.Controllers
         // GET: GeoObjectTypes
         public ActionResult Index()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View(db.GeoObjectTypes.ToList());
         }
 
         // GET: GeoObjectTypes/Details/5
         public ActionResult Details(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +44,9 @@ namespace GolfDB2.Controllers
         // GET: GeoObjectTypes/Create
         public ActionResult Create()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View();
         }
 
@@ -48,6 +57,9 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,GeoObjectType1,GeoObjectDescription")] GeoObjectType geoObjectType)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.GeoObjectTypes.Add(geoObjectType);
@@ -61,6 +73,9 @@ namespace GolfDB2.Controllers
         // GET: GeoObjectTypes/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +95,9 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,GeoObjectType1,GeoObjectDescription")] GeoObjectType geoObjectType)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.Entry(geoObjectType).State = EntityState.Modified;

@@ -17,12 +17,18 @@ namespace GolfDB2.Controllers
         // GET: Labels
         public ActionResult Index()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View(db.Labels.ToList());
         }
 
         // GET: Labels/Details/5
         public ActionResult Details(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +44,9 @@ namespace GolfDB2.Controllers
         // GET: Labels/Create
         public ActionResult Create()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View();
         }
 
@@ -48,6 +57,9 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,OwnerId,Ordinal,LabelType,Label,Notes")] Labels labels)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.Labels.Add(labels);
@@ -61,6 +73,9 @@ namespace GolfDB2.Controllers
         // GET: Labels/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +95,9 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,OwnerId,Ordinal,LabelType,Label,Notes")] Labels labels)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.Entry(labels).State = EntityState.Modified;
@@ -92,6 +110,9 @@ namespace GolfDB2.Controllers
         // GET: Labels/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

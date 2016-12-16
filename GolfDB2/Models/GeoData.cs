@@ -24,5 +24,11 @@ namespace GolfDB2.Models
         public int OrderNumber { get; set; }
 
         public int? CourseId { get; set; }
+
+        public int? YardsToFront { get; set; }
+
+        public int? YardsToMiddle { get; set; }
+
+        public int? YardsToBack { get; set; }
     }
 }
