@@ -10,6 +10,15 @@
     <h4>GeoData</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.GeoSpatialDataId)
         </dt>
@@ -58,6 +67,29 @@
             @Html.DisplayFor(model => model.CourseId)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.YardsToFront)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YardsToFront)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YardsToMiddle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YardsToMiddle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YardsToBack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YardsToBack)
+        </dd>
     </dl>
 </div>
 <p>

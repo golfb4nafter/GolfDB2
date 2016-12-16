@@ -7,7 +7,7 @@ namespace GolfDB2.Models
     using System.Data.Entity.Spatial;
 
     [Table("Hole")]
-    public partial class Hole
+    public partial class CourseRatings
     {
         public int Id { get; set; }
 

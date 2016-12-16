@@ -15,7 +15,7 @@ namespace GolfDB2.Models
         public virtual DbSet<CourseData> CourseDatas { get; set; }
         public virtual DbSet<GeoData> GeoDatas { get; set; }
         public virtual DbSet<GeoObjectType> GeoObjectTypes { get; set; }
-        public virtual DbSet<Hole> Holes { get; set; }
+        public virtual DbSet<CourseRatings> Holes { get; set; }
         public virtual DbSet<GeoSpatialTable> GeoSpatialTables { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

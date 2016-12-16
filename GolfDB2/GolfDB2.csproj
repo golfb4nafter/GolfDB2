@@ -348,6 +348,7 @@
     <Compile Include="Models\GeoObjectType.cs" />
     <Compile Include="Models\GeoSpatialTable.cs" />
     <Compile Include="Models\GolfDB.cs" />
+    <Compile Include="Models\CourseRating.cs" />
     <Compile Include="Models\Labels.cs" />
     <Compile Include="Models\Hole.cs" />
     <Compile Include="Models\IdentityModels.cs" />
