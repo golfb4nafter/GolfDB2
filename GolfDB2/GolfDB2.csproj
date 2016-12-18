@@ -249,6 +249,11 @@
     <Content Include="Views\Labels\Edit.cshtml" />
     <Content Include="Views\Labels\Index.cshtml" />
     <Content Include="Views\GeoDatas\Index.cshtml" />
+    <Content Include="Views\CourseRatings\Create.cshtml" />
+    <Content Include="Views\CourseRatings\Delete.cshtml" />
+    <Content Include="Views\CourseRatings\Details.cshtml" />
+    <Content Include="Views\CourseRatings\Edit.cshtml" />
+    <Content Include="Views\CourseRatings\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -320,6 +325,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseDatasController.cs" />
+    <Compile Include="Controllers\CourseRatingsController.cs" />
     <Compile Include="Controllers\GeoDatasController.cs" />
     <Compile Include="Controllers\GeoObjectTypesController.cs" />
     <Compile Include="Controllers\GeoSpatialTablesController.cs" />
@@ -349,6 +355,9 @@
     <Compile Include="Models\GeoSpatialTable.cs" />
     <Compile Include="Models\GolfDB.cs" />
     <Compile Include="Models\CourseRating.cs" />
+    <Compile Include="Models\ScoreCardPlayer.cs" />
+    <Compile Include="Models\ScoreCard.cs" />
+    <Compile Include="Models\Golfer.cs" />
     <Compile Include="Models\Labels.cs" />
     <Compile Include="Models\Hole.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -359,6 +368,7 @@
     <Compile Include="Models\States.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Tools\CourseRatingsCache.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

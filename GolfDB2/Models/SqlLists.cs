@@ -25,29 +25,41 @@ namespace GolfDB2.Models
 
             jsonString.Append("{");
 
-            foreach (SqlListParam p in parms)
+            try
             {
-                if (p.ordinal > 0)
-                    seperator = ",";
 
-                string value = "";
-
-                switch (p.type)
+                foreach (SqlListParam p in parms)
                 {
-                    case ParamType.int32:
-                        value = rdr.GetInt32(p.ordinal).ToString();
-                        break;
+                    if (p.ordinal > 0)
+                        seperator = ",";
 
-                    case ParamType.charString:
-                        value = rdr.GetString(p.ordinal);
-                        break;
+                    string value = "";
 
-                    case ParamType.boolVal:
-                        value = rdr.GetBoolean(p.ordinal).ToString();
-                        break;
+                    switch (p.type)
+                    {
+                        case ParamType.int32:
+                            value = rdr.GetInt32(p.ordinal).ToString();
+                            break;
+
+                        case ParamType.charString:
+                            value = rdr.GetString(p.ordinal);
+                            break;
+
+                        case ParamType.boolVal:
+                            value = rdr.GetBoolean(p.ordinal).ToString();
+                            break;
+
+                        case ParamType.numeric:
+                            value = rdr.GetDecimal(p.ordinal).ToString();
+                            break;
+                    }
+
+                    jsonString.Append(MakeLabelValuePair(p.name, value, seperator));
                 }
-
-                jsonString.Append(MakeLabelValuePair(p.name, value, seperator));
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex.ToString());
             }
 
             jsonString.Append("}");

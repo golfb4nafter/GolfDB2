@@ -6,19 +6,13 @@ namespace GolfDB2.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Hole")]
-    public partial class Hole
+    [Table("ScoreCardPlayer")]
+    public partial class ScoreCardPlayer
     {
         public int Id { get; set; }
 
-        public int CourseId { get; set; }
-
-        public int Nine { get; set; }
-
-        public int Number { get; set; }
-
-        public string PhotoUrl { get; set; }
-
-        public string Description { get; set; }
+        public int ScoreCardId { get; set; }
+        public string GolferName { get; set; }
+        public int GolferId { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace GolfDB2.Controllers
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
 
-            return View(db.Labels.ToList());
+            return View(db.Labels.OrderBy(s => s.OwnerId).OrderBy(s => s.Ordinal).OrderBy(s => s.LabelType).ToList());
         }
 
         // GET: Labels/Details/5

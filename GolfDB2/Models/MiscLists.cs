@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
+using GolfDB2.Tools;
 
 namespace GolfDB2.Models
 {
@@ -42,19 +43,33 @@ namespace GolfDB2.Models
             return items;
         }
 
-        public static string GetNineNameByCourseIdAndZeroBasedOrdinal(int courseId, int ordinal, ref int id, string connectionString)
+        public static string GetNineNameByCourseIdAndZeroBasedOrdinal(int courseId, int ordinal, string connectionString)
         {
-            if (id == null || id < 0)
-                return "Course name not found";
+            //if (id == null || id < 0)
+            //    return "Course name not found";
+            try
+            {
+                string query = string.Format("SELECT Id, Label FROM Labels WHERE LabelType='Nine' AND OwnerId={0} AND Ordinal={1}", courseId, ordinal);
+                List<SqlListParam> parms = new List<SqlListParam>();
+                parms.Add(new SqlListParam() { name = "Key", ordinal = 0, type = ParamType.int32 });
+                parms.Add(new SqlListParam() { name = "Value", ordinal = 1, type = ParamType.charString });
+                string resp = SqlLists.SqlQuery(query, parms, connectionString);
 
-            string query = string.Format("SELECT Id, Label FROM Labels WHERE OwnerId={0} AND Ordinal={1}", courseId, ordinal);
-            List<SqlListParam> parms = new List<SqlListParam>();
-            parms.Add(new SqlListParam() { name = "Key", ordinal = 0, type = ParamType.int32 });
-            parms.Add(new SqlListParam() { name = "Value", ordinal = 1, type = ParamType.charString });
-            string resp = SqlLists.SqlQuery(query, parms, connectionString);
+                if (!string.IsNullOrEmpty(resp))
+                {
+                    KeyValuePair kvp = JsonConvert.DeserializeObject<KeyValuePair>(resp);
+                    return kvp.Value;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex.ToString());
+            }
 
-            KeyValuePair kvp = JsonConvert.DeserializeObject<KeyValuePair>(resp);
-            return kvp.Value;
+            Console.Out.WriteLine("CourseId={0}, ordinal={1}, connectionString={2}", courseId, ordinal, connectionString);
+
+
+            return "unknown";
         }
 
         public static string GetCourseNameById(int? id, string connectionString)
@@ -207,5 +222,39 @@ namespace GolfDB2.Models
             List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
             return items;
         }
+
+        public static string GetCourseRatings(string filter, string connectionString)
+        {
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "Id", ordinal = 0, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "CourseId", ordinal = 1, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "TeeName", ordinal = 2, type = ParamType.charString });
+            parms.Add(new SqlListParam() { name = "Course_Rating", ordinal = 3, type = ParamType.numeric });
+            parms.Add(new SqlListParam() { name = "SlopeRating18", ordinal = 4, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "Front9", ordinal = 5, type = ParamType.charString });
+            parms.Add(new SqlListParam() { name = "Back9", ordinal = 6, type = ParamType.charString });
+            parms.Add(new SqlListParam() { name = "BogeyRating", ordinal = 7, type = ParamType.numeric });
+            parms.Add(new SqlListParam() { name = "Gender", ordinal = 8, type = ParamType.charString });
+            parms.Add(new SqlListParam() { name = "HolesListDescription", ordinal = 9, type = ParamType.charString });
+            parms.Add(new SqlListParam() { name = "HandicapByHole", ordinal = 10, type = ParamType.charString });
+
+            string query = string.Format("SELECT Id, CourseId, TeeName, Course_Rating, SlopeRating18, Front9, Back9, BogeyRating, Gender, HolesListDescription, HandicapByHole FROM CourseRatings");
+            return SqlLists.SqlQuery(query + " " + filter, parms, connectionString);
+        }
+
+        public static List<CourseRating> GetCourseRatingsList(string connectionString)
+        {
+            string json = GetCourseRatings("", connectionString);
+            List<CourseRating> items = JsonConvert.DeserializeObject<List<CourseRating>>(json);
+            return items;
+        }
+
+        public static int GetHoleHandicap(int courseId, string tee, string gender, string holesListDescription, int holeNumber, string connectionString)
+        {
+            CourseRatingsCache cache = new CourseRatingsCache(connectionString);
+            CourseRating r = cache.GetCourseRatingByCourseIdTeeAndGender(courseId, tee, gender, holesListDescription);
+            return int.Parse(r.HandicapByHole.Split(',')[holeNumber - 1]);
+        }
+
     }
 }

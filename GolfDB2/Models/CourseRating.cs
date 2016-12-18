@@ -11,15 +11,29 @@ namespace GolfDB2.Models
     public partial class CourseRating
     {
         public int Id { get; set; }
+
         public int CourseId { get; set; }
+
+        [StringLength(50)]
         public string TeeName { get; set; }
-        public float Course_Rating { get; set; }
+
+        public Decimal? Course_Rating { get; set; }
+
         public int SlopeRating18 { get; set; }
+
+        [StringLength(50)]
         public string Front9 { get; set; }
+
+        [StringLength(50)]
         public string Back9 { get; set; }
-        public float BogeyRating { get; set; }
+
+        public Decimal? BogeyRating { get; set; }
+
+        [StringLength(1)]
         public string Gender { get; set; }
+
         public string HolesListDescription { get; set; }
+
         public string HandicapByHole { get; set; }
     }
 }

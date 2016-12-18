@@ -11,7 +11,8 @@ namespace GolfDB2.Models
     {
         int32,
         charString,
-        boolVal
+        boolVal,
+        numeric
     }
 
     public class SqlListParam

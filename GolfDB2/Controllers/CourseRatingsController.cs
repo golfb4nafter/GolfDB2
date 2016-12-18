@@ -10,20 +10,20 @@ using GolfDB2.Models;
 
 namespace GolfDB2.Controllers
 {
-    public class HolesController : Controller
+    public class CourseRatingsController : Controller
     {
         private GolfDB db = new GolfDB();
 
-        // GET: Holes
+        // GET: CourseRatings
         public ActionResult Index()
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
 
-            return View(db.Holes.OrderBy(s => s.Number).OrderBy(s => s.CourseId).ToList());
+            return View(db.CourseRatings.ToList());
         }
 
-        // GET: Holes/Details/5
+        // GET: CourseRatings/Details/5
         public ActionResult Details(int? id)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
@@ -33,44 +33,42 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
-            if (hole == null)
+            CourseRating courseRating = db.CourseRatings.Find(id);
+            if (courseRating == null)
             {
                 return HttpNotFound();
             }
-            return View(hole);
+
+            return View(courseRating);
         }
 
-        // GET: Holes/Create
+        // GET: CourseRatings/Create
         public ActionResult Create()
         {
-            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
-                return RedirectToAction("../Account/Login");
-
             return View();
         }
 
-        // POST: Holes/Create
+        // POST: CourseRatings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CourseId,Nine,Number,PhotoUrl,Description")] Hole hole)
+        public ActionResult Create([Bind(Include = "Id,CourseId,TeeName,Course_Rating,SlopeRating18,Front9,Back9,BogeyRating,Gender,HolesListDescription,HandicapByHole")] CourseRating courseRating)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
 
             if (ModelState.IsValid)
             {
-                db.Holes.Add(hole);
+                db.CourseRatings.Add(courseRating);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(hole);
+            return View(courseRating);
         }
 
-        // GET: Holes/Edit/5
+        // GET: CourseRatings/Edit/5
         public ActionResult Edit(int? id)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
@@ -80,36 +78,34 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
-            if (hole == null)
+            CourseRating courseRating = db.CourseRatings.Find(id);
+            if (courseRating == null)
             {
                 return HttpNotFound();
             }
-
-            return View(hole);
+            return View(courseRating);
         }
 
-        // POST: Holes/Edit/5
+        // POST: CourseRatings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CourseId,Nine,Number,PhotoUrl,Description")] Hole hole)
+        public ActionResult Edit([Bind(Include = "Id,CourseId,TeeName,Course_Rating,SlopeRating18,Front9,Back9,BogeyRating,Gender,HolesListDescription,HandicapByHole")] CourseRating courseRating)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
 
             if (ModelState.IsValid)
             {
-                db.Entry(hole).State = EntityState.Modified;
+                db.Entry(courseRating).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(hole);
+            return View(courseRating);
         }
 
-        // GET: Holes/Delete/5
+        // GET: CourseRatings/Delete/5
         public ActionResult Delete(int? id)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
@@ -119,24 +115,21 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
-            if (hole == null)
+            CourseRating courseRating = db.CourseRatings.Find(id);
+            if (courseRating == null)
             {
                 return HttpNotFound();
             }
-            return View(hole);
+            return View(courseRating);
         }
 
-        // POST: Holes/Delete/5
+        // POST: CourseRatings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
-                return RedirectToAction("../Account/Login");
-
-            Hole hole = db.Holes.Find(id);
-            db.Holes.Remove(hole);
+            CourseRating courseRating = db.CourseRatings.Find(id);
+            db.CourseRatings.Remove(courseRating);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
