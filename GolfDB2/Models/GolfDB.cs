@@ -36,5 +36,11 @@ namespace GolfDB2.Models
         public System.Data.Entity.DbSet<GolfDB2.Models.Labels> Labels { get; set; }
 
         public System.Data.Entity.DbSet<GolfDB2.Models.CourseRating> CourseRatings { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.Golfer> Golfers { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.ScoreCard> ScoreCards { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.ScoreCardPlayer> ScoreCardPlayers { get; set; }
     }
 }
