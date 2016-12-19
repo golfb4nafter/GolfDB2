@@ -14,6 +14,6 @@ namespace GolfDB2.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
-        public string Enail { get; set; }
+        public string EMail { get; set; }
     }
 }

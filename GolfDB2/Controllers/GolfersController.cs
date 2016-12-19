@@ -19,6 +19,7 @@ namespace GolfDB2.Controllers
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
+
             return View(db.Golfers.ToList());
         }
 
@@ -54,7 +55,7 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Phone,Enail")] Golfer golfer)
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Phone,EMail")] Golfer golfer)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
@@ -92,7 +93,7 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Phone,Enail")] Golfer golfer)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Phone,EMail")] Golfer golfer)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
