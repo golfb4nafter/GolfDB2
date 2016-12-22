@@ -22,9 +22,26 @@ namespace GolfDB2
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            // <script src="Scripts/DayPilot/daypilot-all.min.js" type="text/javascript"></script>
+            bundles.Add(new ScriptBundle("~/Scripts/DayPilot").Include("~/Scripts/DayPilot/daypilot-all.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Media/layout").Include(
+                      "~/Media/layout/layout.css"));
+
+            bundles.Add(new StyleBundle("~/Themes").Include(
+                        "~/Themes/calendar_g.css",
+                        "~/Themes/calendar_green.css",
+                        "~/Themes/calendar_traditional.css",
+                        "~/Themes/calendar_transparent.css",
+                        "~/Themes/calendar_white.css"));
         }
     }
 }

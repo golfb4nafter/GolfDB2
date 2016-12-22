@@ -89,7 +89,7 @@ a { color: #1155a3; }
 html, body { margin: 0px; padding: 0px; } 
 html.fullheight, html.fullheight body { height:100%;  overflow:hidden; }
 
-/*.main { height: 800px;}*/
+/*.main { height: 500px;}*/
 
 /* task queue */
 .left { position:relative; width: 150px; float:left; margin-left:5px;}

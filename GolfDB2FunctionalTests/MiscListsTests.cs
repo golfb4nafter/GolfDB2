@@ -119,5 +119,15 @@ namespace GolfDB2FunctionalTests
             Assert.IsTrue(handicap == 4);
         }
 
-}
+        [TestMethod]
+        public void GetSetting()
+        {
+            GlobalSettingsApi gs = new GlobalSettingsApi(connectionString);
+
+            string val = gs.getSetting("Test1");
+
+            Assert.IsTrue(val == "XXXX");
+        }
+
+    }
 }

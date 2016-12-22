@@ -42,5 +42,7 @@ namespace GolfDB2.Models
         public System.Data.Entity.DbSet<GolfDB2.Models.ScoreCard> ScoreCards { get; set; }
 
         public System.Data.Entity.DbSet<GolfDB2.Models.ScoreCardPlayer> ScoreCardPlayers { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.CalendarEvent> Event { get; set; }
     }
 }

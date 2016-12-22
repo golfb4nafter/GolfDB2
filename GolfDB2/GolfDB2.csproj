@@ -127,6 +127,7 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -203,6 +204,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Media\layout.css" />
+    <Content Include="Media\layout\header-in.png" />
+    <Content Include="Media\layout\header.png" />
+    <Content Include="Media\layout\li.png" />
+    <Content Include="Media\layout\main.png" />
+    <Content Include="Media\layout\shadow.png" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -212,17 +219,32 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="App_Data\GolfDB20161207-01.dacpac" />
+    <Content Include="Calendar.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Calendar.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GlobalSettings.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>GlobalSettings.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Release notes.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\DayPilot\daypilot-all.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Themes\calendar_g.css" />
+    <Content Include="Themes\calendar_green.css" />
+    <Content Include="Themes\calendar_traditional.css" />
+    <Content Include="Themes\calendar_transparent.css" />
+    <Content Include="Themes\calendar_white.css" />
     <Content Include="Views\CourseDatas\Create.cshtml" />
     <Content Include="Views\CourseDatas\Delete.cshtml" />
     <Content Include="Views\CourseDatas\Details.cshtml" />
@@ -274,6 +296,11 @@
     <Content Include="Views\ScoreCardPlayers\Details.cshtml" />
     <Content Include="Views\ScoreCardPlayers\Edit.cshtml" />
     <Content Include="Views\ScoreCardPlayers\Index.cshtml" />
+    <Content Include="Views\CalendarEvents\Create.cshtml" />
+    <Content Include="Views\CalendarEvents\Delete.cshtml" />
+    <Content Include="Views\CalendarEvents\Details.cshtml" />
+    <Content Include="Views\CalendarEvents\Edit.cshtml" />
+    <Content Include="Views\CalendarEvents\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -343,7 +370,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Calendar.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Calendar.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BackendController.cs" />
+    <Compile Include="Controllers\CalendarEventsController.cs" />
     <Compile Include="Controllers\CourseDatasController.cs" />
     <Compile Include="Controllers\CourseRatingsController.cs" />
     <Compile Include="Controllers\GeoDatasController.cs" />
@@ -370,12 +404,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSettings.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalSettings.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\CalendarEvent.cs" />
     <Compile Include="Models\CourseData.cs" />
     <Compile Include="Models\GeoData.cs" />
     <Compile Include="Models\GeoObjectType.cs" />
     <Compile Include="Models\GeoSpatialTable.cs" />
+    <Compile Include="Models\GlobalSetting.cs" />
     <Compile Include="Models\GolfDB.cs" />
     <Compile Include="Models\CourseRating.cs" />
     <Compile Include="Models\ScoreCardPlayer.cs" />
@@ -392,6 +433,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Tools\CourseRatingsCache.cs" />
+    <Compile Include="Tools\GlobalSettingsApi.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Backend\" />
+    <Folder Include="Views\Setup\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Calendar.dbml.layout">
+      <DependentUpon>Calendar.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GlobalSettings.dbml.layout">
+      <DependentUpon>GlobalSettings.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
