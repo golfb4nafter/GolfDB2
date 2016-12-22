@@ -124,7 +124,7 @@ namespace GolfDB2FunctionalTests
         {
             GlobalSettingsApi gs = new GlobalSettingsApi(connectionString);
 
-            string val = gs.getSetting("Test1");
+            string val = gs.GetSetting(0, "Test1", "YYYY");
 
             Assert.IsTrue(val == "XXXX");
         }
