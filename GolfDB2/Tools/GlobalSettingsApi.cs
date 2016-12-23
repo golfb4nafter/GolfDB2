@@ -18,6 +18,7 @@ namespace GolfDB2.Tools
         GlobalSettingsDataContext db = null;
 
         public int CourseId { get; set; }
+        public int LogLevel { get; set; }
 
         public bool bInitDone = false;
 
@@ -28,6 +29,7 @@ namespace GolfDB2.Tools
             if (!bInitDone)
             {
                 CourseId = int.Parse(GetSetting(0, "DefaultCourseId", "1"));
+                LogLevel = int.Parse(GetSetting(0, "DefaultLogLevel", "5"));
             }
         }
 

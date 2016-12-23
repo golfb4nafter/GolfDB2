@@ -10,11 +10,13 @@ namespace GolfDB2.Models
     public class SetupModel
     {
         public int CourseId { get; set; }
+        public int LogLevel { get; set; }
 
         public SetupModel()
         {
             GlobalSettingsApi api = new GlobalSettingsApi();
             CourseId = api.CourseId;
+            LogLevel = api.LogLevel;
         }
     }
 }

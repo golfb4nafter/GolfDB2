@@ -256,5 +256,15 @@ namespace GolfDB2.Models
             return int.Parse(r.HandicapByHole.Split(',')[holeNumber - 1]);
         }
 
+        public static List<SelectListItem> GetLogLevelSelectList()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem() { Text = "FATAL", Value = "1" });
+            items.Add(new SelectListItem() { Text = "ERROR", Value = "2" });
+            items.Add(new SelectListItem() { Text = "WARN", Value = "3" });
+            items.Add(new SelectListItem() { Text = "INFO", Value = "4" });
+            items.Add(new SelectListItem() { Text = "DEBUG", Value = "5" });
+            return items;
+        }
     }
 }

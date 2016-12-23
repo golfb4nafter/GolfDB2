@@ -16,16 +16,22 @@
         <h4>Setup</h4>
         <hr />
 
-@*Course Name*@
-<div class="form-group">
-    @Html.Label("Default Course", new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.DropDownListFor(model => model.CourseId,
-                                      GolfDB2.Models.MiscLists.GetCourseNamesSelectList())
-        @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
-    </div>
-</div>
+        <div class="form-group">
+            @Html.Label("Default Course", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CourseId,
+                                              GolfDB2.Models.MiscLists.GetCourseNamesSelectList())
+                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
+        <div class="form-group">
+            @Html.Label("Default Log Level", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.LogLevel, GolfDB2.Models.MiscLists.GetLogLevelSelectList())
+                @Html.ValidationMessageFor(model => model.LogLevel, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

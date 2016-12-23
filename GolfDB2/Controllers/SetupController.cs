@@ -12,6 +12,9 @@ namespace GolfDB2.Controllers
         // GET: Setup
         public ActionResult Index()
         {
+            if (User.IsInRole("Admin"))
+                return RedirectToAction("../Account/Login");
+
             return View(new SetupModel());
         }
     }
