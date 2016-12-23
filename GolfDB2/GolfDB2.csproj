@@ -301,6 +301,7 @@
     <Content Include="Views\CalendarEvents\Details.cshtml" />
     <Content Include="Views\CalendarEvents\Edit.cshtml" />
     <Content Include="Views\CalendarEvents\Index.cshtml" />
+    <Content Include="Views\Setup\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -400,6 +401,7 @@
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\ScoreCardPlayersController.cs" />
     <Compile Include="Controllers\ScoreCardsController.cs" />
+    <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -427,6 +429,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MiscLists.cs" />
+    <Compile Include="Models\SetupModel.cs" />
     <Compile Include="Models\SqlLists.cs" />
     <Compile Include="Models\SqlListParam.cs" />
     <Compile Include="Models\States.cs" />
@@ -434,10 +437,10 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Tools\CourseRatingsCache.cs" />
     <Compile Include="Tools\GlobalSettingsApi.cs" />
+    <Compile Include="Tools\GolfDB2Logger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Backend\" />
-    <Folder Include="Views\Setup\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

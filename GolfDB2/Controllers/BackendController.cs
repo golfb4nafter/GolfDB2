@@ -7,6 +7,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
+using GolfDB2.Tools;
+
 namespace GolfDB2.Controllers
 {
     public class BackendController : Controller
@@ -24,6 +26,8 @@ namespace GolfDB2.Controllers
 
         public ActionResult Events(DateTime? start, DateTime? end)
         {
+            GolfDB2Logger.LogDebug("Events", "Return list of events from SQL server using LINQ.");
+
             // SQL: SELECT * FROM [event] WHERE NOT (([end] <= @start) OR ([start] >= @end))
             var events = from ev in db.Events.AsEnumerable() where !(ev.end <= start || ev.start >= end) select ev;
 
@@ -43,6 +47,8 @@ namespace GolfDB2.Controllers
 
         public ActionResult Create(string start, string end, string name)
         {
+            GolfDB2Logger.LogDebug("Create", "Add new event to SQL server using LINQ.");
+
             var toBeCreated = new Event
             {
                 start = Convert.ToDateTime(start),
@@ -58,6 +64,8 @@ namespace GolfDB2.Controllers
 
         public ActionResult Move(int id, string newStart, string newEnd)
         {
+            GolfDB2Logger.LogDebug("Move", "Update event start and end times in SQL server using LINQ.");
+
             var toBeResized = (from ev in db.Events where ev.id == id select ev).First();
             toBeResized.start = Convert.ToDateTime(newStart);
             toBeResized.end = Convert.ToDateTime(newEnd);
@@ -68,6 +76,8 @@ namespace GolfDB2.Controllers
 
         public ActionResult Resize(int id, string newStart, string newEnd)
         {
+            GolfDB2Logger.LogDebug("Resize", "Update event start and end times in SQL server using LINQ.");
+
             var toBeResized = (from ev in db.Events where ev.id == id select ev).First();
             toBeResized.start = Convert.ToDateTime(newStart);
             toBeResized.end = Convert.ToDateTime(newEnd);

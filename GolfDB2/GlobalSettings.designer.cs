@@ -88,8 +88,9 @@ namespace GolfDB2
 		public GlobalSetting()
 		{
 		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+
+        //[global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Id", AutoSync = AutoSync.Always, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true, UpdateCheck = UpdateCheck.Never)]
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Default, DbType="Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
 		public int Id
 		{
 			get
