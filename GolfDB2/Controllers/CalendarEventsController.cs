@@ -17,7 +17,14 @@ namespace GolfDB2.Controllers
         // GET: CalendarEvents
         public ActionResult Index()
         {
-            return View(db.Event.ToList());
+            // Filter for current course selection only.
+            // order by start time.
+            int courseId = 1;
+            var events = from s in db.Event select s;
+            events = events.Where(s => s.CourseId == courseId);
+            events = events.OrderByDescending(s => s.start);
+            return View(events);
+            //return View(db.Event.ToList());
         }
 
         // GET: CalendarEvents/Details/5
