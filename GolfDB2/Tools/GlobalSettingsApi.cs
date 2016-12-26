@@ -14,7 +14,27 @@ namespace GolfDB2.Tools
 {
     public class GlobalSettingsApi
     {
-        private string _connectionString = null;
+
+        private static GlobalSettingsApi _instance = null;
+
+
+        public static GlobalSettingsApi GetInstance()
+        {
+            if (_instance == null)
+                _instance = new GlobalSettingsApi();
+
+            return _instance;
+        }
+
+        public static GlobalSettingsApi GetInstance(string connectionString)
+        {
+            if (_instance == null)
+                _instance = new GlobalSettingsApi(connectionString);
+
+            return _instance;
+        }
+
+        private readonly string _connectionString = null;
         GlobalSettingsDataContext db = null;
 
         public int CourseId { get; set; }

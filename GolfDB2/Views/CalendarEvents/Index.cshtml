@@ -7,24 +7,36 @@
 
 <h2>Index</h2>
 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
 <table class="table">
     <tr>
-        <th>Date Filter</th>
+        <th><input type="submit" value="Filter" class="btn btn-default" /></th>
         <th>From:</th>
         <td>
-            <input type="date" />
+            <input id="fromDate" name="fromDate" type="date" value="@ViewData["fromDate"]"/>
         </td>
     </tr>
     <tr>
         <th></th>
         <th>To:</th>
         <td>
-            <input type="date" />
+            <input id="toDate" name="toDate" type="date" value="@ViewData["toDate"]"/>
         </td>
     </tr>
 </table>
-
+<script>
+    if (!Modernizr.inputtypes.date)
+    {
+    $('input[type=date]').datepicker({
+            // Consistent format with the HTML5 picker
+        dateFormat: 'yyyy-mm-dd'
+    });
+    }
+</script>
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>

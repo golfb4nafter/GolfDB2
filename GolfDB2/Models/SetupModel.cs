@@ -14,9 +14,8 @@ namespace GolfDB2.Models
 
         public SetupModel()
         {
-            GlobalSettingsApi api = new GlobalSettingsApi();
-            CourseId = api.CourseId;
-            LogLevel = api.LogLevel;
+            CourseId = GlobalSettingsApi.GetInstance().CourseId;
+            LogLevel = GlobalSettingsApi.GetInstance().LogLevel;
         }
     }
 }

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GolfDB2.Models;
+using GolfDB2.Tools;
+using System.Collections.Specialized;
 
 namespace GolfDB2.Controllers
 {
@@ -17,13 +19,43 @@ namespace GolfDB2.Controllers
         // GET: CalendarEvents
         public ActionResult Index()
         {
-            // Filter for current course selection only.
-            // order by start time.
-            int courseId = 1;
+            string d1 = Request.Params.Get("fromDate");
+            string d2 = Request.Params.Get("toDate");
+
+            if (d1 != null && d2 != null && (DateTime.Parse(d1) >= DateTime.Parse(d2)))
+            {
+                d1 = null;
+                d2 = null;
+            }
+
+            if (d1 == null)
+            {
+                DateTime dt = DateTime.Now;
+                d1 = dt.ToString("yyyy-MM-dd");
+                d2 = dt.AddDays(8).ToString("yyyy-MM-dd");
+            }
+
+            int courseId = GlobalSettingsApi.GetInstance().CourseId;
+
             var events = from s in db.Event select s;
+            // Filter for current course selection only.
             events = events.Where(s => s.CourseId == courseId);
+
+            // filter by start and end dates.
+            DateTime from = DateTime.Parse(d1);
+            DateTime to = DateTime.Parse(d2);
+
+            events = events.Where(s => s.start >= from);
+            events = events.Where(s => s.end <= to);
+
+            // order by start time.
             events = events.OrderByDescending(s => s.start);
+
+            ViewData["fromDate"] = d1;
+            ViewData["toDate"] = d2;
+            
             return View(events);
+ 
             //return View(db.Event.ToList());
         }
 
