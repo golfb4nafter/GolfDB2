@@ -345,10 +345,8 @@
     <Content Include="Views\ScoreCardPlayers\Details.cshtml" />
     <Content Include="Views\ScoreCardPlayers\Edit.cshtml" />
     <Content Include="Views\ScoreCardPlayers\Index.cshtml" />
-    <Content Include="Views\CalendarEvents\Create.cshtml" />
     <Content Include="Views\CalendarEvents\Delete.cshtml" />
     <Content Include="Views\CalendarEvents\Details.cshtml" />
-    <Content Include="Views\CalendarEvents\Edit.cshtml" />
     <Content Include="Views\CalendarEvents\Index.cshtml" />
     <Content Include="Views\Setup\Index.cshtml" />
     <None Include="Web.Debug.config">

@@ -51,6 +51,7 @@ namespace GolfDB2.Controllers
 
             var toBeCreated = new Event
             {
+                CourseId = Tools.GlobalSettingsApi.GetInstance().CourseId,
                 start = Convert.ToDateTime(start),
                 end = Convert.ToDateTime(end),
                 text = name

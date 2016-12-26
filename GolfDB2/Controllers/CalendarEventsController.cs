@@ -74,59 +74,61 @@ namespace GolfDB2.Controllers
             return View(calendarEvent);
         }
 
-        // GET: CalendarEvents/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //// GET: CalendarEvents/Create
+        //public ActionResult Create()
+        //{
+        //    ViewData["CourseId"] = GolfDB2.Tools.GlobalSettingsApi.GetInstance().CourseId.ToString();
 
-        // POST: CalendarEvents/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,CourseId,text,start,end")] CalendarEvent calendarEvent)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Event.Add(calendarEvent);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //    return View();
+        //}
 
-            return View(calendarEvent);
-        }
+        //// POST: CalendarEvents/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "id,CourseId,text,start,end")] CalendarEvent calendarEvent)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Event.Add(calendarEvent);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-        // GET: CalendarEvents/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CalendarEvent calendarEvent = db.Event.Find(id);
-            if (calendarEvent == null)
-            {
-                return HttpNotFound();
-            }
-            return View(calendarEvent);
-        }
+        //    return View(calendarEvent);
+        //}
 
-        // POST: CalendarEvents/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,CourseId,text,start,end")] CalendarEvent calendarEvent)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(calendarEvent).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(calendarEvent);
-        }
+        //// GET: CalendarEvents/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    CalendarEvent calendarEvent = db.Event.Find(id);
+        //    if (calendarEvent == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(calendarEvent);
+        //}
+
+        //// POST: CalendarEvents/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "id,CourseId,text,start,end")] CalendarEvent calendarEvent)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(calendarEvent).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(calendarEvent);
+        //}
 
         // GET: CalendarEvents/Delete/5
         public ActionResult Delete(int? id)
