@@ -274,6 +274,11 @@
       <LastGenOutput>GlobalSettings.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="EventDetail.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>EventDetail.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Release notes.txt" />
     <Content Include="Scripts\bootstrap.js" />
@@ -349,6 +354,11 @@
     <Content Include="Views\CalendarEvents\Details.cshtml" />
     <Content Include="Views\CalendarEvents\Index.cshtml" />
     <Content Include="Views\Setup\Index.cshtml" />
+    <Content Include="Views\EventDetails\Create.cshtml" />
+    <Content Include="Views\EventDetails\Delete.cshtml" />
+    <Content Include="Views\EventDetails\Details.cshtml" />
+    <Content Include="Views\EventDetails\Edit.cshtml" />
+    <Content Include="Views\EventDetails\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -428,6 +438,7 @@
     <Compile Include="Controllers\CalendarEventsController.cs" />
     <Compile Include="Controllers\CourseDatasController.cs" />
     <Compile Include="Controllers\CourseRatingsController.cs" />
+    <Compile Include="Controllers\EventDetailsController.cs" />
     <Compile Include="Controllers\GeoDatasController.cs" />
     <Compile Include="Controllers\GeoObjectTypesController.cs" />
     <Compile Include="Controllers\GeoSpatialTablesController.cs" />
@@ -450,6 +461,9 @@
     <Compile Include="Controllers\ScoreCardsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="EventDetail.cs">
+      <DependentUpon>EventDetail.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -460,8 +474,14 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\EventDetail.cs" />
     <Compile Include="Models\CalendarEvent.cs" />
     <Compile Include="Models\CourseData.cs" />
+    <Compile Include="EventDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EventDetail.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\GeoData.cs" />
     <Compile Include="Models\GeoObjectType.cs" />
     <Compile Include="Models\GeoSpatialTable.cs" />
@@ -482,6 +502,7 @@
     <Compile Include="Models\States.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Tools\EventDetailTools.cs" />
     <Compile Include="Tools\CourseRatingsCache.cs" />
     <Compile Include="Tools\GlobalSettingsApi.cs" />
     <Compile Include="Tools\GolfDB2Logger.cs" />
@@ -500,6 +521,11 @@
   <ItemGroup>
     <None Include="GlobalSettings.dbml.layout">
       <DependentUpon>GlobalSettings.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EventDetail.dbml.layout">
+      <DependentUpon>EventDetail.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

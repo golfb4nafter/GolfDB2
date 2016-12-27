@@ -63,11 +63,11 @@ namespace GolfDB2.Models
             }
             catch (Exception ex)
             {
-                Console.Out.WriteLine(ex.ToString());
+                GolfDB2Logger.LogError("GetNineNameByCourseIdAndZeroBasedOrdinal", ex.ToString());
             }
 
-            Console.Out.WriteLine("CourseId={0}, ordinal={1}, connectionString={2}", courseId, ordinal, connectionString);
-
+            GolfDB2Logger.LogDebug("GetNineNameByCourseIdAndZeroBasedOrdinal",
+                string.Format("CourseId={0}, ordinal={1}, connectionString={2}", courseId, ordinal, connectionString));
 
             return "unknown";
         }

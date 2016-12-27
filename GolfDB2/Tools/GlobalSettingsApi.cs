@@ -28,6 +28,9 @@ namespace GolfDB2.Tools
 
         public static GlobalSettingsApi GetInstance(string connectionString)
         {
+            if (connectionString == null)
+                _instance = new GlobalSettingsApi();
+
             if (_instance == null)
                 _instance = new GlobalSettingsApi(connectionString);
 

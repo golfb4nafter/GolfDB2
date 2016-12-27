@@ -1,0 +1,75 @@
+﻿@model GolfDB2.Models.EventDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EventDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EventId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayFormat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayFormat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfHoles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfHoles)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsShotgunStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsShotgunStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sponsor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sponsor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayListId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayListId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

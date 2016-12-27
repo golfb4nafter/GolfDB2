@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using GolfDB2.Tools;
 
 namespace GolfDB2.Models
 {
@@ -59,7 +60,7 @@ namespace GolfDB2.Models
             }
             catch (Exception ex)
             {
-                Console.Out.WriteLine(ex.ToString());
+                GolfDB2Logger.LogError("FormatAsJson", ex.ToString());
             }
 
             jsonString.Append("}");
@@ -98,7 +99,7 @@ namespace GolfDB2.Models
             }
             catch (Exception ex)
             {
-                Console.Out.WriteLine(ex);
+                GolfDB2Logger.LogError("SqlQuery", ex.ToString());
             }
 
             if (count > 1)

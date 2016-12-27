@@ -129,5 +129,19 @@ namespace GolfDB2FunctionalTests
             Assert.IsTrue(val == "XXXX");
         }
 
+
+        [TestMethod]
+        public void LookupOrCreateEventDetailRecord()
+        {
+            EventDetailTools tool = new EventDetailTools();
+
+            int resp = tool.LookupOrCreateEventDetailRecord(10, connectionString);
+
+            Assert.IsTrue(resp == 1);
+
+            resp = tool.LookupOrCreateEventDetailRecord(7, connectionString);
+            Assert.IsTrue(resp == 1);
+        }
+
     }
 }

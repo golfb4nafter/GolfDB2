@@ -1,0 +1,70 @@
+﻿@model IEnumerable<GolfDB2.Models.EventDetail>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EventId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayFormat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfHoles)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsShotgunStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sponsor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayListId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayFormat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfHoles)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsShotgunStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sponsor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayListId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
