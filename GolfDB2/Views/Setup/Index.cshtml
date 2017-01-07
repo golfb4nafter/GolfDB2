@@ -20,7 +20,7 @@
             @Html.Label("Default Course", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.CourseId,
-                                              GolfDB2.Models.MiscLists.GetCourseNamesSelectList())
+                                              GolfDB2.Tools.MiscLists.GetCourseNamesSelectList())
                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.Label("Default Log Level", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.LogLevel, GolfDB2.Models.MiscLists.GetLogLevelSelectList())
+                @Html.DropDownListFor(model => model.LogLevel, GolfDB2.Tools.MiscLists.GetLogLevelSelectList())
                 @Html.ValidationMessageFor(model => model.LogLevel, "", new { @class = "text-danger" })
             </div>
         </div>

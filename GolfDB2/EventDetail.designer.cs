@@ -86,15 +86,23 @@ namespace GolfDB2
 		
 		private int _CourseId;
 		
-		private string _PlayFormat;
+		private int _PlayFormat;
 		
 		private int _NumberOfHoles;
 		
-		private byte _IsShotgunStart;
+		private bool _IsShotgunStart;
 		
 		private string _Sponsor;
 		
 		private int _PlayListId;
+		
+		private int _OrgId;
+		
+		private int _StartHoleId;
+		
+		private int _NumGroups;
+		
+		private int _NumPerGroup;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -106,25 +114,32 @@ namespace GolfDB2
     partial void OnEventIdChanged();
     partial void OnCourseIdChanging(int value);
     partial void OnCourseIdChanged();
-    partial void OnPlayFormatChanging(string value);
+    partial void OnPlayFormatChanging(int value);
     partial void OnPlayFormatChanged();
     partial void OnNumberOfHolesChanging(int value);
     partial void OnNumberOfHolesChanged();
-    partial void OnIsShotgunStartChanging(byte value);
+    partial void OnIsShotgunStartChanging(bool value);
     partial void OnIsShotgunStartChanged();
     partial void OnSponsorChanging(string value);
     partial void OnSponsorChanged();
     partial void OnPlayListIdChanging(int value);
     partial void OnPlayListIdChanged();
+    partial void OnOrgIdChanging(int value);
+    partial void OnOrgIdChanged();
+    partial void OnStartHoleIdChanging(int value);
+    partial void OnStartHoleIdChanged();
+    partial void OnNumGroupsChanging(int value);
+    partial void OnNumGroupsChanged();
+    partial void OnNumPerGroupChanging(int value);
+    partial void OnNumPerGroupChanged();
     #endregion
 		
 		public EventDetail()
 		{
 			OnCreated();
 		}
-
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Id", AutoSync = AutoSync.Default, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true, UpdateCheck = UpdateCheck.Never)]
-        //[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int Id
 		{
 			get
@@ -184,8 +199,8 @@ namespace GolfDB2
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayFormat", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string PlayFormat
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayFormat", DbType="Int NOT NULL")]
+		public int PlayFormat
 		{
 			get
 			{
@@ -224,8 +239,8 @@ namespace GolfDB2
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsShotgunStart", DbType="TinyInt NOT NULL")]
-		public byte IsShotgunStart
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsShotgunStart", DbType="Bit NOT NULL")]
+		public bool IsShotgunStart
 		{
 			get
 			{
@@ -280,6 +295,86 @@ namespace GolfDB2
 					this._PlayListId = value;
 					this.SendPropertyChanged("PlayListId");
 					this.OnPlayListIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrgId", DbType="Int NOT NULL")]
+		public int OrgId
+		{
+			get
+			{
+				return this._OrgId;
+			}
+			set
+			{
+				if ((this._OrgId != value))
+				{
+					this.OnOrgIdChanging(value);
+					this.SendPropertyChanging();
+					this._OrgId = value;
+					this.SendPropertyChanged("OrgId");
+					this.OnOrgIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartHoleId", DbType="Int NOT NULL")]
+		public int StartHoleId
+		{
+			get
+			{
+				return this._StartHoleId;
+			}
+			set
+			{
+				if ((this._StartHoleId != value))
+				{
+					this.OnStartHoleIdChanging(value);
+					this.SendPropertyChanging();
+					this._StartHoleId = value;
+					this.SendPropertyChanged("StartHoleId");
+					this.OnStartHoleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumGroups", DbType="Int NOT NULL")]
+		public int NumGroups
+		{
+			get
+			{
+				return this._NumGroups;
+			}
+			set
+			{
+				if ((this._NumGroups != value))
+				{
+					this.OnNumGroupsChanging(value);
+					this.SendPropertyChanging();
+					this._NumGroups = value;
+					this.SendPropertyChanged("NumGroups");
+					this.OnNumGroupsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumPerGroup", DbType="Int NOT NULL")]
+		public int NumPerGroup
+		{
+			get
+			{
+				return this._NumPerGroup;
+			}
+			set
+			{
+				if ((this._NumPerGroup != value))
+				{
+					this.OnNumPerGroupChanging(value);
+					this.SendPropertyChanging();
+					this._NumPerGroup = value;
+					this.SendPropertyChanged("NumPerGroup");
+					this.OnNumPerGroupChanged();
 				}
 			}
 		}

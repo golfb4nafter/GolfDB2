@@ -1,0 +1,204 @@
+﻿@model GolfDB2.Models.TeeTime
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string courseId = GolfDB2.Tools.GlobalSettingsApi.GetInstance().CourseId.ToString();
+}
+
+<h2>Create</h2>
+
+<script>
+    if (!Modernizr.inputtypes.date)
+    {
+    $('input[type=date]').datepicker({
+            // Consistent format with the HTML5 picker
+        dateFormat: 'yyyy-mm-dd'
+    });
+    }
+</script>
+
+<script type="text/javascript">
+
+    function updateFields()
+    {
+        var e = document.getElementById("Tee_Time");
+
+        var tStr = e.options[e.selectedIndex].value;
+        //alert(tStr);
+
+        tStr = tStr.split(".")[1];
+        //alert(tStr);
+
+        document.getElementById('TeeTimeOffset').value = tStr;
+      
+        //document.getElementById('Tee_Time').value = e.options[e.selectedIndex].text;
+    }
+
+    //var date = document.getElementById('#HoleId').value;
+    //var date = document.getElementById('#EventId').value;
+
+    //model.HoleId
+    //model.EventId
+
+    $(function () {
+        $.validator.methods.date = function (value, element) {
+            if ($.browser.webkit) {
+                var d = new Date();
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+            }
+            else {
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+            }
+        };
+    });
+
+    function updateTeeTimeList() {
+
+        var courseId = document.getElementById('CourseId').value;
+        if (!courseId) {
+            //alert(@courseId);
+            document.getElementById('CourseId').value = '@courseId';
+        }
+
+        var holeId = document.getElementById('HoleId').value;
+
+        if (!holeId) {
+            holeId = 1;
+            document.getElementById('HoleId').value = 1;
+        }
+
+        var eventId = document.getElementById('EventId').value;
+
+        if (!eventId) {
+            eventId = 0;
+            document.getElementById('EventId').value = 0;
+        }
+
+        var date = document.getElementById('teeDate').value;
+        var url = "/api/SelectListApi?action=teetime&date=" + date + "&eventId=" + eventId + "&holeId=" + holeId;
+
+        //alert("Query URL: " + url);
+
+        $.get(url, function (data) {
+            $('#Tee_Time').empty();
+
+            //alert(data)
+            try {
+                json = JSON.parse(JSON.stringify(data));
+            } catch (err) {
+                alert(err.message);
+            }
+
+            //alert(json)
+            $.each(json, function (i, obj) {
+                $('#Tee_Time').append($('<option>').text(json[i].Text).attr('value', json[i].Value));
+            });
+        });
+    }
+
+    function dumpValues() {
+
+        //alert(document.getElementById('CourseId').value + "," +
+        //document.getElementById('TeeTimeOffset').value + "," +
+        //document.getElementById('Tee_Time').value + "," +
+        //document.getElementById('EventId').value + "," +
+        //document.getElementById('ReservedByName').value + "," +
+        //document.getElementById('TelephoneNumber').value + "," +
+        //document.getElementById('HoleId').value);
+    }
+
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>TeeTime</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*@Html.HiddenFor(model => model.Id)*@
+        @Html.HiddenFor(model => model.CourseId)
+        @Html.HiddenFor(model => model.TeeTimeOffset)
+        @*@Html.HiddenFor(model => model.Tee_Time)*@
+
+        <div class="form-group">
+            @Html.Label("Select Date", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input id="teeDate" name="teeDate" type="date" onchange="updateTeeTimeList();"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Select Tee Time", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Tee_Time, new List<SelectListItem>(),
+                                      new { @onchange = "updateFields()" })
+                @Html.ValidationMessageFor(model => model.Tee_Time, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EventId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownListFor(model => model.EventId,
+                    GolfDB2.Tools.MiscLists.GetEventSelectList(GolfDB2.Tools.GlobalSettingsApi.GetInstance().CourseId, null),
+                    new { htmlAttributes = new { @class = "form-control" } })
+               @Html.ValidationMessageFor(model => model.EventId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReservedByName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReservedByName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReservedByName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TelephoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TelephoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TelephoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoleId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.HoleId,
+                    GolfDB2.Tools.MiscLists.StartingHoleSelectListByCourseId(GolfDB2.Tools.GlobalSettingsApi.GetInstance().CourseId, null),
+                    new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HoleId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumberOfPlayers, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumberOfPlayers, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumberOfPlayers, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlayerNames, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PlayerNames, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PlayerNames, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" onclick="dumpValues();" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

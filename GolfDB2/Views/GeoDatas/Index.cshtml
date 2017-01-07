@@ -31,7 +31,7 @@
         <tr>
             <td>
                 @*@Html.DisplayFor(modelItem => item.CourseId)*@
-                @Html.DisplayName(GolfDB2.Models.MiscLists.GetCourseNameById(item.CourseId, null))
+                @Html.DisplayName(GolfDB2.Tools.MiscLists.GetCourseNameById(item.CourseId, null))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GeoObjectDescription)
@@ -42,21 +42,21 @@
                         <th>GPS</th>
                         <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
                             @*@Html.DisplayFor(modelItem => item.GeoSpatialDataId)*@
-                            @Html.DisplayName(GolfDB2.Models.MiscLists.GetGeoSpatialDataPointDescriptionById(item.GeoSpatialDataId, null))
+                            @Html.DisplayName(GolfDB2.Tools.MiscLists.GetGeoSpatialDataPointDescriptionById(item.GeoSpatialDataId, null))
                         </td>
                     </tr>
                     <tr>
                         <th>Description</th>
                         <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
                             @*@Html.DisplayFor(modelItem => item.GeoObjectType)*@
-                            @Html.DisplayName(GolfDB2.Models.MiscLists.GetObjectTypeById(item.GeoObjectType, null))
+                            @Html.DisplayName(GolfDB2.Tools.MiscLists.GetObjectTypeById(item.GeoObjectType, null))
                         </td>
                     </tr>
                     <tr>
                         <th>Hole Number</th>
                         <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
                             @*@Html.DisplayFor(modelItem => item.HoleId)*@
-                            @Html.DisplayName(GolfDB2.Models.MiscLists.GetHoleNumberByHoleId(item.HoleId, null).ToString())
+                            @Html.DisplayName(GolfDB2.Tools.MiscLists.GetHoleNumberByHoleId(item.HoleId, null).ToString())
                         </td>
                     </tr>
                     <tr>

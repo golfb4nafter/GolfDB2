@@ -46,5 +46,7 @@ namespace GolfDB2.Models
         public System.Data.Entity.DbSet<GolfDB2.Models.CalendarEvent> Event { get; set; }
 
         public System.Data.Entity.DbSet<GolfDB2.Models.EventDetail> EventDetails { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.TeeTime> TeeTimes { get; set; }
     }
 }

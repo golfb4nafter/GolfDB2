@@ -14,10 +14,14 @@ namespace GolfDB2.Models
         public int Id { get; set; }
         public int EventId { get; set; }
         public int CourseId { get; set; }
-        public string PlayFormat { get; set; }
+        public int PlayFormat { get; set; }
         public int NumberOfHoles { get; set; }
-        public byte IsShotgunStart { get; set; }
+        public bool IsShotgunStart { get; set; }
         public string Sponsor { get; set; }
         public int PlayListId { get; set; }
+        public int OrgId { get; set; }
+        public int StartHoleId { get; set; }
+        public int NumGroups { get; set; }
+        public int NumPerGroup { get; set; }
     }
 }

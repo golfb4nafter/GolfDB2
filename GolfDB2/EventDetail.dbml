@@ -2,14 +2,18 @@
   <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-S7JQFF1\SQLEXPRESS;Initial Catalog=GolfDB20161207-01;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="GolfDB20161207_01ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.EventDetail" Member="EventDetails">
     <Type Name="EventDetail">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="EventId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CourseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="PlayFormat" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PlayFormat" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="NumberOfHoles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IsShotgunStart" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="IsShotgunStart" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Sponsor" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="PlayListId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrgId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartHoleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumGroups" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumPerGroup" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

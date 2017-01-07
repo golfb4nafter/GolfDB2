@@ -47,7 +47,7 @@
             @Html.Label("Course Name", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.CourseId,
-                                      GolfDB2.Models.MiscLists.GetCourseNamesSelectList(),
+                                      GolfDB2.Tools.MiscLists.GetCourseNamesSelectList(),
                                       new { @onchange = "courseNameChanged(this.value)" })
                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
             </div>
@@ -65,7 +65,7 @@
             @Html.Label("GPS", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.GeoSpatialDataId,
-                                      GolfDB2.Models.MiscLists.GetGeoSpatialDataPointsByCourseId(1))
+                                      GolfDB2.Tools.MiscLists.GetGeoSpatialDataPointsByCourseId(1))
                 @Html.ValidationMessageFor(model => model.GeoSpatialDataId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -73,7 +73,7 @@
         <div class="form-group">
             @Html.Label("Object Type", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.GeoObjectType, GolfDB2.Models.MiscLists.GetObjectTypeSelectList())
+                @Html.DropDownListFor(model => model.GeoObjectType, GolfDB2.Tools.MiscLists.GetObjectTypeSelectList())
                 @Html.ValidationMessageFor(model => model.GeoObjectType, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,7 +81,7 @@
         <div class="form-group">
             @Html.Label("Hole Number", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.HoleId, GolfDB2.Models.MiscLists.GetHoleListByCourseId(1))
+                @Html.DropDownListFor(model => model.HoleId, GolfDB2.Tools.MiscLists.GetHoleListByCourseId(1))
                 @Html.ValidationMessageFor(model => model.HoleId, "", new { @class = "text-danger" })
             </div>
         </div>

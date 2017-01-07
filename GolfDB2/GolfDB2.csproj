@@ -354,11 +354,18 @@
     <Content Include="Views\CalendarEvents\Details.cshtml" />
     <Content Include="Views\CalendarEvents\Index.cshtml" />
     <Content Include="Views\Setup\Index.cshtml" />
-    <Content Include="Views\EventDetails\Create.cshtml" />
-    <Content Include="Views\EventDetails\Delete.cshtml" />
-    <Content Include="Views\EventDetails\Details.cshtml" />
     <Content Include="Views\EventDetails\Edit.cshtml" />
-    <Content Include="Views\EventDetails\Index.cshtml" />
+    <Content Include="Views\TeeTimes\Create.cshtml" />
+    <Content Include="Views\TeeTimes\Delete.cshtml" />
+    <Content Include="Views\TeeTimes\Details.cshtml" />
+    <Content Include="Views\TeeTimes\Edit.cshtml" />
+    <Content Include="Views\TeeTimes\Index.cshtml" />
+    <Content Include="Views\EventDetails\TeeTimes.cshtml" />
+    <Content Include="TeeTime.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>TeeTime.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -443,15 +450,8 @@
     <Compile Include="Controllers\GeoObjectTypesController.cs" />
     <Compile Include="Controllers\GeoSpatialTablesController.cs" />
     <Compile Include="Controllers\GolfersController.cs" />
-    <Compile Include="Controllers\RApiCourseNameController .cs" />
-    <Compile Include="Controllers\RApiGPSDescriptionController.cs" />
-    <Compile Include="Controllers\RApiGPSPointListController.cs" />
-    <Compile Include="Controllers\RApiNineLabelsListController.cs" />
-    <Compile Include="Controllers\RApiHoleNumberController.cs" />
-    <Compile Include="Controllers\RApiObjectTypeController.cs" />
-    <Compile Include="Controllers\RApiObjectListController.cs" />
-    <Compile Include="Controllers\RApiCourseController.cs" />
-    <Compile Include="Controllers\RApiHoleListController.cs" />
+    <Compile Include="Controllers\HtmlApiController.cs" />
+    <Compile Include="Controllers\SelectListApiController.cs" />
     <Compile Include="Controllers\HolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LabelsController.cs" />
@@ -460,8 +460,11 @@
     <Compile Include="Controllers\ScoreCardPlayersController.cs" />
     <Compile Include="Controllers\ScoreCardsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
+    <Compile Include="Controllers\TeeTimesController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
-    <Compile Include="EventDetail.cs">
+    <Compile Include="EventDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>EventDetail.dbml</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -474,14 +477,10 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\TeeTime.cs" />
     <Compile Include="Models\EventDetail.cs" />
     <Compile Include="Models\CalendarEvent.cs" />
     <Compile Include="Models\CourseData.cs" />
-    <Compile Include="EventDetail.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EventDetail.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Models\GeoData.cs" />
     <Compile Include="Models\GeoObjectType.cs" />
     <Compile Include="Models\GeoSpatialTable.cs" />
@@ -495,10 +494,17 @@
     <Compile Include="Models\Hole.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MiscLists.cs" />
+    <Compile Include="TeeTime.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TeeTime.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\HtmlFactory.cs" />
+    <Compile Include="Tools\MiscLists.cs" />
     <Compile Include="Models\SetupModel.cs" />
-    <Compile Include="Models\SqlLists.cs" />
-    <Compile Include="Models\SqlListParam.cs" />
+    <Compile Include="Tools\ShotgunHoleCalculator.cs" />
+    <Compile Include="Tools\SqlLists.cs" />
+    <Compile Include="Tools\SqlListParam.cs" />
     <Compile Include="Models\States.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -506,9 +512,12 @@
     <Compile Include="Tools\CourseRatingsCache.cs" />
     <Compile Include="Tools\GlobalSettingsApi.cs" />
     <Compile Include="Tools\GolfDB2Logger.cs" />
+    <Compile Include="Tools\StoredProcedures.cs" />
+    <Compile Include="Tools\TeeTimeTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Backend\" />
+    <Folder Include="Views\TeeTime\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -526,6 +535,11 @@
   <ItemGroup>
     <None Include="EventDetail.dbml.layout">
       <DependentUpon>EventDetail.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TeeTime.dbml.layout">
+      <DependentUpon>TeeTime.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

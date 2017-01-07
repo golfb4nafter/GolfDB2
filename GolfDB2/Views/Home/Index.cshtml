@@ -86,8 +86,8 @@
             };
 
             dp.onEventClick = function (args) {
-                //window.open('/EventDetails/Edit/1', '_blank');
-                alert("clicked: " + args.e.id());
+                window.open('/EventDetails/Edit/' + args.e.id(), '_blank');
+                //alert("clicked: " + args.e.id());
             };
 
             dp.init();

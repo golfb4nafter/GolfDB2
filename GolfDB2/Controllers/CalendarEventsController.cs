@@ -19,6 +19,9 @@ namespace GolfDB2.Controllers
         // GET: CalendarEvents
         public ActionResult Index()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             string d1 = Request.Params.Get("fromDate");
             string d2 = Request.Params.Get("toDate");
 
@@ -62,6 +65,9 @@ namespace GolfDB2.Controllers
         // GET: CalendarEvents/Details/5
         public ActionResult Details(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -133,6 +139,9 @@ namespace GolfDB2.Controllers
         // GET: CalendarEvents/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

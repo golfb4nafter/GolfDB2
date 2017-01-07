@@ -9,10 +9,35 @@ namespace GolfDB2.Tools
 {
     public class EventDetailTools
     {
+
+        public string MakeEventLabelString(int eventId, string connectionString)
+        {
+            try
+            {
+                string query = string.Format("SELECT [Id], [CourseId], [text], [start], [end] FROM Event WHERE Id={0}", eventId);
+
+                List<SqlListParam> parms = new List<SqlListParam>();
+                parms.Add(new SqlListParam() { name = "Id", ordinal = 0, type = ParamType.int32 });
+                parms.Add(new SqlListParam() { name = "CourseId", ordinal = 1, type = ParamType.int32 });
+                parms.Add(new SqlListParam() { name = "text", ordinal = 2, type = ParamType.charString });
+                parms.Add(new SqlListParam() { name = "start", ordinal = 3, type = ParamType.dateTime });
+                parms.Add(new SqlListParam() { name = "end", ordinal = 4, type = ParamType.dateTime });
+
+                string resp = SqlLists.SqlQuery(query, parms, connectionString);
+                Event evt = JsonConvert.DeserializeObject<Event>(resp);
+
+                return string.Format("{0},{1},{2}", evt.text, evt.start, evt.end);
+            }
+            catch (Exception ex)
+            {
+                GolfDB2Logger.LogError("MakeEventLabelString", ex.ToString());
+            }
+
+            return "";
+        }
+
         public int LookupOrCreateEventDetailRecord(int eventId, string connectionString)
         {
-            int eventDetailId = 0;
-
             try
             {
                 // using EventId lookup EventDetails Id
@@ -25,13 +50,15 @@ namespace GolfDB2.Tools
                 if (string.IsNullOrEmpty(resp))
                 {
                     // If no detail record exists create an empty entry with reasonable defaults.
-                    return AddEventDetail(eventId,
+                     return AddEventDetail(eventId,
                                           GlobalSettingsApi.GetInstance(connectionString).CourseId,
-                                          "Stroke Play",
-                                          18,
-                                          0, // not shotgun start
+                                          1,
+                                          12, // 18 holes for default
+                                          false, // not shotgun start
                                           "unknown", // sponsor name
                                           GetPlayListIdByLabel("1-18", connectionString), // 
+                                          1,
+                                          1,
                                           connectionString);
                 }
                 else
@@ -61,13 +88,15 @@ namespace GolfDB2.Tools
         }
 
         public int AddEventDetail(int eventId, 
-                                   int courseId, 
-                                   string playFormat, 
-                                   int numberOfHoles, 
-                                   byte isShotgunStart, 
-                                   string sponsor, 
-                                   int playListId, 
-                                   string connectionString)
+                                  int courseId, 
+                                  int playFormat, 
+                                  int numberOfHoles, 
+                                  bool isShotgunStart, 
+                                  string sponsor, 
+                                  int playListId, 
+                                  int orgId,
+                                  int startHoleId,
+                                  string connectionString)
         {
             EventDetailDataContext db = null;
 
@@ -90,7 +119,9 @@ namespace GolfDB2.Tools
                     NumberOfHoles = numberOfHoles,
                     IsShotgunStart = isShotgunStart,
                     Sponsor = sponsor,
-                    PlayListId = playListId
+                    PlayListId = playListId,
+                    OrgId = orgId,
+                    StartHoleId = startHoleId
                 };
 
                 db.EventDetails.InsertOnSubmit(obj);

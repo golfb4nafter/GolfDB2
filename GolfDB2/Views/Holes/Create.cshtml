@@ -49,7 +49,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CourseId, GolfDB2.Models.MiscLists.GetCourseNamesSelectList(),
+                @Html.DropDownListFor(model => model.CourseId, GolfDB2.Tools.MiscLists.GetCourseNamesSelectList(),
                                       new { @onchange = "courseNameChanged(this.value)" })
                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
             </div>
@@ -58,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Nine, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Nine,GolfDB2.Models.MiscLists.GetNineLabelsSelectListByCourseIdAndType(1,null))
+                @Html.DropDownListFor(model => model.Nine,GolfDB2.Tools.MiscLists.GetNineLabelsSelectListByCourseIdAndType(1,null))
                 @Html.ValidationMessageFor(model => model.Nine, "", new { @class = "text-danger" })
             </div>
         </div>

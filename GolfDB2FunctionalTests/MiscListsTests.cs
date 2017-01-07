@@ -23,7 +23,7 @@ namespace GolfDB2FunctionalTests
         [TestMethod]
         public void GetNineLabelsByCourseIdAndType()
         {
-            string json = MiscLists.GetNineLabelsByCourseIdAndType(1, "Nine", connectionString);
+            string json = MiscLists.GetLabelsByCourseIdAndType(1, "Nine", connectionString);
             Console.Out.WriteLine(json);
             string expected = "[{\"Value\":\"2\",\"Text\":\"Front\"},{\"Value\":\"3\",\"Text\":\"Back\"},{\"Value\":\"4\",\"Text\":\"Third\"}]";
             Assert.AreEqual(json, expected);
@@ -140,8 +140,41 @@ namespace GolfDB2FunctionalTests
             Assert.IsTrue(resp == 1);
 
             resp = tool.LookupOrCreateEventDetailRecord(7, connectionString);
-            Assert.IsTrue(resp == 1);
+            Assert.IsTrue(resp != 1);
         }
 
+        [TestMethod]
+        public void MakeEventLabelString()
+        {
+            EventDetailTools tool = new EventDetailTools();
+            string resp = tool.MakeEventLabelString(10, connectionString);
+
+            Assert.IsTrue(resp != null);
+        }
+
+        [TestMethod]
+        public void GetEventIdFromEventDetailByEventDetailId()
+        {
+            int id = MiscLists.GetIdFromEventDetailByEventDetailId(7, connectionString);
+
+            Assert.IsTrue(id == 2);
+        }
+
+        [TestMethod]
+        public void GetListOfInUseTeeTimesFor()
+        {
+            Dictionary<int, int> dict = MiscLists.GetListOfInUseTeeTimesFor(12, 29, 2016, 1, connectionString);
+
+            Assert.IsTrue(dict != null);
+        }
+
+        [TestMethod]
+        public void MakeListOfAvailableTeeTimes()
+        {
+            List<SelectListItem> items = MiscLists.MakeListOfAvailableTeeTimes(12, 29, 2016, 1, 0, connectionString);
+
+            Assert.IsTrue(items != null);
+
+        }
     }
 }

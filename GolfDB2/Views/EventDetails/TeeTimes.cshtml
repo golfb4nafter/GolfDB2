@@ -1,0 +1,38 @@
+﻿@model GolfDB2.Models.EventDetail
+
+@{
+    ViewBag.Title = "TeeTimes";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string eventText = GolfDB2.Tools.MiscLists.GetEventTextByEventId(Model.EventId, null);
+    string courseName = GolfDB2.Tools.MiscLists.GetCourseNameById(Model.CourseId, null);
+
+    int numHoles = Model.NumberOfHoles;
+    bool isShotgun = Model.IsShotgunStart;
+    string sponsor = Model.Sponsor;
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.CourseId)
+    @Html.HiddenFor(model => model.EventId)
+
+    int eventId = Model.EventId;
+}
+
+<script>
+    //alert("Hello!" + " @eventId");
+    $.ajax({
+        url: '/api/HtmlApi?action=teetimes&eventId=@eventId',
+        dataType: 'html',
+        success: function (response) {
+            //alert(response);
+            $('#myListDiv').html(response);
+        }
+    });
+</script>
+
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <div id="myListDiv"></div>
+</div>

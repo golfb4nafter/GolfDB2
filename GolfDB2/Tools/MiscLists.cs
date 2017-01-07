@@ -2,10 +2,12 @@
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 using Newtonsoft.Json;
-using GolfDB2.Tools;
+using GolfDB2.Models;
 
-namespace GolfDB2.Models
+namespace GolfDB2.Tools
 {
     // Todo:
     //    1) Error handling.
@@ -27,7 +29,7 @@ namespace GolfDB2.Models
         /// <param name="labelType"></param>
         /// <param name="connectionString"></param>
         /// <returns></returns>
-        public static string GetNineLabelsByCourseIdAndType(int courseId, string labelType, string connectionString)
+        public static string GetLabelsByCourseIdAndType(int courseId, string labelType, string connectionString)
         {
             List<SqlListParam> parms = new List<SqlListParam>();
             parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
@@ -36,10 +38,34 @@ namespace GolfDB2.Models
             return SqlLists.SqlQuery(query, parms, connectionString);
         }
 
+        public static List<SelectListItem> GetPlayFormatListByCourseIdAndType(int courseId, string connectionString)
+        {
+            string json = GetLabelsByCourseIdAndType(courseId, "PlayFormat", connectionString);
+            List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
+            return items;
+        }
+
         public static List<SelectListItem> GetNineLabelsSelectListByCourseIdAndType(int courseId, string connectionString)
         {
-            string json = GetNineLabelsByCourseIdAndType(courseId, "Nine", connectionString);
+            string json = GetLabelsByCourseIdAndType(courseId, "Nine", connectionString);
             List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
+            return items;
+        }
+
+        public static List<SelectListItem> GetNumberOfHolesSelectListByCourseIdAndType(int courseId, int selection, string connectionString)
+        {
+            string json = GetLabelsByCourseIdAndType(courseId, "NumberOfHoles", connectionString);
+            List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
+
+            foreach (SelectListItem item in items)
+            {
+                if (int.Parse(item.Value) == selection)
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
+
             return items;
         }
 
@@ -125,6 +151,17 @@ namespace GolfDB2.Models
         public static List<SelectListItem> GetHoleListByCourseId(int courseId)
         {
             string json = GetHoleListByCourseId(courseId, null);
+            List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
+            return items;
+        }
+
+        public static List<SelectListItem> GetHoleListSelectListByCourseId(int courseId, string connectionString)
+        {
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "Text", ordinal = 1, type = ParamType.charString });
+            string query = string.Format("SELECT Id, Label FROM HoleList WHERE CourseId={0}", courseId);
+            string json = SqlLists.SqlQuery(query, parms, connectionString);
             List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(json);
             return items;
         }
@@ -266,5 +303,221 @@ namespace GolfDB2.Models
             items.Add(new SelectListItem() { Text = "DEBUG", Value = "5" });
             return items;
         }
+
+        public static int GetIdFromEventDetailByEventDetailId(int eventDetailId, string connectionString)
+        {
+            // using EventId lookup EventDetails Id
+            string query = string.Format("SELECT Id from EventDetail WHERE EventId={0}", eventDetailId);
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            string resp = SqlLists.SqlQuery(query, parms, connectionString);
+
+            KeyValuePair kvp = JsonConvert.DeserializeObject<KeyValuePair>(resp);
+            return int.Parse(kvp.Value);
+        }
+
+        public static string GetEventTextByEventId(int eventId, string connectionString)
+        {
+            // using EventId lookup EventDetails Id
+            string query = string.Format("SELECT text from Event WHERE id={0}", eventId);
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.charString });
+            string resp = SqlLists.SqlQuery(query, parms, connectionString);
+
+            KeyValuePair kvp = JsonConvert.DeserializeObject<KeyValuePair>(resp);
+
+            if (kvp == null)
+                return "open";
+
+            if (string.IsNullOrEmpty(kvp.Value))
+                return "open";
+
+            return kvp.Value;
+        }
+
+        public static List<SelectListItem> GetEventSelectList(int courseId, string connectionString)
+        {
+            string query = string.Format("SELECT [Id], [text] from [Event] WHERE [CourseId]={0} AND [start] >= '{1}' ORDER BY [start]", courseId, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "Text", ordinal = 1, type = ParamType.charString });
+            string json = SqlLists.SqlQuery(query, parms, connectionString);
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem() { Value = "0", Text = "open" });
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                if (json.StartsWith("["))
+                    items.AddRange(JsonConvert.DeserializeObject<List<SelectListItem>>(json));
+                else
+                    items.Add(JsonConvert.DeserializeObject<SelectListItem>(json));
+            }
+
+            return items;
+        }
+
+        public static Dictionary<int, int> GetListOfInUseTeeTimesFor(int month, int day, int year, int holeId, string connectionString)
+        {
+            string startTime = new DateTime(year, month, day, 7, 0, 0).ToString("yyyy-MM-dd HH:mm:ss");
+            string endTime = new DateTime(year, month, day, 17, 0, 0).ToString("yyyy-MM-dd HH:mm:ss");
+
+            string query = string.Format("SELECT TeeTimeOffset FROM TeeTime WHERE HoleId={0} AND Tee_Time >= '{1}.000' AND Tee_Time <= '{2}.000'", holeId, startTime, endTime);
+
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+
+            string resp = SqlLists.SqlQuery(query, parms, connectionString);
+
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+
+            if (resp.StartsWith("["))
+            {
+                List<KeyValuePair> kvpList = JsonConvert.DeserializeObject<List<KeyValuePair>>(resp);
+                foreach (KeyValuePair p in kvpList)
+                {
+                    dict.Add(int.Parse(p.Value), int.Parse(p.Value));
+                }
+            }
+            else if (string.IsNullOrEmpty(resp))
+            {
+                return dict;
+            }
+            else
+            {
+                KeyValuePair kvp = JsonConvert.DeserializeObject<KeyValuePair>(resp);
+                dict.Add(int.Parse(kvp.Value), int.Parse(kvp.Value));
+            }
+
+            return dict;
+        }
+
+        public static List<SelectListItem> MakeListOfAvailableTeeTimes(int month, int day, int year, int holeId, int eventId, string connectionString)
+        {
+            // Assume number 1, not associated with an event
+            // Starting at 7:00 AM with a 10 minute interval.
+            // Ending at 5:00 PM 
+            // 6 tee times per hour * 10 hours.
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+
+            DateTime curDateTime = new DateTime(year, month, day, 7, 0, 0);
+
+            Dictionary<int, int> reserved = GetListOfInUseTeeTimesFor(month, day, year, holeId, connectionString);
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            for (int i = 0; i < 60; i++)
+            {
+                // Filter for tee times in the past.
+                if (curDateTime.AddMinutes(i * 10) < DateTime.Now)
+                    continue;
+
+                // Filter out any in use tee times.
+                try
+                {
+                    int v = reserved[i];  // Already in use ?
+
+                    continue;
+                }
+                catch { } // It's not in the dictionary so it can be ignored safely.
+
+                string tmp = curDateTime.AddMinutes(i * 10).ToString("MM/dd/yyyy HH:mm:ss");
+
+                // Slyly hide the ordinal of the tee time in the milliseconds date field..
+                SelectListItem item = new SelectListItem() { Text = tmp, Value = tmp + "." + i.ToString() };
+
+                items.Add(item);
+            }
+
+            return items;
+        }
+
+        public static List<SelectListItem> OrgSelectList(string connectionString)
+        {
+            string query = "SELECT [Id], [OrgName] from [Organization] ORDER BY [OrgName]";
+
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            parms.Add(new SqlListParam() { name = "Text", ordinal = 1, type = ParamType.charString });
+            string json = SqlLists.SqlQuery(query, parms, connectionString);
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                if (json.StartsWith("["))
+                    items.AddRange(JsonConvert.DeserializeObject<List<SelectListItem>>(json));
+                else
+                    items.Add(JsonConvert.DeserializeObject<SelectListItem>(json));
+            }
+
+            return items;
+        }
+
+        public static List<SelectListItem> StartingHoleSelectList(int courseId, int playlistId, bool isShotgunStart, string connectionString)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            // GetHoleListByPlayListId
+            string query = string.Format("SELECT [HoleList] From [HoleList] WHERE CourseId={0} AND Id = {1}", courseId, playlistId);
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.charString });
+            string json = SqlLists.SqlQuery(query, parms, connectionString);
+            KeyValuePair kvp = JsonConvert.DeserializeObject<KeyValuePair>(json);
+
+            string[] holeList = kvp.Value.Split(',');
+
+            foreach (string s in holeList)
+            {
+                if (!isShotgunStart && !(s == "1" || s == "10" || s == "19"))
+                    continue;
+
+                int id = GetHoleIdByHoleNumber(courseId, int.Parse(s), connectionString);
+                SelectListItem item = new SelectListItem() { Value = id.ToString(), Text = s };
+                items.Add(item);
+            }
+
+            return items;
+        }
+
+        public static List<SelectListItem> StartingHoleSelectListByCourseId(int courseId, string connectionString)
+        {
+            string query = string.Format("SELECT [NumberOfNines] FROM [CourseData] WHERE [Id]={0}", courseId);
+
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            string json = SqlLists.SqlQuery(query, parms, connectionString);
+
+            int count = 1;
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                KeyValuePair kvp = JsonConvert.DeserializeObject<KeyValuePair>(json);
+                count = int.Parse(kvp.Value);
+            }
+
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            for (int i = 0; i < count; i++)
+            {
+                // Lookup Id from Hole table.
+                int id = GetHoleIdByHoleNumber(courseId, (i * 9) + 1, connectionString);
+                SelectListItem item = new SelectListItem() { Value = ((i * 9) + 1).ToString(), Text = ((i * 9) + 1).ToString() };
+
+                items.Add(item);
+            }
+
+            return items;
+        }
+
+        public static int GetHoleIdByHoleNumber(int courseId, int holeNumber, string connectionString)
+        {
+            List<SqlListParam> parms = new List<SqlListParam>();
+            parms.Add(new SqlListParam() { name = "Value", ordinal = 0, type = ParamType.int32 });
+            string query = string.Format("SELECT id FROM Hole WHERE CourseId={0} AND Number={1}", courseId, holeNumber);
+            string resp = SqlLists.SqlQuery(query, parms, connectionString);
+            KeyValuePair kvp = JsonConvert.DeserializeObject<KeyValuePair>(resp);
+            return int.Parse(kvp.Value);
+        }
+     
     }
 }

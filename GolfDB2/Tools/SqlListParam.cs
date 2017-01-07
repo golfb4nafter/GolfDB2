@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 
-namespace GolfDB2.Models
+namespace GolfDB2.Tools
 {
 
     public enum ParamType
@@ -12,7 +12,8 @@ namespace GolfDB2.Models
         int32,
         charString,
         boolVal,
-        numeric
+        numeric,
+        dateTime
     }
 
     public class SqlListParam
@@ -22,5 +23,10 @@ namespace GolfDB2.Models
         public ParamType type { get; set; }
 
         public string name { get; set; }
+
+        public string ToText()
+        {
+            return string.Format("ordinal={0}, type={1}, name={2}\r\n",ordinal ,type.ToString("G"), name);
+        }
     }
 }

@@ -33,11 +33,11 @@
     <tr>
         <td>
             @*@Html.DisplayFor(modelItem => item.CourseId)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetCourseNameById(item.CourseId, null))
+            @Html.DisplayName(GolfDB2.Tools.MiscLists.GetCourseNameById(item.CourseId, null))
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.Nine)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetNineNameByCourseIdAndZeroBasedOrdinal(item.CourseId, item.Nine, null))
+            @Html.DisplayName(GolfDB2.Tools.MiscLists.GetNineNameByCourseIdAndZeroBasedOrdinal(item.CourseId, item.Nine, null))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Number)

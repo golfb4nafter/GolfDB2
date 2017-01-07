@@ -1,0 +1,75 @@
+﻿@model GolfDB2.Models.TeeTime
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TeeTime</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TeeTimeOffset)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeeTimeOffset)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tee_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tee_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReservedByName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReservedByName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelephoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelephoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoleId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoleId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

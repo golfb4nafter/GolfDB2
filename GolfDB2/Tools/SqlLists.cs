@@ -3,9 +3,9 @@ using System.Text;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using GolfDB2.Tools;
+using GolfDB2.Models;
 
-namespace GolfDB2.Models
+namespace GolfDB2.Tools
 {
     public class SqlLists
     {
@@ -19,8 +19,24 @@ namespace GolfDB2.Models
             return seperator + "\"" + label + "\":\"" + value + "\"";
         }
 
-        private static string formatAsJson(SqlDataReader rdr, List<SqlListParam> parms)
+        public static string DumpParmList(List<SqlListParam> parms)
         {
+            StringBuilder resp = new StringBuilder();
+
+            resp.Append("{\r\n");
+
+            foreach (SqlListParam p in parms)
+                resp.Append(p.ToText());
+
+            resp.Append("}\r\n");
+
+            return resp.ToString();
+        }
+
+        private static string FormatAsJson(SqlDataReader rdr, List<SqlListParam> parms)
+        {
+            GolfDB2Logger.LogDebug("FormatAsJson", DumpParmList(parms));
+
             StringBuilder jsonString = new StringBuilder();
             string seperator = "";
 
@@ -53,6 +69,10 @@ namespace GolfDB2.Models
                         case ParamType.numeric:
                             value = rdr.GetDecimal(p.ordinal).ToString();
                             break;
+
+                        case ParamType.dateTime:
+                            value = rdr.GetDateTime(p.ordinal).ToLongTimeString();
+                            break;
                     }
 
                     jsonString.Append(MakeLabelValuePair(p.name, value, seperator));
@@ -70,6 +90,8 @@ namespace GolfDB2.Models
 
         public static string SqlQuery(string query, List<SqlListParam> parms, string connectionString)
         {
+            GolfDB2Logger.LogDebug("SqlQuery", string.Format("Query: {0}", query));
+
             StringBuilder jsonString = new StringBuilder();
             int count = 0;
 
@@ -90,7 +112,7 @@ namespace GolfDB2.Models
                             if (count > 0)
                                 jsonString.Append(",");
 
-                            jsonString.Append(formatAsJson(rdr, parms)); // Converts a single row
+                            jsonString.Append(FormatAsJson(rdr, parms)); // Converts a single row
 
                             count++;
                         }
