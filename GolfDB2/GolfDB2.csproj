@@ -264,24 +264,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Calendar.dbml">
+    <Content Include="GolfDB2.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Calendar.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="GlobalSettings.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>GlobalSettings.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="EventDetail.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>EventDetail.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="HoleList.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>HoleList.designer.cs</LastGenOutput>
+      <LastGenOutput>GolfDB2.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
@@ -366,11 +351,6 @@
     <Content Include="Views\TeeTimes\Edit.cshtml" />
     <Content Include="Views\TeeTimes\Index.cshtml" />
     <Content Include="Views\EventDetails\TeeTimes.cshtml" />
-    <Content Include="TeeTime.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>TeeTime.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -440,11 +420,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Calendar.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Calendar.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BackendController.cs" />
     <Compile Include="Controllers\CalendarEventsController.cs" />
@@ -467,23 +442,13 @@
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\TeeTimesController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
-    <Compile Include="EventDetail.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EventDetail.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GlobalSettings.designer.cs">
+    <Compile Include="GolfDB2.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GlobalSettings.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="HoleList.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HoleList.dbml</DependentUpon>
+      <DependentUpon>GolfDB2.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -504,11 +469,6 @@
     <Compile Include="Models\Hole.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="TeeTime.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TeeTime.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Tools\HtmlFactory.cs" />
     <Compile Include="Tools\MiscLists.cs" />
     <Compile Include="Models\SetupModel.cs" />
@@ -533,28 +493,8 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Calendar.dbml.layout">
-      <DependentUpon>Calendar.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="GlobalSettings.dbml.layout">
-      <DependentUpon>GlobalSettings.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="EventDetail.dbml.layout">
-      <DependentUpon>EventDetail.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TeeTime.dbml.layout">
-      <DependentUpon>TeeTime.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="HoleList.dbml.layout">
-      <DependentUpon>HoleList.dbml</DependentUpon>
+    <None Include="GolfDB2.dbml.layout">
+      <DependentUpon>GolfDB2.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

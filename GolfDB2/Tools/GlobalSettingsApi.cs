@@ -17,7 +17,6 @@ namespace GolfDB2.Tools
 
         private static GlobalSettingsApi _instance = null;
 
-
         public static GlobalSettingsApi GetInstance()
         {
             if (_instance == null)
@@ -38,7 +37,7 @@ namespace GolfDB2.Tools
         }
 
         private readonly string _connectionString = null;
-        GlobalSettingsDataContext db = null;
+        GolfDB2DataContext db = null;
 
         public int CourseId { get; set; }
         public int LogLevel { get; set; }
@@ -77,9 +76,9 @@ namespace GolfDB2.Tools
             if (db == null)
             {
                 if (!string.IsNullOrEmpty(_connectionString))
-                    db = new GlobalSettingsDataContext(_connectionString);
+                    db = new GolfDB2DataContext(_connectionString);
                 else
-                    db = new GlobalSettingsDataContext();
+                    db = new GolfDB2DataContext();
             }
 
             var globalSettings = from ev in db.GlobalSettings.AsEnumerable()
@@ -107,9 +106,9 @@ namespace GolfDB2.Tools
             if (db == null)
             {
                 if (!string.IsNullOrEmpty(_connectionString))
-                    db = new GlobalSettingsDataContext(_connectionString);
+                    db = new GolfDB2DataContext(_connectionString);
                 else
-                    db = new GlobalSettingsDataContext();
+                    db = new GolfDB2DataContext();
             }
 
             GlobalSetting obj = null;
@@ -135,9 +134,9 @@ namespace GolfDB2.Tools
             if (db == null)
             {
                 if (!string.IsNullOrEmpty(_connectionString))
-                    db = new GlobalSettingsDataContext(_connectionString);
+                    db = new GolfDB2DataContext(_connectionString);
                 else
-                    db = new GlobalSettingsDataContext();
+                    db = new GolfDB2DataContext();
             }
 
             GlobalSetting obj = null;

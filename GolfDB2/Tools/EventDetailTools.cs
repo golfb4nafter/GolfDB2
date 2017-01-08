@@ -98,14 +98,14 @@ namespace GolfDB2.Tools
                                   int startHoleId,
                                   string connectionString)
         {
-            EventDetailDataContext db = null;
+            GolfDB2DataContext db = null;
 
             if (db == null)
             {
                 if (!string.IsNullOrEmpty(connectionString))
-                    db = new EventDetailDataContext(connectionString);
+                    db = new GolfDB2DataContext(connectionString);
                 else
-                    db = new EventDetailDataContext();
+                    db = new GolfDB2DataContext();
             }
 
             EventDetail obj = null;

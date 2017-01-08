@@ -11,50 +11,50 @@ namespace GolfDB2.Tools
     {
         public static EventDetail GetEventDetail(int eventId, string connectionString)
         {
-            EventDetailDataContext db = null;
+            GolfDB2DataContext db = null;
 
             if (!string.IsNullOrEmpty(connectionString))
-                db = new EventDetailDataContext(connectionString);
+                db = new GolfDB2DataContext(connectionString);
             else
-                db = new EventDetailDataContext();
+                db = new GolfDB2DataContext();
 
             return (from ed in db.GetTable<EventDetail>() where ed.EventId == eventId select ed).SingleOrDefault();
         }
 
         public static Event GetCalendarEvent(int id, string connectionString)
         {
-            CalendarDataContext db = null;
+            GolfDB2DataContext db = null;
 
             if (!string.IsNullOrEmpty(connectionString))
-                db = new CalendarDataContext(connectionString);
+                db = new GolfDB2DataContext(connectionString);
             else
-                db = new CalendarDataContext();
+                db = new GolfDB2DataContext();
 
             return (from e in db.GetTable<Event>() where e.id == id select e).SingleOrDefault();
         }
 
         public static TeeTime GetTeeTime(int id, string connectionString)
         {
-            TeeTimeDataContext db = null;
+            GolfDB2DataContext db = null;
             TeeTime tt = null;
 
             if (!string.IsNullOrEmpty(connectionString))
-                db = new TeeTimeDataContext(connectionString);
+                db = new GolfDB2DataContext(connectionString);
             else
-                db = new TeeTimeDataContext();
+                db = new GolfDB2DataContext();
 
             return (from c in db.GetTable<TeeTime>() where c.Id == id select c).SingleOrDefault();
         }
 
         public static TeeTime GetTeeTime(int eventId, int teeTimeOffset, string connectionString)
         {
-            TeeTimeDataContext db = null;
+            GolfDB2DataContext db = null;
             TeeTime tt = null;
 
             if (!string.IsNullOrEmpty(connectionString))
-                db = new TeeTimeDataContext(connectionString);
+                db = new GolfDB2DataContext(connectionString);
             else
-                db = new TeeTimeDataContext();
+                db = new GolfDB2DataContext();
 
             return (from c in db.GetTable<TeeTime>() where (c.EventId == eventId && c.TeeTimeOffset == teeTimeOffset) select c).SingleOrDefault();
         }
@@ -166,12 +166,12 @@ namespace GolfDB2.Tools
 
         public static void InsertTeeTime(TeeTime tt, string connectionString)
         {
-            TeeTimeDataContext db = null;
+            GolfDB2DataContext db = null;
 
             if (!string.IsNullOrEmpty(connectionString))
-                db = new TeeTimeDataContext(connectionString);
+                db = new GolfDB2DataContext(connectionString);
             else
-                db = new TeeTimeDataContext();
+                db = new GolfDB2DataContext();
 
             try
             {
@@ -186,12 +186,12 @@ namespace GolfDB2.Tools
 
         public static bool DeleteTeeTimes(int eventId, string connectionString)
         {
-            TeeTimeDataContext db = null;
+            GolfDB2DataContext db = null;
 
             if (!string.IsNullOrEmpty(connectionString))
-                db = new TeeTimeDataContext(connectionString);
+                db = new GolfDB2DataContext(connectionString);
             else
-                db = new TeeTimeDataContext();
+                db = new GolfDB2DataContext();
 
             try
             {
@@ -210,12 +210,12 @@ namespace GolfDB2.Tools
 
         public static TeeTime UpdateTeeTime(TeeTime tt, string connectionString)
         {
-            TeeTimeDataContext db = null;
+            GolfDB2DataContext db = null;
 
             if (!string.IsNullOrEmpty(connectionString))
-                db = new TeeTimeDataContext(connectionString);
+                db = new GolfDB2DataContext(connectionString);
             else
-                db = new TeeTimeDataContext();
+                db = new GolfDB2DataContext();
 
             try
             {

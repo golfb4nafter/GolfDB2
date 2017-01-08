@@ -13,7 +13,7 @@ namespace GolfDB2.Controllers
 {
     public class BackendController : Controller
     {
-        CalendarDataContext db = new CalendarDataContext();
+        GolfDB2DataContext db = new GolfDB2DataContext();
 
         public class JsonEvent
         {

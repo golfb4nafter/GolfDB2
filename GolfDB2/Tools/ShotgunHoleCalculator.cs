@@ -10,40 +10,40 @@ namespace GolfDB2.Tools
 
         public static HoleList GetHoleListById(int id, string connectionString)
         {
-            HoleListDataContext db = null;
+            GolfDB2DataContext db = null;
 
             if (!string.IsNullOrEmpty(connectionString))
-                db = new HoleListDataContext(connectionString);
+                db = new GolfDB2DataContext(connectionString);
             else
-                db = new HoleListDataContext();
+                db = new GolfDB2DataContext();
 
             return (from hl in db.GetTable<HoleList>() where hl.Id == id select hl).SingleOrDefault();
         }
 
         public static Hole GetHoleByHoleNumber(int holeNumber, string connectionString)
         {
-            HoleListDataContext db = null;
+            GolfDB2DataContext db = null;
 
             int courseId = GlobalSettingsApi.GetInstance().CourseId;
 
             if (!string.IsNullOrEmpty(connectionString))
-                db = new HoleListDataContext(connectionString);
+                db = new GolfDB2DataContext(connectionString);
             else
-                db = new HoleListDataContext();
+                db = new GolfDB2DataContext();
 
             return (from h in db.GetTable<Hole>() where (h.Number == holeNumber && h.CourseId == courseId) select h).SingleOrDefault();
         }
 
         public static Hole GetHoleById(int id, string connectionString)
         {
-            HoleListDataContext db = null;
+            GolfDB2DataContext db = null;
 
             int courseId = GlobalSettingsApi.GetInstance().CourseId;
 
             if (!string.IsNullOrEmpty(connectionString))
-                db = new HoleListDataContext(connectionString);
+                db = new GolfDB2DataContext(connectionString);
             else
-                db = new HoleListDataContext();
+                db = new GolfDB2DataContext();
 
             return (from h in db.GetTable<Hole>() where (h.Id == id && h.CourseId == courseId) select h).SingleOrDefault();
         }
