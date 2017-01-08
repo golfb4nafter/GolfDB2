@@ -58,6 +58,29 @@ namespace GolfDB2.Tools
 
             return (from c in db.GetTable<TeeTime>() where (c.EventId == eventId && c.TeeTimeOffset == teeTimeOffset) select c).SingleOrDefault();
         }
+       
+        public static string GetStartingHoleByHoleId(int eventId, int ordinal, int holeId, string connectionString)
+        {
+            // Dereference holeId to HoleNumber.
+            Hole hole = ShotgunHoleCalculator.GetHoleById(holeId, connectionString);
+
+            EventDetail detail = GetEventDetail(eventId, connectionString);
+            
+            // Get the number of holes to be played
+            HoleList hl = ShotgunHoleCalculator.GetHoleListById(detail.PlayListId, connectionString);
+
+            // the ordinal value is the offset into the HoleList array for holes 1-n
+            // after 1-n+1 we assign as ordered in the BList for b,c,d teams
+            string[] holeList = hl.HoleList1.Split(',');
+            int numHoles = holeList.Length;
+
+            string bStr = "";
+
+            if ((ordinal + 1) > numHoles)
+                bStr = "B";
+
+            return hole.Number.ToString() + bStr;
+        }
 
         public static List<TeeTime> MakeTeeTimes(int eventId, string connectionString)
         {
@@ -104,7 +127,7 @@ namespace GolfDB2.Tools
                     // assign holeId in ordinal value order
                     // when ordinal is > number of holes
                     // assign as b/c/d group in order on par 4s and 5s as designated.
-                    GetHoleIdByOrdinalAndEventId(i, eventId);
+                    tt.HoleId = ShotgunHoleCalculator.GetHoleIdByOrdinalAndEventId(i, detail.PlayListId, eventId, connectionString);
                 }
 
                 tt.NumberOfPlayers = detail.NumPerGroup;

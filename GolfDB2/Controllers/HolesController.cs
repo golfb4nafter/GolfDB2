@@ -33,7 +33,7 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
+            GolfDB2.Models.Hole hole = db.Holes.Find(id);
             if (hole == null)
             {
                 return HttpNotFound();
@@ -55,7 +55,7 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CourseId,Nine,Number,PhotoUrl,Description")] Hole hole)
+        public ActionResult Create([Bind(Include = "Id,CourseId,Nine,Number,PhotoUrl,Description")] GolfDB2.Models.Hole hole)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
@@ -80,7 +80,7 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
+            GolfDB2.Models.Hole hole = db.Holes.Find(id);
             if (hole == null)
             {
                 return HttpNotFound();
@@ -119,7 +119,7 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
+            GolfDB2.Models.Hole hole = db.Holes.Find(id);
             if (hole == null)
             {
                 return HttpNotFound();
@@ -135,7 +135,7 @@ namespace GolfDB2.Controllers
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
 
-            Hole hole = db.Holes.Find(id);
+            GolfDB2.Models.Hole hole = db.Holes.Find(id);
             db.Holes.Remove(hole);
             db.SaveChanges();
             return RedirectToAction("Index");
