@@ -58,7 +58,45 @@ namespace GolfDB2.Tools
 
             return (from c in db.GetTable<TeeTime>() where (c.EventId == eventId && c.TeeTimeOffset == teeTimeOffset) select c).SingleOrDefault();
         }
-       
+
+        public static TeeTimeDetail GetTeeTimeDetailByTeeTimeId(int ttdId, int ordinal, string connectionString)
+        {
+
+            GolfDB2DataContext db = null;
+            List<TeeTimeDetail> ttdList;
+
+            if (!string.IsNullOrEmpty(connectionString))
+                db = new GolfDB2DataContext(connectionString);
+            else
+                db = new GolfDB2DataContext();
+
+
+            ttdList = (from c in db.GetTable<TeeTimeDetail>()
+                    where c.TeeTimeId == ttdId
+                    orderby c.Id
+                    select c).ToList<TeeTimeDetail>();
+
+            if (ttdList != null && ordinal < ttdList.Count)
+                return ttdList[ordinal];
+
+            return null;
+        }
+
+        public static List<TeeTime> GetTeeTimeTimesByEventId(int eventId, string connectionString)
+        {
+            GolfDB2DataContext db = null;
+
+            if (!string.IsNullOrEmpty(connectionString))
+                db = new GolfDB2DataContext(connectionString);
+            else
+                db = new GolfDB2DataContext();
+
+            return (from c in db.GetTable<TeeTime>()
+                    where c.EventId == eventId
+                    orderby c.TeeTimeOffset
+                    select c).ToList<TeeTime>();
+        }
+
         public static string GetStartingHoleByHoleId(int eventId, int ordinal, int holeId, string connectionString)
         {
             // Dereference holeId to HoleNumber.
@@ -80,6 +118,28 @@ namespace GolfDB2.Tools
                 bStr = "B";
 
             return hole.Number.ToString() + bStr;
+        }
+
+        public static int GetMaxTeamsByPlayListId(int playListId, string connectionString)
+        {
+            // We need the HoleList and BList from HoleList table.
+            HoleList hl = ShotgunHoleCalculator.GetHoleListById(playListId, connectionString);
+
+            // the ordinal value is the offset into the HoleList array for holes 1-n
+            // after 1-n+1 we assign as ordered in the BList for b,c,d teams
+            string[] holeList = hl.HoleList1.Split(',');
+
+            string[] bList = null;
+            int numBHoles = 0;
+
+            if (!string.IsNullOrEmpty(hl.BList))
+            {
+                bList = hl.BList.Split(',');
+                numBHoles = bList.Length;
+            }
+
+            int numHoles = holeList.Length;
+            return (numHoles + numBHoles);
         }
 
         public static List<TeeTime> MakeTeeTimes(int eventId, string connectionString)
@@ -106,7 +166,10 @@ namespace GolfDB2.Tools
                 return items;
             }
 
-            for (int i = 0; i < 60; i++)
+            // Calculate the max number of teams.
+            int maxTeeTimes = GetMaxTeamsByPlayListId(detail.PlayListId, connectionString);
+
+            for (int i = 0; i < maxTeeTimes; i++)
             {
                 // Do not exceed the window or number of tee times
                 if (detail.IsShotgunStart && (i > (detail.NumGroups - 1)))
@@ -130,9 +193,6 @@ namespace GolfDB2.Tools
                     tt.HoleId = ShotgunHoleCalculator.GetHoleIdByOrdinalAndEventId(i, detail.PlayListId, eventId, connectionString);
                 }
 
-                tt.NumberOfPlayers = detail.NumPerGroup;
-                tt.PlayerNames = "TBD";
-                tt.ReservedByName = detail.Sponsor;
                 tt.TeeTimeOffset = i;
 
                 if (detail.IsShotgunStart)
@@ -141,6 +201,10 @@ namespace GolfDB2.Tools
                     tt.Tee_Time = curDateTime.AddMinutes(i * 10);
 
                 tt.TelephoneNumber = "n/a";
+                tt.NumberOfPlayers = detail.NumPerGroup;
+                tt.PlayerNames = "TBD";
+                tt.ReservedByName = detail.Sponsor;
+
 
                 // Get tee time where eventId and tee time offset 
                 TeeTime ttTmp = GetTeeTime(eventId, i, connectionString);
@@ -149,6 +213,8 @@ namespace GolfDB2.Tools
                 if (ttTmp != null)
                 {
                     tt.Id = ttTmp.Id;
+
+                    tt.PlayerNames = ttTmp.PlayerNames;
                     items.Add(UpdateTeeTime(tt, connectionString));
                 }
                 else
@@ -208,6 +274,97 @@ namespace GolfDB2.Tools
             }
         }
 
+
+        public static bool DeleteTeeTimeDetailById(int id, string connectionString)
+        {
+            GolfDB2DataContext db = null;
+
+            if (!string.IsNullOrEmpty(connectionString))
+                db = new GolfDB2DataContext(connectionString);
+            else
+                db = new GolfDB2DataContext();
+
+            try
+            {
+                var listToRemove = (from a in db.TeeTimeDetails
+                                    where a.TeeTimeId == id
+                                    select a).ToList();
+                db.TeeTimeDetails.DeleteAllOnSubmit(listToRemove);
+                db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                GolfDB2Logger.LogError("DeleteTeeTimeDetailById", ex.ToString());
+                return false;
+            }
+        }
+
+        public static bool DeleteTeeTimeById(int id, string connectionString)
+        {
+            DeleteTeeTimeDetailById(id, connectionString);
+
+            GolfDB2DataContext db = null;
+
+            if (!string.IsNullOrEmpty(connectionString))
+                db = new GolfDB2DataContext(connectionString);
+            else
+                db = new GolfDB2DataContext();
+
+            try
+            {
+                var listToRemove = (from a in db.TeeTimes
+                                    where a.Id == id
+                                    select a).ToList();
+                db.TeeTimes.DeleteAllOnSubmit(listToRemove);
+                db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                GolfDB2Logger.LogError("DeleteTeeTimeById", ex.ToString());
+                return false;
+            }
+        }
+
+        public static TeeTimeDetail UpdateTeeTimeDetail(TeeTimeDetail ttd, string connectionString)
+        {
+            GolfDB2DataContext db = null;
+
+            if (!string.IsNullOrEmpty(connectionString))
+                db = new GolfDB2DataContext(connectionString);
+            else
+                db = new GolfDB2DataContext();
+
+            try
+            {
+                var teeTimeDetail = db.TeeTimeDetails
+                    .Where(w => w.Id == ttd.Id)
+                    .SingleOrDefault();
+
+                if (teeTimeDetail != null)
+                {
+                    teeTimeDetail.AmountPaid = ttd.AmountPaid;
+                    teeTimeDetail.Cart = ttd.Cart;
+                    teeTimeDetail.Division = ttd.Division;
+                    teeTimeDetail.Name = ttd.Name;
+                    teeTimeDetail.Pass = ttd.Pass;
+                    db.SubmitChanges();
+
+                    return teeTimeDetail;
+                }
+            }
+            catch (Exception ex)
+            {
+                GolfDB2Logger.LogError("UpdateTeeTimeDetail", ex.ToString());
+            }
+
+            return null;
+        }
+
+
+
+
         public static TeeTime UpdateTeeTime(TeeTime tt, string connectionString)
         {
             GolfDB2DataContext db = null;
@@ -245,6 +402,111 @@ namespace GolfDB2.Tools
             }
 
             return null;
+        }
+
+        public static List<TeeTimeDetail> GetTeeTimeDetailList(EventDetail eventDetail, TeeTime tt, string connectionString)
+        {
+            GolfDB2DataContext db = null;
+
+            if (!string.IsNullOrEmpty(connectionString))
+                db = new GolfDB2DataContext(connectionString);
+            else
+                db = new GolfDB2DataContext();
+
+            List<TeeTimeDetail> ttd = (from c in db.GetTable<TeeTimeDetail>()
+                    where c.TeeTimeId == tt.Id
+                    orderby c.Id
+                    select c).ToList<TeeTimeDetail>();
+
+            // Group event only has one scorecard
+            if (!IsStrokePlayFormat(eventDetail.PlayFormat))
+            {
+                if (ttd.Count == 1)
+                    return ttd;
+
+                TeeTimeDetail d = new TeeTimeDetail() {
+                    AmountPaid = 0,
+                    Name = tt.PlayerNames,
+                    Pass = false,
+                    Cart = false,
+                    TeeTimeId = tt.Id
+                };
+
+                try
+                {
+                    db.TeeTimeDetails.InsertOnSubmit(d);
+                    db.SubmitChanges();
+                    ttd.Add(d);
+                    return ttd;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+            // Check to see if we have detail and the proper number
+            if (ttd == null)
+                ttd = new List<TeeTimeDetail>();
+
+            if (ttd.Count < tt.NumberOfPlayers)
+            {
+                string[] golfers = tt.PlayerNames.Split(',');
+
+                for (int i=0;i<tt.NumberOfPlayers; i++)
+                {
+                    string name = "TBD";
+
+                    if (golfers != null && i <golfers.Length)
+                        name = golfers[i];
+
+                    // If it's already there ignore it
+                    if (ttd.Count > i)
+                        continue;
+
+                    // Create and insert new tee time detail record.
+                    TeeTimeDetail d = new TeeTimeDetail()
+                    {
+                        AmountPaid = 0,
+                        Name = name,
+                        Pass = false,
+                        Cart = false,
+                        TeeTimeId = tt.Id,
+                        Division = "open"
+                    };
+
+                    try
+                    {
+                        db.TeeTimeDetails.InsertOnSubmit(d);
+                        db.SubmitChanges();
+                        ttd.Add(d);
+                        //return ttd;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+
+            return ttd;
+        }
+
+        public static bool IsStrokePlayFormat(int playFormat)
+        {
+            // Quick and dirty for testing
+            // Todo: needs to query the label table poroperly
+
+            // 7   1   0   PlayFormat Stroke Play Stroke play.
+            // 8   1   1   PlayFormat Best Shot Best shot.
+            // 9   1   2   PlayFormat Best Ball Best Ball.
+            // 10  1   3   PlayFormat Alternate Shot Alternate Shot.
+            // 11  1   4   PlayFormat Blind   Blind.
+
+            if (playFormat == 7 || playFormat == 9 || playFormat == 11)
+                return true;
+
+            return false;
         }
     }
 }

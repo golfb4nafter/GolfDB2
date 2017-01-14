@@ -1,4 +1,4 @@
-﻿@model GolfDB2.Models.EventDetail
+﻿@model GolfDB2.EventDetail
 
 @{
     ViewBag.Title = "Edit";
@@ -6,17 +6,23 @@
 
     // Translate Event.Id to EventDetail.Id
     int eventId = GolfDB2.Tools.MiscLists.GetIdFromEventDetailByEventDetailId(Model.EventId, null);
-    string eventInfo = new GolfDB2.Tools.EventDetailTools().MakeEventLabelString(Model.EventId, null);
     string courseId = GolfDB2.Tools.GlobalSettingsApi.GetInstance().CourseId.ToString();
+    int numHoles = Model.NumberOfHoles;
+
+    GolfDB2.Event evt = GolfDB2.Tools.EventDetailTools.GetEventRecord(Model.EventId, null);
+    string startTime = evt.start.ToString("MM/dd/yyyy hh:mm");
+    string endTime = evt.end.ToString("MM/dd/yyyy hh:mm");
+    string eventName = evt.text;
 }
 
 <script type="text/javascript">
     function updateHoleInfoFields(source) {
 
-        //if (source == 'NumberOfHoles') {
-        //    updatePlayListId();
-        //    updateStartHoleId()
-        //}
+        if (source == 'NumberOfHoles') {
+        }
+
+        if (source == 'NumberOfGroups') {
+        }
 
         if (source == 'IsShotgunStart') {
             updateStartHoleId();
@@ -92,8 +98,26 @@
         document.getElementById('ActionType').value = val;
     }
 
+    function saveTeeTimes() {
+
+
+    }
+
+    function onSaveClicked(index) {
+        
+    }
+
+    jQuery(function($) {
+        $('#NumGroups').change(function () {
+            
+            
+        }).change();
+    });
+
     function makeLoadTeeTimes()
     {
+        //alert('Hello');
+
         $.ajax({
             url: '/api/HtmlApi?action=teetimes&eventId=@Model.EventId',
             dataType: 'html',
@@ -103,33 +127,41 @@
             }
         });
     }
+
+    var num = @numHoles;
+
+    if (num > 0)
+    {
+        //alert(num);
+        //document.getElementsByName("myButton")[0].disabled = true;
+        //document.getElementById('updateTeeTimes')[0].disabled = true;
+        makeLoadTeeTimes();
+    }
+
+    // Fixup id since we are calling by eventId.
+    var id = document.getElementById('Id');
+    id.value = @eventId;
 </script>
 
 @using (Html.BeginForm())
-            {
+{
     @Html.AntiForgeryToken()
 
-
     <div class="bottom">
-        <div class="form-horizontal" style="float: left; width: 50%;">
+        <div class="form-horizontal" style="float: left; width: 35%; text-align: left; vertical-align: top;">
             <hr />
             <input type="hidden" id="ActionType" name="ActionType" value="Save" />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Id)
+            @*@Html.HiddenFor(model => model.Id)*@
+            @Html.HiddenFor(model => model.Id, new { @Value = Model.Id })
             @Html.HiddenFor(model => model.CourseId)
             @Html.HiddenFor(model => model.EventId)
 
-            <script>
-                // Fixup id since we are calling by eventId.
-                var id = document.getElementById('Id');
-                id.value = @eventId;
-            </script>
-
-            <table>
+            <table border="1">
                 <tr><th>Course name</th><td>@Html.Label(GolfDB2.Tools.MiscLists.GetCourseNameById(Model.CourseId, null))</td></tr>
-                <tr><th>Event Name</th><td>@Html.Label(@eventInfo.Split(',')[0])</td></tr>
-                <tr><th>Start</th><td>@Html.Label(@eventInfo.Split(',')[1])</td></tr>
-                <tr><th>End</th><td>@Html.Label(@eventInfo.Split(',')[1])</td></tr>
+                <tr><th>Event Name</th><td>@Html.Label(@eventName)</td></tr>
+                <tr><th>Start</th><td>@Html.Label(@startTime)</td></tr>
+                <tr><th>End</th><td>@Html.Label(@endTime)</td></tr>
                 <tr>
                     <th>@Html.LabelFor(model => model.PlayFormat)</th>
                     <td>@Html.DropDownListFor(model => model.PlayFormat, GolfDB2.Tools.MiscLists.GetPlayFormatListByCourseIdAndType(Model.CourseId, null))@Html.ValidationMessageFor(model => model.PlayFormat, "", new { @class = "text-danger" })</td>
@@ -186,7 +218,8 @@
                 <tr>
                     <th>Number of Groups</th>
                     <td>
-                        @Html.EditorFor(model => model.NumGroups, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.NumGroups,
+                            new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.NumGroups, "", new { @class = "text-danger" })
                     </td>
                 </tr>
@@ -200,15 +233,14 @@
                 <tr>
                     <th>Actions</th>
                     <td>
-                        <span><input type="submit" value="Save" class="btn btn-default" /></span>
-                        <span><input type="button" value="Update Tee Times" class="btn btn-default" onclick="makeLoadTeeTimes();" /></span>
+                        <span><input type="submit" value="Save" class="btn btn-default"/></span>
                     </td>
                 </tr>
             </table>
             <div>
-                @Html.ActionLink("Home", "Index", "Home")
+                <br />@Html.ActionLink("Home", "Index", "Home")
             </div>
         </div>
-        <div id="myListDiv" style="float: left; width: 50%;"></div>
+        <div id="myListDiv" style="float: left; width: 65%; text-align: left; vertical-align: top;"></div>
     </div>
 }

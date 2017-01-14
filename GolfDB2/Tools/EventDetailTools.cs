@@ -53,7 +53,7 @@ namespace GolfDB2.Tools
                      return AddEventDetail(eventId,
                                           GlobalSettingsApi.GetInstance(connectionString).CourseId,
                                           1,
-                                          12, // 18 holes for default
+                                          0, // 18 holes for default
                                           false, // not shotgun start
                                           "unknown", // sponsor name
                                           GetPlayListIdByLabel("1-18", connectionString), // 
@@ -85,6 +85,46 @@ namespace GolfDB2.Tools
 
             KeyValuePair kvp = JsonConvert.DeserializeObject<KeyValuePair>(resp);
             return int.Parse(kvp.Value);
+        }
+
+
+        public static Event GetEventRecord(int id, string connectionString)
+        {
+            GolfDB2DataContext db = null;
+            EventDetail ed = null;
+
+            if (!string.IsNullOrEmpty(connectionString))
+                db = new GolfDB2DataContext(connectionString);
+            else
+                db = new GolfDB2DataContext();
+
+            return (from c in db.GetTable<Event>() where c.id == id select c).SingleOrDefault();
+        }
+
+        public static EventDetail GetEventDetailRecord(int id, string connectionString)
+        {
+            GolfDB2DataContext db = null;
+            EventDetail ed = null;
+
+            if (!string.IsNullOrEmpty(connectionString))
+                db = new GolfDB2DataContext(connectionString);
+            else
+                db = new GolfDB2DataContext();
+
+            return (from c in db.GetTable<EventDetail>() where c.Id == id select c).SingleOrDefault();
+        }
+
+        public static TeeTime GetTeeTime(int eventId, int teeTimeOffset, string connectionString)
+        {
+            GolfDB2DataContext db = null;
+            TeeTime tt = null;
+
+            if (!string.IsNullOrEmpty(connectionString))
+                db = new GolfDB2DataContext(connectionString);
+            else
+                db = new GolfDB2DataContext();
+
+            return (from c in db.GetTable<TeeTime>() where (c.EventId == eventId && c.TeeTimeOffset == teeTimeOffset) select c).SingleOrDefault();
         }
 
         public int AddEventDetail(int eventId, 
@@ -134,6 +174,48 @@ namespace GolfDB2.Tools
             }
 
             return -1;
+        }
+
+        public static bool EventDetailUpdate(EventDetail eventDetail, string connectionString)
+        {
+            GolfDB2DataContext db = null;
+
+            if (db == null)
+            {
+                if (!string.IsNullOrEmpty(connectionString))
+                    db = new GolfDB2DataContext(connectionString);
+                else
+                    db = new GolfDB2DataContext();
+            }
+
+            try
+            {
+                var ed = (from c in db.GetTable<EventDetail>() where c.Id == eventDetail.Id select c).SingleOrDefault();
+
+                if (ed != null)
+                {
+                    ed.Id = eventDetail.Id;
+                    ed.EventId = eventDetail.EventId;
+                    ed.CourseId = eventDetail.CourseId;
+                    ed.PlayFormat = eventDetail.PlayFormat;
+                    ed.NumberOfHoles = eventDetail.NumberOfHoles;
+                    ed.IsShotgunStart = eventDetail.IsShotgunStart;
+                    ed.Sponsor = eventDetail.Sponsor;
+                    ed.PlayListId = eventDetail.PlayListId;
+                    ed.OrgId = eventDetail.OrgId;
+                    ed.StartHoleId = eventDetail.StartHoleId;
+                    ed.NumGroups = eventDetail.NumGroups;
+                    ed.NumPerGroup = eventDetail.NumPerGroup;
+                    db.SubmitChanges();
+                }
+            }
+            catch (Exception exInner)
+            {
+                GolfDB2Logger.LogError("EventDetailUpdate", exInner.ToString());
+                return false;
+            }
+
+            return true;
         }
     }
 }

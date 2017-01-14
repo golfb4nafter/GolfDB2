@@ -56,10 +56,17 @@ namespace GolfDB2.Tools
             // the ordinal value is the offset into the HoleList array for holes 1-n
             // after 1-n+1 we assign as ordered in the BList for b,c,d teams
             string[] holeList = hl.HoleList1.Split(',');
-            string[] bList = hl.BList.Split(',');
-            int numHoles = holeList.Length;
-            int numBHoles = bList.Length;
 
+            string[] bList = null;
+            int numBHoles = 0;
+
+            if (!string.IsNullOrEmpty(hl.BList))
+            {
+                bList = hl.BList.Split(',');
+                numBHoles = bList.Length;
+            }
+
+            int numHoles = holeList.Length;
             int holeNum;
 
             // We should also establish a max number of teams based on the sise of the HoleList array size 

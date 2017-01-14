@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="GolfDB2">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.25, 8.5" name="GolfDB2">
   <DataContextMoniker Name="/GolfDB2DataContext" />
   <nestedChildShapes>
     <classShape Id="b80372e9-bdf1-4ffc-a3bb-9dce6c5af96f" absoluteBounds="0.5, 0.5, 2, 2.7324039713541666">
@@ -27,7 +27,7 @@
         <elementListCompartment Id="6e6aa2ba-77c2-46dc-bfd5-9f902ed0418d" absoluteBounds="5.015, 0.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5 : 1.38544840494792); (4.75 : 1.38544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5 : 1.38544840494792); (4.75 : 1.38544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/GolfDB2DataContext/Event/Event_EventDetail" />
       <nodes>
         <classShapeMoniker Id="7688f5c3-bfb7-4d57-aa83-33485a56fddf" />
@@ -47,7 +47,7 @@
         <classShapeMoniker Id="b80372e9-bdf1-4ffc-a3bb-9dce6c5af96f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.125 : 5.48159912109375); (3.9375005 : 5.48159912109375); (3.9375005 : 3.6170068359375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.125 : 5.48159912109375); (3.9375005 : 5.48159912109375); (3.9375005 : 3.6170068359375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/GolfDB2DataContext/Hole/Hole_EventDetail" />
       <nodes>
         <classShapeMoniker Id="59d6bf81-1b6b-48cd-89ee-65850fcba6f1" />
@@ -60,7 +60,7 @@
         <elementListCompartment Id="e41e496f-38bb-45bb-b533-33f1a38cb730" absoluteBounds="5.64, 3.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.625 : 3.30850341796875); (4.75 : 3.30850341796875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.625 : 3.30850341796875); (4.75 : 3.30850341796875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/GolfDB2DataContext/HoleList/HoleList_EventDetail" />
       <nodes>
         <classShapeMoniker Id="6c2fb3e3-0182-4b2e-8baf-2ded596535c2" />
@@ -73,5 +73,58 @@
         <elementListCompartment Id="805ff7dc-aae8-40ab-9b4f-6ce80ba45795" absoluteBounds="5.64, 5.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="0ff4c610-2d54-4d18-ab54-e97da2bc8f4b" absoluteBounds="7.75, 1.875, 2, 1.9631982421875">
+      <DataClassMoniker Name="/GolfDB2DataContext/ScoreCard" />
+      <nestedChildShapes>
+        <elementListCompartment Id="91df8f73-a8ee-49b8-aef7-3d0b01486abf" absoluteBounds="7.765, 2.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7 : 2.07294840494792); (7.75 : 2.07294840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/GolfDB2DataContext/Event/Event_ScoreCard" />
+      <nodes>
+        <classShapeMoniker Id="7688f5c3-bfb7-4d57-aa83-33485a56fddf" />
+        <classShapeMoniker Id="0ff4c610-2d54-4d18-ab54-e97da2bc8f4b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.5 : 0.5); (1.5 : 0.4375); (2.6875 : 0.4375); (2.6875 : 3.6795068359375); (5.5625 : 3.6795068359375); (5.5625 : 2.60419940494792); (7.75 : 2.60419940494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/GolfDB2DataContext/TeeTime/TeeTime_ScoreCard" />
+      <nodes>
+        <classShapeMoniker Id="b80372e9-bdf1-4ffc-a3bb-9dce6c5af96f" />
+        <classShapeMoniker Id="0ff4c610-2d54-4d18-ab54-e97da2bc8f4b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="032b1e4c-bf39-41c6-bcf4-32dfd3bc7393" absoluteBounds="7.875, 4.875, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/GolfDB2DataContext/ScoreEntry" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d6d0eba8-d345-463e-9df3-abb2e2dc6aaa" absoluteBounds="7.89, 5.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.125 : 5.11579956054688); (7.875 : 5.11579956054688)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/GolfDB2DataContext/Hole/Hole_ScoreEntry" />
+      <nodes>
+        <classShapeMoniker Id="59d6bf81-1b6b-48cd-89ee-65850fcba6f1" />
+        <classShapeMoniker Id="032b1e4c-bf39-41c6-bcf4-32dfd3bc7393" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.8125 : 3.8381982421875); (8.8125 : 4.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/GolfDB2DataContext/ScoreCard/ScoreCard_ScoreEntry" />
+      <nodes>
+        <classShapeMoniker Id="0ff4c610-2d54-4d18-ab54-e97da2bc8f4b" />
+        <classShapeMoniker Id="032b1e4c-bf39-41c6-bcf4-32dfd3bc7393" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="de62227b-efe5-4774-9061-42a87453801a" absoluteBounds="10, 1, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/GolfDB2DataContext/TeeTimeDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="38ccc674-2cec-43f3-aa5a-acd0106f826f" absoluteBounds="10.015, 1.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 1.86620198567708); (2.625 : 1.86620198567708); (2.625 : 0.375); (11 : 0.375); (11 : 1)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/GolfDB2DataContext/TeeTime/TeeTime_TeeTimeDetail" />
+      <nodes>
+        <classShapeMoniker Id="b80372e9-bdf1-4ffc-a3bb-9dce6c5af96f" />
+        <classShapeMoniker Id="de62227b-efe5-4774-9061-42a87453801a" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

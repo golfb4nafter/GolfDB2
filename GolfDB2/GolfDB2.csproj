@@ -330,19 +330,6 @@
     <Content Include="Views\Golfers\Details.cshtml" />
     <Content Include="Views\Golfers\Edit.cshtml" />
     <Content Include="Views\Golfers\Index.cshtml" />
-    <Content Include="Views\ScoreCards\Create.cshtml" />
-    <Content Include="Views\ScoreCards\Delete.cshtml" />
-    <Content Include="Views\ScoreCards\Details.cshtml" />
-    <Content Include="Views\ScoreCards\Edit.cshtml" />
-    <Content Include="Views\ScoreCards\Index.cshtml" />
-    <Content Include="Views\ScoreCardPlayers\Create.cshtml" />
-    <Content Include="Views\ScoreCardPlayers\Delete.cshtml" />
-    <Content Include="Views\ScoreCardPlayers\Details.cshtml" />
-    <Content Include="Views\ScoreCardPlayers\Edit.cshtml" />
-    <Content Include="Views\ScoreCardPlayers\Index.cshtml" />
-    <Content Include="Views\CalendarEvents\Delete.cshtml" />
-    <Content Include="Views\CalendarEvents\Details.cshtml" />
-    <Content Include="Views\CalendarEvents\Index.cshtml" />
     <Content Include="Views\Setup\Index.cshtml" />
     <Content Include="Views\EventDetails\Edit.cshtml" />
     <Content Include="Views\TeeTimes\Create.cshtml" />
@@ -350,7 +337,6 @@
     <Content Include="Views\TeeTimes\Details.cshtml" />
     <Content Include="Views\TeeTimes\Edit.cshtml" />
     <Content Include="Views\TeeTimes\Index.cshtml" />
-    <Content Include="Views\EventDetails\TeeTimes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -422,7 +408,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BackendController.cs" />
-    <Compile Include="Controllers\CalendarEventsController.cs" />
     <Compile Include="Controllers\CourseDatasController.cs" />
     <Compile Include="Controllers\CourseRatingsController.cs" />
     <Compile Include="Controllers\EventDetailsController.cs" />
@@ -437,8 +422,6 @@
     <Compile Include="Controllers\LabelsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
-    <Compile Include="Controllers\ScoreCardPlayersController.cs" />
-    <Compile Include="Controllers\ScoreCardsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\TeeTimesController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />

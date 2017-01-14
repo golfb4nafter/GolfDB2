@@ -15,17 +15,17 @@
 
     <style>
         th {
-            margin: 10px!important;
-            text-align: left!important;
-            vertical-align: top!important;
-            padding: 5px!important;
+            margin: 10px;
+            text-align: left;
+            vertical-align: top;
+            padding: 5px;
         }
 
         td {
-            margin: 10px!important;
-            text-align: left!important;
-            vertical-align: top!important;
-            padding: 5px!important;
+            margin: 10px;
+            text-align: left;
+            vertical-align: top;
+            padding: 5px;
         }
     </style>
 
@@ -47,10 +47,6 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (Request.IsAuthenticated && (User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
-                    {
-                        <li>@Html.ActionLink("EventAdmin", "Index", "CalendarEvents")</li>
-                    }
                     @if(Request.IsAuthenticated && User.IsInRole("Admin")) {
                         <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
@@ -64,7 +60,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - GOLFB4NAFTER</p>
         </footer>
     </div>
 

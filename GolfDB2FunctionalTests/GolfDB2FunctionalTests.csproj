@@ -104,6 +104,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EventDetailToolsTests.cs" />
+    <Compile Include="HtmlFactoryTests.cs" />
     <Compile Include="MiscListsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TeeTimeToolsTests.cs" />
