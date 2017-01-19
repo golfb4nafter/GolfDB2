@@ -13,7 +13,7 @@ namespace GolfDB2.Controllers
 {
     public class BackendController : Controller
     {
-        GolfDB2DataContext db = EventDetailTools.GetDB(null);
+        private readonly GolfDB2DataContext db = EventDetailTools.GetDB(null);
 
         public class JsonEvent
         {

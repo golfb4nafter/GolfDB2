@@ -21,16 +21,12 @@ namespace GolfDB2.Controllers
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
 
-            EventDetailTools tool = new EventDetailTools();
-
             // We ar passed the event id.
             // If no detail record exists a new detail record is created
             // either way we get the actual eventDetailId back from the call.
-            int eventDetailId = tool.LookupOrCreateEventDetailRecord(8, null);
+            int eventDetailId = EventDetailTools.LookupOrCreateEventDetailRecord(8, null);
             GolfDB2.EventDetail eventDetail = EventDetailTools.GetEventDetailRecord(eventDetailId, null);
-            //GolfDB2.Models.EventDetail eventDetail = db.EventDetails.Find(eventDetailId);
-
-
+            
             if (eventDetail == null)
             {
                 return HttpNotFound();
@@ -39,8 +35,6 @@ namespace GolfDB2.Controllers
             Response.AddHeader("Refresh", "30");
 
             return View(eventDetail);
-
-            //return View();
         }
 
 
@@ -49,9 +43,7 @@ namespace GolfDB2.Controllers
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
 
-            EventDetailTools tool = new EventDetailTools();
-
-            int eventDetailId = tool.LookupOrCreateEventDetailRecord(id, null);
+            int eventDetailId = EventDetailTools.LookupOrCreateEventDetailRecord(id, null);
             GolfDB2.EventDetail eventDetail = EventDetailTools.GetEventDetailRecord(eventDetailId, null);
 
             if (eventDetail == null)
@@ -76,12 +68,6 @@ namespace GolfDB2.Controllers
 
             if (Request.Form["EditDetail"].ToString() == "true")
                 return RedirectToAction("../EventDetails/Edit/" + eventDetail.EventId.ToString());
-
-            //string action = Request["ActionType"].ToString();
-
-            //if (ModelState.IsValid)
-            //{
-            //}
 
             if (string.IsNullOrEmpty(eventDetail.SortOn))
             {

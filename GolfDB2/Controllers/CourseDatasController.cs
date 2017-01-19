@@ -14,7 +14,7 @@ namespace GolfDB2.Controllers
 {
     public class CourseDatasController : Controller
     {
-        private GolfDB db = new GolfDB();
+        private readonly GolfDB db = new GolfDB();
 
         // GET: CourseDatas
         public ActionResult Index()

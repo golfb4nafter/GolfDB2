@@ -133,23 +133,12 @@ namespace GolfDB2FunctionalTests
         [TestMethod]
         public void LookupOrCreateEventDetailRecord()
         {
-            EventDetailTools tool = new EventDetailTools();
-
-            int resp = tool.LookupOrCreateEventDetailRecord(10, connectionString);
+            int resp = EventDetailTools.LookupOrCreateEventDetailRecord(10, connectionString);
 
             Assert.IsTrue(resp == 1);
 
-            resp = tool.LookupOrCreateEventDetailRecord(7, connectionString);
+            resp = EventDetailTools.LookupOrCreateEventDetailRecord(7, connectionString);
             Assert.IsTrue(resp != 1);
-        }
-
-        [TestMethod]
-        public void MakeEventLabelString()
-        {
-            EventDetailTools tool = new EventDetailTools();
-            string resp = tool.MakeEventLabelString(10, connectionString);
-
-            Assert.IsTrue(resp != null);
         }
 
         [TestMethod]

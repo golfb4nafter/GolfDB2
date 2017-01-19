@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -22,7 +23,7 @@ namespace GolfDB2.Controllers
             if (string.IsNullOrEmpty(action))
                 return null;
 
-            if (action.ToLower().Trim() == "teetime")
+            if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "teetime")
             {
                 string date = Request.RequestUri.ParseQueryString().Get("date"); // need error logic!
                 GolfDB2Logger.LogDebug("get", date);                                                                         // Now use id and customer
@@ -37,7 +38,7 @@ namespace GolfDB2.Controllers
                 return Json(items);
             }
 
-            if (action.ToLower().Trim() == "labelslist")
+            if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "labelslist")
             {
                 int courseId = int.Parse(Request.RequestUri.ParseQueryString().Get("courseId"));
                 string type = Request.RequestUri.ParseQueryString().Get("type");
@@ -45,31 +46,31 @@ namespace GolfDB2.Controllers
                 return Json(items);
             }
 
-            if (action.ToLower().Trim() == "coursenameslist")
+            if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "coursenameslist")
             {
                 return Json(MiscLists.GetCourseNamesList(null));
             }
 
 
-            if (action.ToLower().Trim() == "objecttypelist")
+            if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "objecttypelist")
             {
                 return Json(MiscLists.GetObjectTypeList(null));
             }
 
-            if (action.ToLower().Trim() == "gpspointslist")
+            if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "gpspointslist")
             {
                 int courseId = int.Parse(Request.RequestUri.ParseQueryString().Get("courseId"));
                 return Json(MiscLists.GetGeoSpatialDataPointsByCourseId(courseId));
             }
 
 
-            if (action.ToLower().Trim() == "holelist")
+            if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "holelist")
             {
                 int courseId = int.Parse(Request.RequestUri.ParseQueryString().Get("courseId"));
                 return Json(MiscLists.GetHoleListByCourseId(courseId));
             }
 
-            if (action.ToLower().Trim() == "startingholeselectlist")
+            if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "startingholeselectlist")
             {
                 bool isShotgunStart = false;
 
@@ -78,21 +79,19 @@ namespace GolfDB2.Controllers
 
                 string strShotgun = Request.RequestUri.ParseQueryString().Get("isShotgunStart");
 
-                if (strShotgun.ToLower() == "true" || strShotgun == "1")
+                if (strShotgun.ToLower(new CultureInfo("en-US", false)) == "true" || strShotgun == "1")
                     isShotgunStart = true;
 
                 return Json(MiscLists.StartingHoleSelectList(courseId, playlistId, isShotgunStart, null));
             }
 
-            if (action.ToLower().Trim() == "holelistselectlist")
+            if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "holelistselectlist")
             {
-                bool isShotgunStart = false;
-
                 int courseId = int.Parse(Request.RequestUri.ParseQueryString().Get("courseId"));
                 return Json(MiscLists.GetHoleListSelectListByCourseId(courseId, null));
             }
 
-            if (action.ToLower().Trim() == "numholesselectlist")
+            if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "numholesselectlist")
             {
                 int courseId = int.Parse(Request.RequestUri.ParseQueryString().Get("courseId"));
                 int selection = int.Parse(Request.RequestUri.ParseQueryString().Get("selection"));

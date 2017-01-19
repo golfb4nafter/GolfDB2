@@ -26,7 +26,6 @@ namespace GolfDB2.Tools
             Event evt = EventDetailTools.GetEventRecord(eventId, connectionString);
             EventDetail eventDetail = EventDetailTools.GetEventDetailRecordByEventId(evt.id, connectionString);
             HoleList holeList = ShotgunHoleCalculator.GetHoleListById(eventDetail.PlayListId, connectionString);
-            List<string> startingHoles = GetStartingHoleList(holeList.HoleList1);
 
             // make a list of the holes to be played
             List<int> holesToPlayList = new List<int>();
@@ -152,7 +151,7 @@ namespace GolfDB2.Tools
                     }
 
                     sb.Append(string.Format("<td><input style=\"width: 45px!important;\" type=\"text\" id=\"Division_{0}\" name=\"Division_{0}\" value=\"{1}\"/></td>", card.Id, card.Division));
-                    sb.Append(string.Format("<td><input style=\"width: 45px!important;\" type=\"text\" id=\"Handicap_{0}\" name=\"Handicap_{0}\" value=\"{1}\"/></td>", card.Id, 0)); // card.Handicap));
+                    sb.Append(string.Format("<td><input style=\"width: 45px!important;\" type=\"text\" id=\"Handicap_{0}\" name=\"Handicap_{0}\" value=\"{1}\"/></td>", card.Id, 0));
                     sb.Append(string.Format("<td><input style=\"width: 30px!important;\" type=\"text\" id=\"Gross_{0}\" name=\"Gross_{0}\" value=\"{1}\"/></td>", card.Id, total));
                     sb.Append(string.Format("<td><input style=\"width: 30px!important;\" type=\"text\" id=\"Net_{0}\" name=\"Net_{0}\" value=\"{1}\"/></td>", card.Id, total));
 

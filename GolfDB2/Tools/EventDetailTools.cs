@@ -7,35 +7,9 @@ using GolfDB2.Models;
 
 namespace GolfDB2.Tools
 {
-    public class EventDetailTools
+    public static class EventDetailTools
     {
-        public string MakeEventLabelString(int eventId, string connectionString)
-        {
-            try
-            {
-                string query = string.Format("SELECT [Id], [CourseId], [text], [start], [end] FROM Event WHERE Id={0}", eventId);
-
-                List<SqlListParam> parms = new List<SqlListParam>();
-                parms.Add(new SqlListParam() { name = "Id", ordinal = 0, type = ParamType.int32 });
-                parms.Add(new SqlListParam() { name = "CourseId", ordinal = 1, type = ParamType.int32 });
-                parms.Add(new SqlListParam() { name = "text", ordinal = 2, type = ParamType.charString });
-                parms.Add(new SqlListParam() { name = "start", ordinal = 3, type = ParamType.dateTime });
-                parms.Add(new SqlListParam() { name = "end", ordinal = 4, type = ParamType.dateTime });
-
-                string resp = SqlLists.SqlQuery(query, parms, connectionString);
-                Event evt = JsonConvert.DeserializeObject<Event>(resp);
-
-                return string.Format("{0},{1},{2}", evt.text, evt.start, evt.end);
-            }
-            catch (Exception ex)
-            {
-                GolfDB2Logger.LogError("MakeEventLabelString", ex.ToString());
-            }
-
-            return "";
-        }
-
-        public int LookupOrCreateEventDetailRecord(int eventId, string connectionString)
+        public static int LookupOrCreateEventDetailRecord(int eventId, string connectionString)
         {
             try
             {
@@ -73,7 +47,7 @@ namespace GolfDB2.Tools
             return -1;
         }
 
-        public int GetPlayListIdByLabel(string label, string connectionString)
+        public static int GetPlayListIdByLabel(string label, string connectionString)
         {
             // using EventId lookup EventDetails Id
             string query = string.Format("SELECT Id, Label from HoleList WHERE Label LIKE '{0}%'", label);
@@ -118,7 +92,7 @@ namespace GolfDB2.Tools
             return (from c in db.GetTable<TeeTime>() where (c.EventId == eventId && c.TeeTimeOffset == teeTimeOffset) select c).SingleOrDefault();
         }
 
-        public int AddEventDetail(int eventId, 
+        public static int AddEventDetail(int eventId, 
                                   int courseId, 
                                   int playFormat, 
                                   int numberOfHoles, 

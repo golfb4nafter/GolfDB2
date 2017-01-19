@@ -12,7 +12,7 @@ namespace GolfDB2.Controllers
 {
     public class TeeTimesController : Controller
     {
-        private GolfDB db = new GolfDB();
+        private readonly GolfDB db = new GolfDB();
 
         // GET: TeeTimes
         public ActionResult Index()

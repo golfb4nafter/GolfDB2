@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -7,7 +8,7 @@ using GolfDB2.Models;
 
 namespace GolfDB2.Tools
 {
-    public class SqlLists
+    public static class SqlLists
     {
         public static string GetConnectionString(string name)
         {
@@ -55,7 +56,7 @@ namespace GolfDB2.Tools
                     switch (p.type)
                     {
                         case ParamType.int32:
-                            value = rdr.GetInt32(p.ordinal).ToString();
+                            value = rdr.GetInt32(p.ordinal).ToString(CultureInfo.CurrentCulture);
                             break;
 
                         case ParamType.charString:
@@ -63,11 +64,11 @@ namespace GolfDB2.Tools
                             break;
 
                         case ParamType.boolVal:
-                            value = rdr.GetBoolean(p.ordinal).ToString();
+                            value = rdr.GetBoolean(p.ordinal).ToString(CultureInfo.CurrentCulture);
                             break;
 
                         case ParamType.numeric:
-                            value = rdr.GetDecimal(p.ordinal).ToString();
+                            value = rdr.GetDecimal(p.ordinal).ToString(CultureInfo.CurrentCulture);
                             break;
 
                         case ParamType.dateTime:

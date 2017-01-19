@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,7 +24,7 @@ namespace GolfDB2.Tools
     {
         int IComparer<SortableRowObject>.Compare(SortableRowObject a, SortableRowObject b)
         {
-            int res = a.Division.CompareTo(b.Division);
+            int res = String.Compare(a.Division, b.Division, false, CultureInfo.CurrentCulture);
 
             if (res != 0)
                 return res;
@@ -36,7 +37,7 @@ namespace GolfDB2.Tools
     {
         int IComparer<SortableRowObject>.Compare(SortableRowObject a, SortableRowObject b)
         {
-            int res = a.Name.CompareTo(b.Name);
+            int res = String.Compare(a.Name, b.Name, false, CultureInfo.CurrentCulture);
 
             if (res != 0)
                 return res;
@@ -61,7 +62,7 @@ namespace GolfDB2.Tools
 
     public class SortableRowObject : IComparable<SortableRowObject>
     {
-        private List<ScoreEntry> scoresList = new List<ScoreEntry>();
+        private readonly List<ScoreEntry> scoresList = new List<ScoreEntry>();
 
         public Event Event { get; set; }
         public EventDetail EventDetail { get; set; }

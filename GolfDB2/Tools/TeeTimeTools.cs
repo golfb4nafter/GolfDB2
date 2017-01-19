@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace GolfDB2.Tools
 {
-    public class TeeTimeTools
+    public static class TeeTimeTools
     {
         public static EventDetail GetEventDetail(int eventId, string connectionString)
         {
@@ -88,7 +88,7 @@ namespace GolfDB2.Tools
             // after 1-n+1 we assign as ordered in the BList for b,c,d teams
             string[] holeList = hl.HoleList1.Split(',');
 
-            string[] bList = null;
+            string[] bList;
             int numBHoles = 0;
 
             if (!string.IsNullOrEmpty(hl.BList))
@@ -200,7 +200,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                throw ex;
+                GolfDB2Logger.LogError("InsertTeeTime", ex.ToString());
             }
         }
 
@@ -434,7 +434,7 @@ namespace GolfDB2.Tools
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    GolfDB2Logger.LogError("GetTeeTimeDetailList", ex.ToString());
                 }
             }
 
@@ -473,11 +473,10 @@ namespace GolfDB2.Tools
                         db.TeeTimeDetails.InsertOnSubmit(d);
                         db.SubmitChanges();
                         ttd.Add(d);
-                        //return ttd;
                     }
                     catch (Exception ex)
                     {
-                        throw ex;
+                        GolfDB2Logger.LogError("GetTeeTimeDetailList", ex.ToString());
                     }
                 }
             }
