@@ -23,5 +23,6 @@ namespace GolfDB2.Models
         public int StartHoleId { get; set; }
         public int NumGroups { get; set; }
         public int NumPerGroup { get; set; }
+        public string SortOn { get; set; }
     }
 }

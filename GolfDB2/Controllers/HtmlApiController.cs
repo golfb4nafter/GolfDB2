@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Http.Description;
+using System.Globalization;
 using Newtonsoft.Json;
 using GolfDB2.Models;
 using GolfDB2.Tools;
@@ -23,7 +24,29 @@ namespace GolfDB2.Controllers
 
             string resp = "<p>Hello world!</p>";
 
-            if (!string.IsNullOrEmpty(action) && action.ToLower().Trim() == "teetimes")
+            if (!string.IsNullOrEmpty(action) && action.Trim() == "scoreboard")
+            {
+                int eventId = int.Parse(Request.RequestUri.ParseQueryString().Get("eventId"));
+                string sortType = Request.RequestUri.ParseQueryString().Get("sortType");
+
+                if (sortType.ToLower(new CultureInfo("en-US", false)) == "division")
+                    resp = LeaderBoardHtmlFactory.MakeLeaderBoardTable(eventId,
+                        LeaderBoardHtmlFactory.SortOnColumn.Division, null);
+                else if (sortType.ToLower(new CultureInfo("en-US", false)) == "name")
+                    resp = LeaderBoardHtmlFactory.MakeLeaderBoardTable(eventId,
+                        LeaderBoardHtmlFactory.SortOnColumn.Name, null);
+                else if (sortType.ToLower(new CultureInfo("en-US", false)) == "startingholenumber")
+                    resp = LeaderBoardHtmlFactory.MakeLeaderBoardTable(eventId,
+                        LeaderBoardHtmlFactory.SortOnColumn.StartingHoleNumber, null);
+                else if (sortType.ToLower(new CultureInfo("en-US", false)) == "totalscore")
+                    resp = LeaderBoardHtmlFactory.MakeLeaderBoardTable(eventId,
+                        LeaderBoardHtmlFactory.SortOnColumn.TotalScore, null);
+                else    
+                    resp = LeaderBoardHtmlFactory.MakeLeaderBoardTable(eventId,
+                        LeaderBoardHtmlFactory.SortOnColumn.Ordinal, null);
+            }
+
+            if (!string.IsNullOrEmpty(action) && action.ToLower(new CultureInfo("en-US", false)).Trim() == "teetimes")
             {
                 int eventId = int.Parse(Request.RequestUri.ParseQueryString().Get("eventId"));
                 List<TeeTime> teeTimeList = TeeTimeTools.MakeTeeTimes(eventId, null);

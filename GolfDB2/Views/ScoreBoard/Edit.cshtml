@@ -1,0 +1,70 @@
+﻿@model GolfDB2.EventDetail
+
+@{
+    ViewBag.Title = "ScoreBoard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Translate Event.Id to EventDetail.Id
+    int eventId = GolfDB2.Tools.MiscLists.GetIdFromEventDetailByEventDetailId(Model.EventId, null);
+    string courseId = GolfDB2.Tools.GlobalSettingsApi.GetInstance().CourseId.ToString();
+    int numHoles = Model.NumberOfHoles;
+
+    GolfDB2.Event evt = GolfDB2.Tools.EventDetailTools.GetEventRecord(Model.EventId, null);
+    string startTime = evt.start.ToString("MM/dd/yyyy hh:mm");
+    string endTime = evt.end.ToString("MM/dd/yyyy hh:mm");
+    string eventName = evt.text;
+    }
+
+<script type="text/javascript">
+
+    function doEditDetail() {
+        $('#EditDetail').val('true');
+    }
+
+    function makeLoadTeeTimes() {
+        $.ajax({
+            url: '/api/HtmlApi?action=scoreboard&eventId=@Model.EventId&sortType=@Model.SortOn',
+            dataType: 'html',
+            success: function (response) {
+                $('#myListDiv').html(response);
+            }
+        });
+    }
+
+    makeLoadTeeTimes();
+</script>
+
+@using (@Html.BeginForm("Edit", "ScoreBoard", FormMethod.Post, new { id = "ScoreBoard", @class = "frmStyle" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id, new { @Value = Model.Id })
+    @Html.HiddenFor(model => model.CourseId)
+    @Html.HiddenFor(model => model.EventId)
+
+    <input type="hidden" id="ActionType" name="ActionType" value="Save" />
+    <input type="hidden" id="EditDetail" name="EditDetail" value="false" />
+    <br /><div>
+        <table border="1">
+            <tr><th>Course name</th><th>Event Name</th><th>Start</th><th>End</th><th>Sort On</th><th>Action</th></tr>
+            <tr>
+                <td>@GolfDB2.Tools.MiscLists.GetCourseNameById(Model.CourseId, null)</td>
+                <td>@eventName</td>
+                <td>@startTime</td>
+                <td>@endTime</td>
+                <td>
+                    @Html.DropDownListFor(model => model.SortOn,
+                              GolfDB2.Tools.MiscLists.GetScoreBoardSortOptions(null),
+                              new { @onchange = "document.getElementById('ScoreBoard').submit();" })
+                    @Html.ValidationMessageFor(model => model.SortOn, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    <span><input type="submit" value="Edit Detail" onclick="doEditDetail();" class="btn btn-default" /></span>
+                </td>
+            </tr>
+        </table>
+    </div><br />
+    <div>
+        <div id="myListDiv" style="float: left; width: 100%; text-align: left; vertical-align: top;"></div>
+    </div>
+}

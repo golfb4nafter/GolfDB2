@@ -52,6 +52,19 @@ namespace GolfDB2.Tools
             return items;
         }
 
+        public static List<SelectListItem> GetScoreBoardSortOptions(string connectionString)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            items.Add(new SelectListItem() { Text = "Default", Value = "ordinal" });
+            items.Add(new SelectListItem() { Text = "Division", Value = "division" });
+            items.Add(new SelectListItem() { Text = "Player/Team", Value = "name" });
+            items.Add(new SelectListItem() { Text = "Hole", Value = "startingholenumber" });
+            items.Add(new SelectListItem() { Text = "Gross", Value = "totalscore" });
+
+            return items;
+        }
+
         public static List<SelectListItem> GetNumberOfHolesSelectListByCourseIdAndType(int courseId, int selection, string connectionString)
         {
             string json = GetLabelsByCourseIdAndType(courseId, "NumberOfHoles", connectionString);

@@ -3,7 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <script src="@Url.Content("~/Scripts/jquery.min.js")" type="text/javascript"> </script>
+    <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"> </script>
+
+    <title>@ViewBag.Title - GOLFB4NAFTER</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/themes/base/css")
@@ -15,23 +20,22 @@
 
     <style>
         th {
-            margin: 10px;
+            margin: 2px;
             text-align: left;
             vertical-align: top;
-            padding: 5px;
+            padding: 2px;
         }
 
         td {
-            margin: 10px;
+            margin: 2px;
             text-align: left;
             vertical-align: top;
-            padding: 5px;
+            padding: 2px;
         }
     </style>
-
-
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">

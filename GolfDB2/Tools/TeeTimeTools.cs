@@ -11,70 +11,35 @@ namespace GolfDB2.Tools
     {
         public static EventDetail GetEventDetail(int eventId, string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
-
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
             return (from ed in db.GetTable<EventDetail>() where ed.EventId == eventId select ed).SingleOrDefault();
         }
 
         public static Event GetCalendarEvent(int id, string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
-
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
             return (from e in db.GetTable<Event>() where e.id == id select e).SingleOrDefault();
         }
 
         public static TeeTime GetTeeTime(int id, string connectionString)
         {
-            GolfDB2DataContext db = null;
-            TeeTime tt = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
-
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
             return (from c in db.GetTable<TeeTime>() where c.Id == id select c).SingleOrDefault();
         }
 
         public static TeeTime GetTeeTime(int eventId, int teeTimeOffset, string connectionString)
         {
-            GolfDB2DataContext db = null;
-            TeeTime tt = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
-
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
             return (from c in db.GetTable<TeeTime>() where (c.EventId == eventId && c.TeeTimeOffset == teeTimeOffset) select c).SingleOrDefault();
         }
 
         public static TeeTimeDetail GetTeeTimeDetailByTeeTimeId(int ttdId, int ordinal, string connectionString)
         {
-
-            GolfDB2DataContext db = null;
-            List<TeeTimeDetail> ttdList;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
-
-
-            ttdList = (from c in db.GetTable<TeeTimeDetail>()
-                    where c.TeeTimeId == ttdId
-                    orderby c.Id
-                    select c).ToList<TeeTimeDetail>();
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+            List<TeeTimeDetail> ttdList = (from c in db.GetTable<TeeTimeDetail>()
+                                            where c.TeeTimeId == ttdId
+                                            orderby c.Id
+                                            select c).ToList<TeeTimeDetail>();
 
             if (ttdList != null && ordinal < ttdList.Count)
                 return ttdList[ordinal];
@@ -84,13 +49,7 @@ namespace GolfDB2.Tools
 
         public static List<TeeTime> GetTeeTimeTimesByEventId(int eventId, string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
-
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
             return (from c in db.GetTable<TeeTime>()
                     where c.EventId == eventId
                     orderby c.TeeTimeOffset
@@ -232,12 +191,7 @@ namespace GolfDB2.Tools
 
         public static void InsertTeeTime(TeeTime tt, string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
             try
             {
@@ -252,12 +206,7 @@ namespace GolfDB2.Tools
 
         public static bool DeleteTeeTimes(int eventId, string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
             try
             {
@@ -277,12 +226,7 @@ namespace GolfDB2.Tools
 
         public static bool DeleteTeeTimeDetailById(int id, string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
             try
             {
@@ -304,12 +248,7 @@ namespace GolfDB2.Tools
         {
             DeleteTeeTimeDetailById(id, connectionString);
 
-            GolfDB2DataContext db = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
             try
             {
@@ -329,12 +268,7 @@ namespace GolfDB2.Tools
 
         public static TeeTimeDetail UpdateTeeTimeDetail(TeeTimeDetail ttd, string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
             try
             {
@@ -363,16 +297,80 @@ namespace GolfDB2.Tools
         }
 
 
+        public static ScoreCard InsertOrUpdateScoreCard(ScoreCard card, string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
+            try
+            {
+                var scoreCard = db.ScoreCards
+                    .Where(w => w.TeeTimeDetailId == card.TeeTimeDetailId)
+                    .SingleOrDefault();
+
+                if (scoreCard != null)
+                {
+                    scoreCard.EventId = card.EventId;
+                    scoreCard.StartingHole = card.StartingHole;
+                    scoreCard.Division = card.Division;
+                    scoreCard.Names = card.Names;
+                    db.SubmitChanges();
+                    return scoreCard;
+                }
+                else
+                {
+                    db.ScoreCards.InsertOnSubmit(card);
+                    db.SubmitChanges();
+                    return card;
+                }
+            }
+            catch (Exception ex)
+            {
+                GolfDB2Logger.LogError("InsertOrUpdateScoreCard", ex.ToString());
+            }
+
+            return null;
+        }
+
+        public static ScoreEntry GetAddScoreEntry(int scoreCardId, int ordinal, int holeId, string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+
+            try
+            {
+                var scoreEntry = db.ScoreEntries
+                    .Where(w => (w.ScoreCardId == scoreCardId && w.Ordinal == ordinal))
+                    .SingleOrDefault();
+
+                if (scoreEntry != null)
+                {
+                    return scoreEntry;
+                }
+                else
+                {
+                    ScoreEntry entry = new ScoreEntry()
+                    {
+                        ScoreCardId = scoreCardId,
+                        Score = 0,
+                        Ordinal = ordinal,
+                        HoleId = holeId
+                    };
+
+                    db.ScoreEntries.InsertOnSubmit(entry);
+                    db.SubmitChanges();
+                    return entry;
+                }
+            }
+            catch (Exception ex)
+            {
+                GolfDB2Logger.LogError("InsertOrUpdateScoreCard", ex.ToString());
+            }
+
+            return null;
+        }
 
         public static TeeTime UpdateTeeTime(TeeTime tt, string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
             try
             {
@@ -406,12 +404,7 @@ namespace GolfDB2.Tools
 
         public static List<TeeTimeDetail> GetTeeTimeDetailList(EventDetail eventDetail, TeeTime tt, string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
             List<TeeTimeDetail> ttd = (from c in db.GetTable<TeeTimeDetail>()
                     where c.TeeTimeId == tt.Id

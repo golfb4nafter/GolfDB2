@@ -13,29 +13,9 @@
       <Column Name="NumberOfPlayers" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PlayerNames" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Association Name="TeeTime_TeeTime" Member="TeeTime2" ThisKey="Id" OtherKey="Id" Type="TeeTime" Cardinality="One" />
-      <Association Name="TeeTime_ScoreCard" Member="ScoreCards" ThisKey="Id" OtherKey="TeeTimeId" Type="ScoreCard" />
       <Association Name="TeeTime_TeeTimeDetail" Member="TeeTimeDetails" ThisKey="Id" OtherKey="TeeTimeId" Type="TeeTimeDetail" />
       <Association Name="TeeTime_TeeTime" Member="TeeTime1" ThisKey="Id" OtherKey="Id" Type="TeeTime" IsForeignKey="true" />
       <Association Name="Hole_TeeTime" Member="Hole" ThisKey="HoleId" OtherKey="Id" Type="Hole" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.EventDetail" Member="EventDetails">
-    <Type Name="EventDetail">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="EventId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CourseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="PlayFormat" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NumberOfHoles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IsShotgunStart" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Sponsor" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="PlayListId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="OrgId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="StartHoleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NumGroups" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NumPerGroup" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Event_EventDetail" Member="Event" ThisKey="EventId" OtherKey="id" Type="Event" IsForeignKey="true" />
-      <Association Name="Hole_EventDetail" Member="Hole" ThisKey="StartHoleId" OtherKey="Id" Type="Hole" IsForeignKey="true" />
-      <Association Name="HoleList_EventDetail" Member="HoleList" ThisKey="PlayListId" OtherKey="Id" Type="HoleList" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Event" Member="Events">
@@ -45,8 +25,8 @@
       <Column Name="text" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="start" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="[end]" Member="end" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Event_EventDetail" Member="EventDetails" ThisKey="id" OtherKey="EventId" Type="EventDetail" />
       <Association Name="Event_ScoreCard" Member="ScoreCards" ThisKey="id" OtherKey="EventId" Type="ScoreCard" />
+      <Association Name="Event_EventDetail" Member="EventDetails" ThisKey="id" OtherKey="EventId" Type="EventDetail" />
     </Type>
   </Table>
   <Table Name="dbo.Hole" Member="Holes">
@@ -58,8 +38,8 @@
       <Column Name="PhotoUrl" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Hole_TeeTime" Member="TeeTimes" ThisKey="Id" OtherKey="HoleId" Type="TeeTime" />
-      <Association Name="Hole_EventDetail" Member="EventDetails" ThisKey="Id" OtherKey="StartHoleId" Type="EventDetail" />
       <Association Name="Hole_ScoreEntry" Member="ScoreEntries" ThisKey="Id" OtherKey="HoleId" Type="ScoreEntry" />
+      <Association Name="Hole_EventDetail" Member="EventDetails" ThisKey="Id" OtherKey="StartHoleId" Type="EventDetail" />
     </Type>
   </Table>
   <Table Name="dbo.HoleList" Member="HoleLists">
@@ -79,19 +59,6 @@
       <Column Name="Value" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
       <Column Name="LastWritten" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
       <Column Name="LastUserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ScoreCard" Member="ScoreCards">
-    <Type Name="ScoreCard">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="EventId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="StartingHole" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Division" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Names" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
-      <Column Name="TeeTimeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="ScoreCard_ScoreEntry" Member="ScoreEntries" ThisKey="Id" OtherKey="ScoreCardId" Type="ScoreEntry" />
-      <Association Name="Event_ScoreCard" Member="Event" ThisKey="EventId" OtherKey="id" Type="Event" IsForeignKey="true" />
-      <Association Name="TeeTime_ScoreCard" Member="TeeTime" ThisKey="TeeTimeId" OtherKey="Id" Type="TeeTime" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ScoreEntry" Member="ScoreEntries">
@@ -114,7 +81,41 @@
       <Column Name="AmountPaid" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
       <Column Name="TeeTimeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Division" Type="System.String" DbType="NChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="TeeTimeDetail_ScoreCard" Member="ScoreCards" ThisKey="Id" OtherKey="TeeTimeDetailId" Type="ScoreCard" />
       <Association Name="TeeTime_TeeTimeDetail" Member="TeeTime" ThisKey="TeeTimeId" OtherKey="Id" Type="TeeTime" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ScoreCard" Member="ScoreCards">
+    <Type Name="ScoreCard">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartingHole" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Division" Type="System.String" DbType="NChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Names" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="TeeTimeDetailId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ScoreCard_ScoreEntry" Member="ScoreEntries" ThisKey="Id" OtherKey="ScoreCardId" Type="ScoreEntry" />
+      <Association Name="Event_ScoreCard" Member="Event" ThisKey="EventId" OtherKey="id" Type="Event" IsForeignKey="true" />
+      <Association Name="TeeTimeDetail_ScoreCard" Member="TeeTimeDetail" ThisKey="TeeTimeDetailId" OtherKey="Id" Type="TeeTimeDetail" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventDetail" Member="EventDetails">
+    <Type Name="EventDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CourseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlayFormat" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumberOfHoles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsShotgunStart" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Sponsor" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="PlayListId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrgId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartHoleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumGroups" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumPerGroup" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SortOn" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Association Name="Event_EventDetail" Member="Event" ThisKey="EventId" OtherKey="id" Type="Event" IsForeignKey="true" />
+      <Association Name="HoleList_EventDetail" Member="HoleList" ThisKey="PlayListId" OtherKey="Id" Type="HoleList" IsForeignKey="true" />
+      <Association Name="Hole_EventDetail" Member="Hole" ThisKey="StartHoleId" OtherKey="Id" Type="Hole" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

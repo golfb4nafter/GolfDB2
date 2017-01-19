@@ -74,12 +74,7 @@ namespace GolfDB2.Tools
         public string GetSetting(int userId, string settingName, string defaultValue)
         {
             if (db == null)
-            {
-                if (!string.IsNullOrEmpty(_connectionString))
-                    db = new GolfDB2DataContext(_connectionString);
-                else
-                    db = new GolfDB2DataContext();
-            }
+                db = EventDetailTools.GetDB(_connectionString);
 
             var globalSettings = from ev in db.GlobalSettings.AsEnumerable()
                                     where ev.SettingName == settingName select ev;
@@ -104,12 +99,7 @@ namespace GolfDB2.Tools
         public bool AddSetting(int userId, string settingName, string value, string defaultValue)
         {
             if (db == null)
-            {
-                if (!string.IsNullOrEmpty(_connectionString))
-                    db = new GolfDB2DataContext(_connectionString);
-                else
-                    db = new GolfDB2DataContext();
-            }
+                db = EventDetailTools.GetDB(_connectionString);
 
             GlobalSetting obj = null;
 
@@ -132,12 +122,7 @@ namespace GolfDB2.Tools
         public bool UpdateSetting(int userId, string settingName, string value, string defaultValue)
         {
             if (db == null)
-            {
-                if (!string.IsNullOrEmpty(_connectionString))
-                    db = new GolfDB2DataContext(_connectionString);
-                else
-                    db = new GolfDB2DataContext();
-            }
+                db = EventDetailTools.GetDB(_connectionString);
 
             GlobalSetting obj = null;
 

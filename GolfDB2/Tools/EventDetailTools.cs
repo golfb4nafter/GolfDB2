@@ -9,7 +9,6 @@ namespace GolfDB2.Tools
 {
     public class EventDetailTools
     {
-
         public string MakeEventLabelString(int eventId, string connectionString)
         {
             try
@@ -87,43 +86,35 @@ namespace GolfDB2.Tools
             return int.Parse(kvp.Value);
         }
 
+        public static GolfDB2DataContext GetDB(string connectionString)
+        {
+            if (!string.IsNullOrEmpty(connectionString))
+                return new GolfDB2DataContext(connectionString);
+            else
+                return new GolfDB2DataContext();
+        }
 
         public static Event GetEventRecord(int id, string connectionString)
         {
-            GolfDB2DataContext db = null;
-            EventDetail ed = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
-
+            GolfDB2DataContext db = GetDB(connectionString);
             return (from c in db.GetTable<Event>() where c.id == id select c).SingleOrDefault();
         }
 
         public static EventDetail GetEventDetailRecord(int id, string connectionString)
         {
-            GolfDB2DataContext db = null;
-            EventDetail ed = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
-
+            GolfDB2DataContext db = GetDB(connectionString);
             return (from c in db.GetTable<EventDetail>() where c.Id == id select c).SingleOrDefault();
+        }
+
+        public static EventDetail GetEventDetailRecordByEventId(int eventId, string connectionString)
+        {
+            GolfDB2DataContext db = GetDB(connectionString);
+            return (from c in db.GetTable<EventDetail>() where c.EventId == eventId select c).SingleOrDefault();
         }
 
         public static TeeTime GetTeeTime(int eventId, int teeTimeOffset, string connectionString)
         {
-            GolfDB2DataContext db = null;
-            TeeTime tt = null;
-
-            if (!string.IsNullOrEmpty(connectionString))
-                db = new GolfDB2DataContext(connectionString);
-            else
-                db = new GolfDB2DataContext();
-
+            GolfDB2DataContext db = GetDB(connectionString);
             return (from c in db.GetTable<TeeTime>() where (c.EventId == eventId && c.TeeTimeOffset == teeTimeOffset) select c).SingleOrDefault();
         }
 
@@ -138,15 +129,7 @@ namespace GolfDB2.Tools
                                   int startHoleId,
                                   string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (db == null)
-            {
-                if (!string.IsNullOrEmpty(connectionString))
-                    db = new GolfDB2DataContext(connectionString);
-                else
-                    db = new GolfDB2DataContext();
-            }
+            GolfDB2DataContext db = GetDB(connectionString);
 
             EventDetail obj = null;
 
@@ -178,15 +161,7 @@ namespace GolfDB2.Tools
 
         public static bool EventDetailUpdate(EventDetail eventDetail, string connectionString)
         {
-            GolfDB2DataContext db = null;
-
-            if (db == null)
-            {
-                if (!string.IsNullOrEmpty(connectionString))
-                    db = new GolfDB2DataContext(connectionString);
-                else
-                    db = new GolfDB2DataContext();
-            }
+            GolfDB2DataContext db = GetDB(connectionString);
 
             try
             {

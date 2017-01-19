@@ -99,30 +99,26 @@
     }
 
     function saveTeeTimes() {
-
-
     }
 
     function onSaveClicked(index) {
         
     }
 
+    function doScorecard() {
+        $('#Scorecard').val('true');
+    }
+
     jQuery(function($) {
-        $('#NumGroups').change(function () {
-            
-            
-        }).change();
+        $('#NumGroups').change(function () { }).change();
     });
 
     function makeLoadTeeTimes()
     {
-        //alert('Hello');
-
         $.ajax({
             url: '/api/HtmlApi?action=teetimes&eventId=@Model.EventId',
             dataType: 'html',
             success: function (response) {
-                //alert(response);
                 $('#myListDiv').html(response);
             }
         });
@@ -131,12 +127,7 @@
     var num = @numHoles;
 
     if (num > 0)
-    {
-        //alert(num);
-        //document.getElementsByName("myButton")[0].disabled = true;
-        //document.getElementById('updateTeeTimes')[0].disabled = true;
         makeLoadTeeTimes();
-    }
 
     // Fixup id since we are calling by eventId.
     var id = document.getElementById('Id');
@@ -150,9 +141,9 @@
     <div class="bottom">
         <div class="form-horizontal" style="float: left; width: 35%; text-align: left; vertical-align: top;">
             <hr />
-            <input type="hidden" id="ActionType" name="ActionType" value="Save" />
+            <input type="hidden" id="ActionType" name="ActionType"value="Save" />
+            <input type="hidden" id="Scorecard" name="Scorecard" value="false" />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @*@Html.HiddenFor(model => model.Id)*@
             @Html.HiddenFor(model => model.Id, new { @Value = Model.Id })
             @Html.HiddenFor(model => model.CourseId)
             @Html.HiddenFor(model => model.EventId)
@@ -234,7 +225,9 @@
                     <th>Actions</th>
                     <td>
                         <span><input type="submit" value="Save" class="btn btn-default"/></span>
+                        <span><input type="submit" value="Scores" onclick="doScorecard();" class="btn btn-default" /></span>
                     </td>
+
                 </tr>
             </table>
             <div>

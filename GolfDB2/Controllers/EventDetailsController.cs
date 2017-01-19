@@ -66,10 +66,10 @@ namespace GolfDB2.Controllers
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
 
             EventDetailTools tool = new EventDetailTools();
 
@@ -99,7 +99,8 @@ namespace GolfDB2.Controllers
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
 
-            string action = Request["ActionType"].ToString();
+            if (Request.Form["Scorecard"].ToString() == "true")
+                return RedirectToAction("../Scoreboard/Edit/" + eventDetail.EventId.ToString());
 
             if (ModelState.IsValid)
             {
@@ -159,7 +160,6 @@ namespace GolfDB2.Controllers
         {
             return form[string.Format(format, id, index)];
         }
-
 
         //// GET: EventDetails/Delete/5
         //public ActionResult Delete(int? id)
