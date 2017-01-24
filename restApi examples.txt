@@ -1,0 +1,6 @@
+
+
+http://localhost:55664/api/SelectListApi?date=2016-12-30&eventId=7&holeId=1&action=TeeTime
+
+
+http://localhost:55664/api/SelectListApi?action=labelslist&courseId=1&type=Nine

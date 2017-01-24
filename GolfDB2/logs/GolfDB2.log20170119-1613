@@ -1,0 +1,12 @@
+2017-01-19 16:13:38,149 [6] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Events::Return list of events from SQL server using LINQ.
+2017-01-19 16:13:40,167 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
+2017-01-19 16:13:41,454 [7] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
+2017-01-19 16:13:42,113 [6] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
+2017-01-19 16:13:42,341 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
+2017-01-19 16:13:42,977 [7] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
+2017-01-19 16:13:43,230 [6] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
+2017-01-19 16:13:43,429 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
+2017-01-19 16:13:43,682 [7] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
+2017-01-19 16:13:44,510 [6] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
+2017-01-19 16:13:44,736 [7] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
+2017-01-19 16:13:44,954 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
