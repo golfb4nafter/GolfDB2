@@ -331,7 +331,7 @@ namespace GolfDB2.Tools
             return null;
         }
 
-        public static ScoreEntry GetAddScoreEntry(int scoreCardId, int ordinal, int holeId, string connectionString)
+        public static ScoreEntry GetAddScoreEntry(int scoreCardId, int ordinal, int holeId, int score, string connectionString)
         {
             GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
@@ -343,6 +343,14 @@ namespace GolfDB2.Tools
 
                 if (scoreEntry != null)
                 {
+                    if (scoreEntry.HoleId != holeId)
+                        scoreEntry.HoleId = holeId;
+
+                    if (score > 0)
+                        scoreEntry.Score = score;
+                   
+                    db.SubmitChanges();
+
                     return scoreEntry;
                 }
                 else
@@ -358,6 +366,34 @@ namespace GolfDB2.Tools
                     db.ScoreEntries.InsertOnSubmit(entry);
                     db.SubmitChanges();
                     return entry;
+                }
+            }
+            catch (Exception ex)
+            {
+                GolfDB2Logger.LogError("InsertOrUpdateScoreCard", ex.ToString());
+            }
+
+            return null;
+        }
+
+        public static ScoreEntry UpdateScoreEntry(int scoreCardId, int ordinal, int score, string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+
+            try
+            {
+                var scoreEntry = db.ScoreEntries
+                    .Where(w => (w.ScoreCardId == scoreCardId && w.Ordinal == ordinal))
+                    .SingleOrDefault();
+
+                if (scoreEntry != null)
+                {
+                    if (score > 0)
+                        scoreEntry.Score = score;
+
+                    db.SubmitChanges();
+
+                    return scoreEntry;
                 }
             }
             catch (Exception ex)

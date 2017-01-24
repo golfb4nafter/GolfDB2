@@ -74,6 +74,8 @@ namespace GolfDB2.Tools
         public int TotalScore { get; set; }
         public string Division { get; set; }
         public string Name { get; set; }
+        public int Handicap { get; set; }
+
         public List<ScoreEntry> scores
         {
             get
@@ -84,9 +86,18 @@ namespace GolfDB2.Tools
 
         public string HtmlRow { get; set; }
 
-        public int CompareTo(SortableRowObject obj)
+        public int CompareTo(SortableRowObject x) { return CompareTo(this, x); }
+        private static int CompareTo(SortableRowObject x, SortableRowObject y) { return x.Ordinal.CompareTo(y.Ordinal); }
+        public bool Equals(SortableRowObject x) { return CompareTo(this, x) == 0; }
+        public static bool operator <(SortableRowObject x, SortableRowObject y) { return CompareTo(x, y) < 0; }
+        public static bool operator >(SortableRowObject x, SortableRowObject y) { return CompareTo(x, y) > 0; }
+        public static bool operator <=(SortableRowObject x, SortableRowObject y) { return CompareTo(x, y) <= 0; }
+        public static bool operator >=(SortableRowObject x, SortableRowObject y) { return CompareTo(x, y) >= 0; }
+        public static bool operator ==(SortableRowObject x, SortableRowObject y) { return CompareTo(x, y) == 0; }
+        public static bool operator !=(SortableRowObject x, SortableRowObject y) { return CompareTo(x, y) != 0; }
+        public override bool Equals(object obj)
         {
-            return Ordinal.CompareTo(obj.Ordinal);
+            return (obj is SortableRowObject) && (CompareTo(this, (SortableRowObject)obj) == 0);
         }
     }
 }

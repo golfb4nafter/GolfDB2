@@ -17,6 +17,20 @@
 
 <script type="text/javascript">
 
+
+    function updateScore(scoreElementId) {
+        var val = document.getElementById(scoreElementId).value;
+        //alert(val);
+        $.ajax({
+            url: '/api/HtmlApi?action=updatescore&Name=' + scoreElementId + '&score=' + val,
+            dataType: 'html',
+            success: function (response) {
+                $('#myErrorDiv').html(response);
+            }
+        });
+    }
+
+
     function doEditDetail() {
         $('#EditDetail').val('true');
     }
@@ -60,11 +74,14 @@
                 </td>
                 <td>
                     <span><input type="submit" value="Edit Detail" onclick="doEditDetail();" class="btn btn-default" /></span>
+                    <span><input type="submit" value="Refresh" class="btn btn-default" /></span>
                 </td>
             </tr>
         </table>
     </div><br />
     <div>
         <div id="myListDiv" style="float: left; width: 100%; text-align: left; vertical-align: top;"></div>
+        <br />
+        <div id="myErrorDiv" style="float: left; width: 100%; text-align: left; vertical-align: top;"></div>
     </div>
 }

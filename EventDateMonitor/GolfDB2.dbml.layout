@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="GolfDB2">
+  <DataContextMoniker Name="/GolfDB2DataContext" />
+  <nestedChildShapes>
+    <classShape Id="225bb4a5-bb8f-4ccc-9c27-ce17d9a5e351" absoluteBounds="0.625, 0.5, 2, 1.9631982421875">
+      <DataClassMoniker Name="/GolfDB2DataContext/Event" />
+      <nestedChildShapes>
+        <elementListCompartment Id="48222552-c604-4f81-80ea-aa18c99ccdfa" absoluteBounds="0.64000000000000012, 0.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

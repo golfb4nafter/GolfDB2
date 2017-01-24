@@ -41,7 +41,7 @@ namespace GolfDB2.Tools
             {
                 // Make Table headers row first.
                 if (cnt++ == 0)
-                    sbHead.Append("<tr><th>Time</th><th>Hole</th><th>Player/Team</th>");
+                    sbHead.Append("    <tr><th>Time</th><th>Hole</th><th>Player/Team</th>");
 
                 sbHead.Append(string.Format("<th>{0}</th>", i));
 
@@ -68,14 +68,14 @@ namespace GolfDB2.Tools
             else
                 htmlDetailRows.Sort();
 
-            sbTable.Append("<table>\r\n");
+            sbTable.Append("  <table>\r\n");
 
             sbTable.Append(sbHead.ToString());
 
             foreach(SortableRowObject sro in htmlDetailRows)
                 sbTable.Append(sro.HtmlRow);
 
-            sbTable.Append("</table>\r\n");
+            sbTable.Append("  </table>\r\n");
 
             return sbTable.ToString();
         }
@@ -109,6 +109,7 @@ namespace GolfDB2.Tools
                     card.TeeTimeDetailId = ttd.Id;
                     card.StartingHole = tt.HoleId;
                     card.Division = ttd.Division;
+                    card.Handicap = ttd.Handicap;
                     card.Names = ttd.Name;
 
                     card = TeeTimeTools.InsertOrUpdateScoreCard(card, connectionString);
@@ -125,37 +126,43 @@ namespace GolfDB2.Tools
                         RowTeeTime = tt.Tee_Time,
                         StartingHoleNumber = tt.HoleId,
                         Division = ttd.Division,
+                        Handicap = card.Handicap,
                         Name = ttd.Name
                     };
 
                     int number = MiscLists.GetHoleNumberByHoleId(tt.HoleId, connectionString);
-                    sb.Append(string.Format("<tr><td>{0}</td><td>{1}</td><td>{2}</td>", tt.Tee_Time.ToString("hh:mm"), number, card.Names));
+                    sb.Append(string.Format("    <tr>\r\n        <td>{0}</td>\r\n        <td>{1}</td>\r\n        <td>{2}</td>\r\n", tt.Tee_Time.ToString("hh:mm"), number, card.Names));
 
                     int total = 0;
                     int nineTotal = 0;
 
                     foreach (int i in holesToPlayList)
                     {
-                        ScoreEntry entry = TeeTimeTools.GetAddScoreEntry(card.Id, i, tt.HoleId, connectionString);
-                        sro.scores.Add(entry);
-                        sb.Append(string.Format("<td><input style=\"width: 20px!important;\" type=\"text\" maxlength=\"2\" id=\"Hole{0}_{1}\" name=\"Hole{0}_{1}\" value=\"{2}\" /></td>", card.Id, i, entry.Score));
+                        ScoreEntry entry = TeeTimeTools.GetAddScoreEntry(card.Id, 
+                                                                         i, 
+                                                                         MiscLists.GetHoleIdByHoleNumber(GolfDB2.Tools.GlobalSettingsApi.GetInstance(connectionString).CourseId, i, connectionString),
+                                                                         -1, // -1 = do not touch.
+                                                                         connectionString);
 
-                        if (i%9==0)
-                        {
-                            sb.Append(string.Format("<td><input style=\"width: 30px!important;\" type=\"text\" id=\"Total{0}\" name=\"Total{0}\" value=\"{1}\" /></td>", card.Id, nineTotal));
-                            nineTotal = 0;
-                        }
+                        sro.scores.Add(entry);
+                        sb.Append(string.Format("        <td><input style=\"width: 20px!important;\" type=\"text\" maxlength=\"2\" id=\"Hole_{0}_{1}\" name=\"Hole_{0}_{1}\" value=\"{2}\" onchange=\"updateScore('Hole_{0}_{1}');\" /></td>\r\n", card.Id, i, entry.Score));
 
                         total += entry.Score;
                         nineTotal += entry.Score;
+
+                        if (i%9==0)
+                        {
+                            sb.Append(string.Format("        <td>{0}</td>\r\n", nineTotal));
+                            nineTotal = 0;
+                        }
                     }
 
-                    sb.Append(string.Format("<td><input style=\"width: 45px!important;\" type=\"text\" id=\"Division_{0}\" name=\"Division_{0}\" value=\"{1}\"/></td>", card.Id, card.Division));
-                    sb.Append(string.Format("<td><input style=\"width: 45px!important;\" type=\"text\" id=\"Handicap_{0}\" name=\"Handicap_{0}\" value=\"{1}\"/></td>", card.Id, 0));
-                    sb.Append(string.Format("<td><input style=\"width: 30px!important;\" type=\"text\" id=\"Gross_{0}\" name=\"Gross_{0}\" value=\"{1}\"/></td>", card.Id, total));
-                    sb.Append(string.Format("<td><input style=\"width: 30px!important;\" type=\"text\" id=\"Net_{0}\" name=\"Net_{0}\" value=\"{1}\"/></td>", card.Id, total));
+                    sb.Append(string.Format("        <td>{0}</td>\r\n", card.Division));
+                    sb.Append(string.Format("        <td>{0}</td>\r\n", card.Handicap));
+                    sb.Append(string.Format("        <td>{0}</td>\r\n", total));
+                    sb.Append(string.Format("        <td>{0}<input type=\"hidden\" id=\"dirty_{1}\" name=\"dirty_{1}\" value=\"false\" /></td>\r\n", total, card.Id));
 
-                    sb.Append("</tr>");
+                    sb.Append("    </tr>\r\n");
                     sro.TotalScore = total;
                     sro.HtmlRow = sb.ToString();
 

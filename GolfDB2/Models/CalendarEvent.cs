@@ -16,5 +16,6 @@ namespace GolfDB2.Models
         public string text { get; set; }
         public DateTime start { get; set; }
         public DateTime end { get; set; }
+        public bool locked { get; set; }
     }
 }
