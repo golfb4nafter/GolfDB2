@@ -1,2 +1,0 @@
-2017-01-19 16:12:17,839 [6] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Events::Return list of events from SQL server using LINQ.
-2017-01-19 16:12:20,657 [6] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - Move::Update event start and end times in SQL server using LINQ.
