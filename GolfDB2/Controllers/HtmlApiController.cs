@@ -25,7 +25,6 @@ namespace GolfDB2.Controllers
             string resp = "<p>Hello world!</p>";
 
             // url: '/api/HtmlApi?action=updatescore&Name=' + scoreElementId + '&score=' + val,
-
             if (!string.IsNullOrEmpty(action) && action.Trim() == "updatescore")
             {
                 try
@@ -35,6 +34,7 @@ namespace GolfDB2.Controllers
 
                     string elementName = Request.RequestUri.ParseQueryString().Get("Name");
                     int score = int.Parse(Request.RequestUri.ParseQueryString().Get("score"));
+                    int playListId = int.Parse(Request.RequestUri.ParseQueryString().Get("playListId"));
 
                     if (string.IsNullOrEmpty(elementName))
                     {
@@ -48,11 +48,14 @@ namespace GolfDB2.Controllers
                     }
 
                     TeeTimeTools.UpdateScoreEntry(scoreCardId, ordinal, score, null);
+
+                    ScoreCard card = TeeTimeTools.GetScoreCard(scoreCardId, null);
+                    resp = LeaderBoardHtmlFactory.getRowTotals(scoreCardId, playListId, card.Handicap, null);
                 }
                 catch (Exception ex)
                 {
                     GolfDB2Logger.LogError("HtmlApiController.Get", ex.ToString());
-                    resp = "<p>" + ex.Message + "</p>";
+                    resp = "<p style=\"font-weight: bold!important; color: red; \">Error: " + ex.Message + "</p>";
                 }
             }
 

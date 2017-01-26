@@ -296,6 +296,25 @@ namespace GolfDB2.Tools
             return null;
         }
 
+        public static ScoreCard GetScoreCard(int scoreCardId, string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+
+            try
+            {
+                return db.ScoreCards
+                    .Where(w => w.Id == scoreCardId)
+                    .SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                GolfDB2Logger.LogError("GetScoreCard", ex.ToString());
+            }
+
+            return null;
+        }
+
+
 
         public static ScoreCard InsertOrUpdateScoreCard(ScoreCard card, string connectionString)
         {

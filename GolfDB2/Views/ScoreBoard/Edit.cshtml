@@ -13,23 +13,52 @@
     string startTime = evt.start.ToString("MM/dd/yyyy hh:mm");
     string endTime = evt.end.ToString("MM/dd/yyyy hh:mm");
     string eventName = evt.text;
+
+        
     }
 
 <script type="text/javascript">
-
-
     function updateScore(scoreElementId) {
         var val = document.getElementById(scoreElementId).value;
         //alert(val);
         $.ajax({
-            url: '/api/HtmlApi?action=updatescore&Name=' + scoreElementId + '&score=' + val,
+            url: '/api/HtmlApi?action=updatescore&Name=' + scoreElementId + '&playListId=@Model.PlayListId' + '&score=' + val,
             dataType: 'html',
             success: function (response) {
-                $('#myErrorDiv').html(response);
+                updateRowRowTotals(response, scoreElementId);
             }
         });
     }
 
+    function updateRowRowTotals(response, scoreElementId) {
+        var cardIdParts = scoreElementId.split("_", 3);
+        var totals = response.split(",", 5)
+        //alert(totals);
+
+        if (response.startsWith("<p "))
+        {
+            $('#myErrorDiv').html(response);
+            return;
+        } else {
+            $('#myErrorDiv').html("");
+        }
+
+        for (i = 0; i < totals.length; i++) {
+            if ((i + 2) == totals.length) {
+                var elementName = "#gross_" + cardIdParts[1];
+                //alert(elementName + "," + totals[i]);
+                $(elementName).html(totals[i]);
+            } else if ((i + 1) == totals.length) {
+                var elementName = "#net_" + cardIdParts[1];
+                //alert(elementName + "," + totals[i]);
+                $(elementName).html(totals[i]);
+            } else {
+                var elementName = "#total_" + cardIdParts[1] + "_" + ((1+i) * 9);
+                //alert(elementName + "," + totals[i]);
+                $(elementName).html(totals[i]);
+            }
+        }
+    }
 
     function doEditDetail() {
         $('#EditDetail').val('true');
@@ -55,6 +84,7 @@
     @Html.HiddenFor(model => model.Id, new { @Value = Model.Id })
     @Html.HiddenFor(model => model.CourseId)
     @Html.HiddenFor(model => model.EventId)
+    @Html.HiddenFor(model => model.PlayListId)
 
     <input type="hidden" id="ActionType" name="ActionType" value="Save" />
     <input type="hidden" id="EditDetail" name="EditDetail" value="false" />
@@ -81,7 +111,8 @@
     </div><br />
     <div>
         <div id="myListDiv" style="float: left; width: 100%; text-align: left; vertical-align: top;"></div>
-        <br />
+        <br /><br />
         <div id="myErrorDiv" style="float: left; width: 100%; text-align: left; vertical-align: top;"></div>
+        <br />
     </div>
 }

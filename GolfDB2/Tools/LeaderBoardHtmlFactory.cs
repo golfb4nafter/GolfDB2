@@ -152,15 +152,15 @@ namespace GolfDB2.Tools
 
                         if (i%9==0)
                         {
-                            sb.Append(string.Format("        <td>{0}</td>\r\n", nineTotal));
+                            sb.Append(string.Format("        <td><div id=\"total_{0}_{1}\">{2}</div></td>\r\n", card.Id, i, nineTotal));
                             nineTotal = 0;
                         }
                     }
 
                     sb.Append(string.Format("        <td>{0}</td>\r\n", card.Division));
-                    sb.Append(string.Format("        <td>{0}</td>\r\n", card.Handicap));
-                    sb.Append(string.Format("        <td>{0}</td>\r\n", total));
-                    sb.Append(string.Format("        <td>{0}<input type=\"hidden\" id=\"dirty_{1}\" name=\"dirty_{1}\" value=\"false\" /></td>\r\n", total, card.Id));
+                    sb.Append(string.Format("        <td><div id=\"handicap_{0}\">{1}</div></td>\r\n", card.Id, card.Handicap));
+                    sb.Append(string.Format("        <td><div id=\"gross_{0}\">{1}</div></td>\r\n", card.Id, total));
+                    sb.Append(string.Format("        <td><div id=\"net_{0}\">{1}</div><input type=\"hidden\" id=\"dirty_{1}\" name=\"dirty_{1}\" value=\"false\" /></td>\r\n", card.Id, total - card.Handicap));
 
                     sb.Append("    </tr>\r\n");
                     sro.TotalScore = total;
@@ -197,5 +197,36 @@ namespace GolfDB2.Tools
             return startingHoles;
         }
 
+        public static string getRowTotals(int scoreCardId, int playListId, int handicap, string connectionString)
+        {
+            StringBuilder sb = new StringBuilder();
+            int nineTotal = 0;
+            int total = 0;
+            HoleList holeList = ShotgunHoleCalculator.GetHoleListById(playListId, connectionString);
+
+            foreach (string s in holeList.HoleList1.Split(','))
+            {
+                int i = int.Parse(s);
+
+                ScoreEntry entry = TeeTimeTools.GetAddScoreEntry(scoreCardId,
+                                                                 i,
+                                                                 MiscLists.GetHoleIdByHoleNumber(GolfDB2.Tools.GlobalSettingsApi.GetInstance(connectionString).CourseId, i, connectionString),
+                                                                 -1, // -1 = do not touch.
+                                                                 connectionString);
+                total += entry.Score;
+                nineTotal += entry.Score;
+
+                if (i % 9 == 0)
+                {
+                    sb.Append(nineTotal.ToString() + ",");
+                    nineTotal = 0;
+                }
+            }
+
+            sb.Append(total.ToString() + ",");       // gross
+            sb.Append((total-handicap).ToString());  // net
+
+            return sb.ToString();
+        }
     }
 }
