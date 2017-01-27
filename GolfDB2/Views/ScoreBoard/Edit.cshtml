@@ -10,14 +10,27 @@
     int numHoles = Model.NumberOfHoles;
 
     GolfDB2.Event evt = GolfDB2.Tools.EventDetailTools.GetEventRecord(Model.EventId, null);
-    string startTime = evt.start.ToString("MM/dd/yyyy hh:mm");
-    string endTime = evt.end.ToString("MM/dd/yyyy hh:mm");
+    string startTime = evt.start.ToString("MM/dd/yyyy HH:mm");
+    string endTime = evt.end.ToString("MM/dd/yyyy HH:mm");
     string eventName = evt.text;
-
-        
     }
 
 <script type="text/javascript">
+
+    // onchange=\"updateHandicap('Handicap_{0}');\" /></td>\r\n"
+
+    function updateHandicap(handicapElementId) {
+        var val = document.getElementById(handicapElementId).value;
+        //alert(val);
+        $.ajax({
+            url: '/api/HtmlApi?action=updatehandicap&Name=' + handicapElementId + '&playListId=@Model.PlayListId' + '&Handicap=' + val,
+            dataType: 'html',
+            success: function (response) {
+                updateRowRowTotals(response, handicapElementId);
+            }
+        });
+    }
+
     function updateScore(scoreElementId) {
         var val = document.getElementById(scoreElementId).value;
         //alert(val);

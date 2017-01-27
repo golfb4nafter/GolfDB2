@@ -13,8 +13,6 @@ namespace GolfDB2.Tools
         //
         // if it's stroke play, best ball, or blind then we use seperate score cards 
         // otherwise it's a team event and we build a single score card.
-
-
         public static string MakeTeeTimeTable(List<TeeTime> teeTimeList)
         {
             StringBuilder htmlDoc = new StringBuilder();

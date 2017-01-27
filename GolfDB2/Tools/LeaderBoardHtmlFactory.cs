@@ -158,7 +158,7 @@ namespace GolfDB2.Tools
                     }
 
                     sb.Append(string.Format("        <td>{0}</td>\r\n", card.Division));
-                    sb.Append(string.Format("        <td><div id=\"handicap_{0}\">{1}</div></td>\r\n", card.Id, card.Handicap));
+                    sb.Append(string.Format("        <td><input style=\"width: 20px!important;\" type=\"text\" maxlength=\"2\" id=\"Handicap_{0}\" name=\"Handicap_{0}\" value=\"{1}\" onchange=\"updateHandicap('Handicap_{0}');\" /></td>\r\n", card.Id, card.Handicap));
                     sb.Append(string.Format("        <td><div id=\"gross_{0}\">{1}</div></td>\r\n", card.Id, total));
                     sb.Append(string.Format("        <td><div id=\"net_{0}\">{1}</div><input type=\"hidden\" id=\"dirty_{1}\" name=\"dirty_{1}\" value=\"false\" /></td>\r\n", card.Id, total - card.Handicap));
 

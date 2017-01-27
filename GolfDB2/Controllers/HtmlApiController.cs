@@ -24,6 +24,27 @@ namespace GolfDB2.Controllers
 
             string resp = "<p>Hello world!</p>";
 
+            //  url: '/api/HtmlApi?action=updatehandicap&Name=' + handicapElementId + '&Handicap=' + val,
+            if (!string.IsNullOrEmpty(action) && action.Trim() == "updatehandicap")
+            {
+                try
+                {
+                    int scoreCardId;
+                    string elementName = Request.RequestUri.ParseQueryString().Get("Name");
+                    int handicap = int.Parse(Request.RequestUri.ParseQueryString().Get("Handicap"));
+                    scoreCardId = int.Parse(elementName.Split('_')[1]);
+                    int playListId = int.Parse(Request.RequestUri.ParseQueryString().Get("playListId"));
+                    TeeTimeTools.UpdateScorecardHandicap(scoreCardId, handicap, null);
+
+                    resp = LeaderBoardHtmlFactory.getRowTotals(scoreCardId, playListId, handicap, null);
+                }
+                catch (Exception ex)
+                {
+                    GolfDB2Logger.LogError("HtmlApiController.Get", ex.ToString());
+                    resp = "<p style=\"font-weight: bold!important; color: red; \">Error: " + ex.Message + "</p>";
+                }
+            }
+
             // url: '/api/HtmlApi?action=updatescore&Name=' + scoreElementId + '&score=' + val,
             if (!string.IsNullOrEmpty(action) && action.Trim() == "updatescore")
             {

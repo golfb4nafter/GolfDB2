@@ -395,6 +395,31 @@ namespace GolfDB2.Tools
             return null;
         }
 
+        public static ScoreCard UpdateScorecardHandicap(int scoreCardId, int handicap, string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+
+            try
+            {
+                var scoreCard = db.ScoreCards
+                    .Where(w => (w.Id == scoreCardId))
+                    .SingleOrDefault();
+
+                if (scoreCard != null)
+                {
+                    scoreCard.Handicap = handicap;
+                    db.SubmitChanges();
+                    return scoreCard;
+                }
+            }
+            catch (Exception ex)
+            {
+                GolfDB2Logger.LogError("UpdateScoreCardHandicap", ex.ToString());
+            }
+
+            return null;
+        }
+
         public static ScoreEntry UpdateScoreEntry(int scoreCardId, int ordinal, int score, string connectionString)
         {
             GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
@@ -417,7 +442,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("InsertOrUpdateScoreCard", ex.ToString());
+                GolfDB2Logger.LogError("UpdateScoreEntry", ex.ToString());
             }
 
             return null;
