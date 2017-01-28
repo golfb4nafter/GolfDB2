@@ -350,6 +350,7 @@
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\ScoreBoard\Index.cshtml" />
     <Content Include="Views\ScoreBoard\Edit.cshtml" />
+    <Content Include="Views\UploadFiles\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -438,6 +439,7 @@
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\TeeTimesController.cs" />
+    <Compile Include="Controllers\UploadFilesController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -466,6 +468,7 @@
     <Compile Include="Models\Hole.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UploadFiles.cs" />
     <Compile Include="Tools\HtmlFactory.cs" />
     <Compile Include="Tools\LeaderBoardHtmlFactory.cs" />
     <Compile Include="Tools\MiscLists.cs" />
