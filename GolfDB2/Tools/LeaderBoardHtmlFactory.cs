@@ -21,6 +21,25 @@ namespace GolfDB2.Tools
             Name
         }
 
+        private static bool entryIsSkin(ScoreEntry entry, string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+
+
+            // Gets a list of the minimum Score entries for an event by hole
+            List<ScoreEntry> minList = db.IsScoreEntrySkin1(entry.EventId, entry.HoleId).ToList();
+
+            // Unless it is 1 there are no skins.
+            if (minList.Count != 1)
+                return false;
+
+            // check to see if the owner of this entry has a skin. 
+            if (minList[0].Id == entry.Id)
+                return true;
+
+            return false;
+        }
+
         public static string MakeLeaderBoardTable(int eventId, SortOnColumn sortOn, string connectionString)
         {
             Event evt = EventDetailTools.GetEventRecord(eventId, connectionString);
@@ -138,14 +157,21 @@ namespace GolfDB2.Tools
 
                     foreach (int i in holesToPlayList)
                     {
-                        ScoreEntry entry = TeeTimeTools.GetAddScoreEntry(card.Id, 
+                        ScoreEntry entry = TeeTimeTools.GetAddScoreEntry(evt.id,
+                                                                         card.Id, 
                                                                          i, 
                                                                          MiscLists.GetHoleIdByHoleNumber(GolfDB2.Tools.GlobalSettingsApi.GetInstance(connectionString).CourseId, i, connectionString),
                                                                          -1, // -1 = do not touch.
                                                                          connectionString);
 
+                        // See if it is a Skin
                         sro.scores.Add(entry);
-                        sb.Append(string.Format("        <td><input style=\"width: 20px!important;\" type=\"text\" maxlength=\"2\" id=\"Hole_{0}_{1}\" name=\"Hole_{0}_{1}\" value=\"{2}\" onchange=\"updateScore('Hole_{0}_{1}');\" /></td>\r\n", card.Id, i, entry.Score));
+
+                        // do we need to do skins by division?
+                        if (entryIsSkin(entry, null))
+                            sb.Append(string.Format("        <td><input style=\"width: 20px!important;background-color: yellow;\" type=\"text\" maxlength=\"2\" id=\"Hole_{0}_{1}\" name=\"Hole_{0}_{1}\" value=\"{2}\" onchange=\"updateScore('Hole_{0}_{1}');\" /></td>\r\n", card.Id, i, entry.Score));
+                        else
+                            sb.Append(string.Format("        <td><input style=\"width: 20px!important;\" type=\"text\" maxlength=\"2\" id=\"Hole_{0}_{1}\" name=\"Hole_{0}_{1}\" value=\"{2}\" onchange=\"updateScore('Hole_{0}_{1}');\" /></td>\r\n", card.Id, i, entry.Score));
 
                         total += entry.Score;
                         nineTotal += entry.Score;
@@ -197,7 +223,7 @@ namespace GolfDB2.Tools
             return startingHoles;
         }
 
-        public static string getRowTotals(int scoreCardId, int playListId, int handicap, string connectionString)
+        public static string getRowTotals(int eventId, int scoreCardId, int playListId, int handicap, string connectionString)
         {
             StringBuilder sb = new StringBuilder();
             int nineTotal = 0;
@@ -208,7 +234,8 @@ namespace GolfDB2.Tools
             {
                 int i = int.Parse(s);
 
-                ScoreEntry entry = TeeTimeTools.GetAddScoreEntry(scoreCardId,
+                ScoreEntry entry = TeeTimeTools.GetAddScoreEntry(eventId,
+                                                                 scoreCardId,
                                                                  i,
                                                                  MiscLists.GetHoleIdByHoleNumber(GolfDB2.Tools.GlobalSettingsApi.GetInstance(connectionString).CourseId, i, connectionString),
                                                                  -1, // -1 = do not touch.

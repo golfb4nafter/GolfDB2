@@ -42,21 +42,21 @@ namespace GolfDB2
     partial void InsertGlobalSetting(GlobalSetting instance);
     partial void UpdateGlobalSetting(GlobalSetting instance);
     partial void DeleteGlobalSetting(GlobalSetting instance);
+    partial void InsertScoreCard(ScoreCard instance);
+    partial void UpdateScoreCard(ScoreCard instance);
+    partial void DeleteScoreCard(ScoreCard instance);
+    partial void InsertEvent(Event instance);
+    partial void UpdateEvent(Event instance);
+    partial void DeleteEvent(Event instance);
+    partial void InsertTeeTimeDetail(TeeTimeDetail instance);
+    partial void UpdateTeeTimeDetail(TeeTimeDetail instance);
+    partial void DeleteTeeTimeDetail(TeeTimeDetail instance);
     partial void InsertScoreEntry(ScoreEntry instance);
     partial void UpdateScoreEntry(ScoreEntry instance);
     partial void DeleteScoreEntry(ScoreEntry instance);
     partial void InsertEventDetail(EventDetail instance);
     partial void UpdateEventDetail(EventDetail instance);
     partial void DeleteEventDetail(EventDetail instance);
-    partial void InsertScoreCard(ScoreCard instance);
-    partial void UpdateScoreCard(ScoreCard instance);
-    partial void DeleteScoreCard(ScoreCard instance);
-    partial void InsertTeeTimeDetail(TeeTimeDetail instance);
-    partial void UpdateTeeTimeDetail(TeeTimeDetail instance);
-    partial void DeleteTeeTimeDetail(TeeTimeDetail instance);
-    partial void InsertEvent(Event instance);
-    partial void UpdateEvent(Event instance);
-    partial void DeleteEvent(Event instance);
     #endregion
 		
 		public GolfDB2DataContext() : 
@@ -121,6 +121,30 @@ namespace GolfDB2
 			}
 		}
 		
+		public System.Data.Linq.Table<ScoreCard> ScoreCards
+		{
+			get
+			{
+				return this.GetTable<ScoreCard>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Event> Events
+		{
+			get
+			{
+				return this.GetTable<Event>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TeeTimeDetail> TeeTimeDetails
+		{
+			get
+			{
+				return this.GetTable<TeeTimeDetail>();
+			}
+		}
+		
 		public System.Data.Linq.Table<ScoreEntry> ScoreEntries
 		{
 			get
@@ -137,28 +161,18 @@ namespace GolfDB2
 			}
 		}
 		
-		public System.Data.Linq.Table<ScoreCard> ScoreCards
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.IsScoreEntrySkin")]
+		public ISingleResult<IsScoreEntrySkinResult> IsScoreEntrySkin([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> eventId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="HoleId", DbType="Int")] System.Nullable<int> holeId)
 		{
-			get
-			{
-				return this.GetTable<ScoreCard>();
-			}
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), eventId, holeId);
+			return ((ISingleResult<IsScoreEntrySkinResult>)(result.ReturnValue));
 		}
 		
-		public System.Data.Linq.Table<TeeTimeDetail> TeeTimeDetails
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.IsScoreEntrySkin")]
+		public ISingleResult<ScoreEntry> IsScoreEntrySkin1([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> eventId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="HoleId", DbType="Int")] System.Nullable<int> holeId)
 		{
-			get
-			{
-				return this.GetTable<TeeTimeDetail>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Event> Events
-		{
-			get
-			{
-				return this.GetTable<Event>();
-			}
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), eventId, holeId);
+			return ((ISingleResult<ScoreEntry>)(result.ReturnValue));
 		}
 	}
 	
@@ -1192,6 +1206,911 @@ namespace GolfDB2
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ScoreCard")]
+	public partial class ScoreCard : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _EventId;
+		
+		private int _StartingHole;
+		
+		private string _Division;
+		
+		private string _Names;
+		
+		private int _TeeTimeDetailId;
+		
+		private int _Handicap;
+		
+		private EntitySet<ScoreEntry> _ScoreEntries;
+		
+		private EntityRef<Event> _Event;
+		
+		private EntityRef<TeeTimeDetail> _TeeTimeDetail;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnEventIdChanging(int value);
+    partial void OnEventIdChanged();
+    partial void OnStartingHoleChanging(int value);
+    partial void OnStartingHoleChanged();
+    partial void OnDivisionChanging(string value);
+    partial void OnDivisionChanged();
+    partial void OnNamesChanging(string value);
+    partial void OnNamesChanged();
+    partial void OnTeeTimeDetailIdChanging(int value);
+    partial void OnTeeTimeDetailIdChanged();
+    partial void OnHandicapChanging(int value);
+    partial void OnHandicapChanged();
+    #endregion
+		
+		public ScoreCard()
+		{
+			this._ScoreEntries = new EntitySet<ScoreEntry>(new Action<ScoreEntry>(this.attach_ScoreEntries), new Action<ScoreEntry>(this.detach_ScoreEntries));
+			this._Event = default(EntityRef<Event>);
+			this._TeeTimeDetail = default(EntityRef<TeeTimeDetail>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventId", DbType="Int NOT NULL")]
+		public int EventId
+		{
+			get
+			{
+				return this._EventId;
+			}
+			set
+			{
+				if ((this._EventId != value))
+				{
+					if (this._Event.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEventIdChanging(value);
+					this.SendPropertyChanging();
+					this._EventId = value;
+					this.SendPropertyChanged("EventId");
+					this.OnEventIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartingHole", DbType="Int NOT NULL")]
+		public int StartingHole
+		{
+			get
+			{
+				return this._StartingHole;
+			}
+			set
+			{
+				if ((this._StartingHole != value))
+				{
+					this.OnStartingHoleChanging(value);
+					this.SendPropertyChanging();
+					this._StartingHole = value;
+					this.SendPropertyChanged("StartingHole");
+					this.OnStartingHoleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Division", DbType="NChar(30) NOT NULL", CanBeNull=false)]
+		public string Division
+		{
+			get
+			{
+				return this._Division;
+			}
+			set
+			{
+				if ((this._Division != value))
+				{
+					this.OnDivisionChanging(value);
+					this.SendPropertyChanging();
+					this._Division = value;
+					this.SendPropertyChanged("Division");
+					this.OnDivisionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Names", DbType="NVarChar(128) NOT NULL", CanBeNull=false)]
+		public string Names
+		{
+			get
+			{
+				return this._Names;
+			}
+			set
+			{
+				if ((this._Names != value))
+				{
+					this.OnNamesChanging(value);
+					this.SendPropertyChanging();
+					this._Names = value;
+					this.SendPropertyChanged("Names");
+					this.OnNamesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeeTimeDetailId", DbType="Int NOT NULL")]
+		public int TeeTimeDetailId
+		{
+			get
+			{
+				return this._TeeTimeDetailId;
+			}
+			set
+			{
+				if ((this._TeeTimeDetailId != value))
+				{
+					if (this._TeeTimeDetail.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTeeTimeDetailIdChanging(value);
+					this.SendPropertyChanging();
+					this._TeeTimeDetailId = value;
+					this.SendPropertyChanged("TeeTimeDetailId");
+					this.OnTeeTimeDetailIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Handicap", DbType="Int NOT NULL")]
+		public int Handicap
+		{
+			get
+			{
+				return this._Handicap;
+			}
+			set
+			{
+				if ((this._Handicap != value))
+				{
+					this.OnHandicapChanging(value);
+					this.SendPropertyChanging();
+					this._Handicap = value;
+					this.SendPropertyChanged("Handicap");
+					this.OnHandicapChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ScoreCard_ScoreEntry", Storage="_ScoreEntries", ThisKey="Id", OtherKey="ScoreCardId")]
+		public EntitySet<ScoreEntry> ScoreEntries
+		{
+			get
+			{
+				return this._ScoreEntries;
+			}
+			set
+			{
+				this._ScoreEntries.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_ScoreCard", Storage="_Event", ThisKey="EventId", OtherKey="id", IsForeignKey=true)]
+		public Event Event
+		{
+			get
+			{
+				return this._Event.Entity;
+			}
+			set
+			{
+				Event previousValue = this._Event.Entity;
+				if (((previousValue != value) 
+							|| (this._Event.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Event.Entity = null;
+						previousValue.ScoreCards.Remove(this);
+					}
+					this._Event.Entity = value;
+					if ((value != null))
+					{
+						value.ScoreCards.Add(this);
+						this._EventId = value.id;
+					}
+					else
+					{
+						this._EventId = default(int);
+					}
+					this.SendPropertyChanged("Event");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TeeTimeDetail_ScoreCard", Storage="_TeeTimeDetail", ThisKey="TeeTimeDetailId", OtherKey="Id", IsForeignKey=true)]
+		public TeeTimeDetail TeeTimeDetail
+		{
+			get
+			{
+				return this._TeeTimeDetail.Entity;
+			}
+			set
+			{
+				TeeTimeDetail previousValue = this._TeeTimeDetail.Entity;
+				if (((previousValue != value) 
+							|| (this._TeeTimeDetail.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TeeTimeDetail.Entity = null;
+						previousValue.ScoreCards.Remove(this);
+					}
+					this._TeeTimeDetail.Entity = value;
+					if ((value != null))
+					{
+						value.ScoreCards.Add(this);
+						this._TeeTimeDetailId = value.Id;
+					}
+					else
+					{
+						this._TeeTimeDetailId = default(int);
+					}
+					this.SendPropertyChanged("TeeTimeDetail");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ScoreEntries(ScoreEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.ScoreCard = this;
+		}
+		
+		private void detach_ScoreEntries(ScoreEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.ScoreCard = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Event")]
+	public partial class Event : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _CourseId;
+		
+		private string _text;
+		
+		private System.DateTime _start;
+		
+		private System.DateTime _end;
+		
+		private bool _locked;
+		
+		private EntitySet<ScoreCard> _ScoreCards;
+		
+		private EntitySet<ScoreEntry> _ScoreEntries;
+		
+		private EntitySet<EventDetail> _EventDetails;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnCourseIdChanging(int value);
+    partial void OnCourseIdChanged();
+    partial void OntextChanging(string value);
+    partial void OntextChanged();
+    partial void OnstartChanging(System.DateTime value);
+    partial void OnstartChanged();
+    partial void OnendChanging(System.DateTime value);
+    partial void OnendChanged();
+    partial void OnlockedChanging(bool value);
+    partial void OnlockedChanged();
+    #endregion
+		
+		public Event()
+		{
+			this._ScoreCards = new EntitySet<ScoreCard>(new Action<ScoreCard>(this.attach_ScoreCards), new Action<ScoreCard>(this.detach_ScoreCards));
+			this._ScoreEntries = new EntitySet<ScoreEntry>(new Action<ScoreEntry>(this.attach_ScoreEntries), new Action<ScoreEntry>(this.detach_ScoreEntries));
+			this._EventDetails = new EntitySet<EventDetail>(new Action<EventDetail>(this.attach_EventDetails), new Action<EventDetail>(this.detach_EventDetails));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseId", DbType="Int NOT NULL")]
+		public int CourseId
+		{
+			get
+			{
+				return this._CourseId;
+			}
+			set
+			{
+				if ((this._CourseId != value))
+				{
+					this.OnCourseIdChanging(value);
+					this.SendPropertyChanging();
+					this._CourseId = value;
+					this.SendPropertyChanged("CourseId");
+					this.OnCourseIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_text", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string text
+		{
+			get
+			{
+				return this._text;
+			}
+			set
+			{
+				if ((this._text != value))
+				{
+					this.OntextChanging(value);
+					this.SendPropertyChanging();
+					this._text = value;
+					this.SendPropertyChanged("text");
+					this.OntextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_start", DbType="DateTime NOT NULL")]
+		public System.DateTime start
+		{
+			get
+			{
+				return this._start;
+			}
+			set
+			{
+				if ((this._start != value))
+				{
+					this.OnstartChanging(value);
+					this.SendPropertyChanging();
+					this._start = value;
+					this.SendPropertyChanged("start");
+					this.OnstartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[end]", Storage="_end", DbType="DateTime NOT NULL")]
+		public System.DateTime end
+		{
+			get
+			{
+				return this._end;
+			}
+			set
+			{
+				if ((this._end != value))
+				{
+					this.OnendChanging(value);
+					this.SendPropertyChanging();
+					this._end = value;
+					this.SendPropertyChanged("end");
+					this.OnendChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_locked", DbType="Bit NOT NULL")]
+		public bool locked
+		{
+			get
+			{
+				return this._locked;
+			}
+			set
+			{
+				if ((this._locked != value))
+				{
+					this.OnlockedChanging(value);
+					this.SendPropertyChanging();
+					this._locked = value;
+					this.SendPropertyChanged("locked");
+					this.OnlockedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_ScoreCard", Storage="_ScoreCards", ThisKey="id", OtherKey="EventId")]
+		public EntitySet<ScoreCard> ScoreCards
+		{
+			get
+			{
+				return this._ScoreCards;
+			}
+			set
+			{
+				this._ScoreCards.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_ScoreEntry", Storage="_ScoreEntries", ThisKey="id", OtherKey="EventId")]
+		public EntitySet<ScoreEntry> ScoreEntries
+		{
+			get
+			{
+				return this._ScoreEntries;
+			}
+			set
+			{
+				this._ScoreEntries.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_EventDetail", Storage="_EventDetails", ThisKey="id", OtherKey="EventId")]
+		public EntitySet<EventDetail> EventDetails
+		{
+			get
+			{
+				return this._EventDetails;
+			}
+			set
+			{
+				this._EventDetails.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ScoreCards(ScoreCard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Event = this;
+		}
+		
+		private void detach_ScoreCards(ScoreCard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Event = null;
+		}
+		
+		private void attach_ScoreEntries(ScoreEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.Event = this;
+		}
+		
+		private void detach_ScoreEntries(ScoreEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.Event = null;
+		}
+		
+		private void attach_EventDetails(EventDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Event = this;
+		}
+		
+		private void detach_EventDetails(EventDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Event = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TeeTimeDetail")]
+	public partial class TeeTimeDetail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private bool _Cart;
+		
+		private bool _Pass;
+		
+		private decimal _AmountPaid;
+		
+		private int _TeeTimeId;
+		
+		private string _Division;
+		
+		private int _Handicap;
+		
+		private bool _Skins;
+		
+		private EntitySet<ScoreCard> _ScoreCards;
+		
+		private EntityRef<TeeTime> _TeeTime;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnCartChanging(bool value);
+    partial void OnCartChanged();
+    partial void OnPassChanging(bool value);
+    partial void OnPassChanged();
+    partial void OnAmountPaidChanging(decimal value);
+    partial void OnAmountPaidChanged();
+    partial void OnTeeTimeIdChanging(int value);
+    partial void OnTeeTimeIdChanged();
+    partial void OnDivisionChanging(string value);
+    partial void OnDivisionChanged();
+    partial void OnHandicapChanging(int value);
+    partial void OnHandicapChanged();
+    partial void OnSkinsChanging(bool value);
+    partial void OnSkinsChanged();
+    #endregion
+		
+		public TeeTimeDetail()
+		{
+			this._ScoreCards = new EntitySet<ScoreCard>(new Action<ScoreCard>(this.attach_ScoreCards), new Action<ScoreCard>(this.detach_ScoreCards));
+			this._TeeTime = default(EntityRef<TeeTime>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart", DbType="Bit NOT NULL")]
+		public bool Cart
+		{
+			get
+			{
+				return this._Cart;
+			}
+			set
+			{
+				if ((this._Cart != value))
+				{
+					this.OnCartChanging(value);
+					this.SendPropertyChanging();
+					this._Cart = value;
+					this.SendPropertyChanged("Cart");
+					this.OnCartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pass", DbType="Bit NOT NULL")]
+		public bool Pass
+		{
+			get
+			{
+				return this._Pass;
+			}
+			set
+			{
+				if ((this._Pass != value))
+				{
+					this.OnPassChanging(value);
+					this.SendPropertyChanging();
+					this._Pass = value;
+					this.SendPropertyChanged("Pass");
+					this.OnPassChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AmountPaid", DbType="Money NOT NULL")]
+		public decimal AmountPaid
+		{
+			get
+			{
+				return this._AmountPaid;
+			}
+			set
+			{
+				if ((this._AmountPaid != value))
+				{
+					this.OnAmountPaidChanging(value);
+					this.SendPropertyChanging();
+					this._AmountPaid = value;
+					this.SendPropertyChanged("AmountPaid");
+					this.OnAmountPaidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeeTimeId", DbType="Int NOT NULL")]
+		public int TeeTimeId
+		{
+			get
+			{
+				return this._TeeTimeId;
+			}
+			set
+			{
+				if ((this._TeeTimeId != value))
+				{
+					if (this._TeeTime.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTeeTimeIdChanging(value);
+					this.SendPropertyChanging();
+					this._TeeTimeId = value;
+					this.SendPropertyChanged("TeeTimeId");
+					this.OnTeeTimeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Division", DbType="NChar(30) NOT NULL", CanBeNull=false)]
+		public string Division
+		{
+			get
+			{
+				return this._Division;
+			}
+			set
+			{
+				if ((this._Division != value))
+				{
+					this.OnDivisionChanging(value);
+					this.SendPropertyChanging();
+					this._Division = value;
+					this.SendPropertyChanged("Division");
+					this.OnDivisionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Handicap", DbType="Int NOT NULL")]
+		public int Handicap
+		{
+			get
+			{
+				return this._Handicap;
+			}
+			set
+			{
+				if ((this._Handicap != value))
+				{
+					this.OnHandicapChanging(value);
+					this.SendPropertyChanging();
+					this._Handicap = value;
+					this.SendPropertyChanged("Handicap");
+					this.OnHandicapChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Skins", DbType="Bit NOT NULL")]
+		public bool Skins
+		{
+			get
+			{
+				return this._Skins;
+			}
+			set
+			{
+				if ((this._Skins != value))
+				{
+					this.OnSkinsChanging(value);
+					this.SendPropertyChanging();
+					this._Skins = value;
+					this.SendPropertyChanged("Skins");
+					this.OnSkinsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TeeTimeDetail_ScoreCard", Storage="_ScoreCards", ThisKey="Id", OtherKey="TeeTimeDetailId")]
+		public EntitySet<ScoreCard> ScoreCards
+		{
+			get
+			{
+				return this._ScoreCards;
+			}
+			set
+			{
+				this._ScoreCards.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TeeTime_TeeTimeDetail", Storage="_TeeTime", ThisKey="TeeTimeId", OtherKey="Id", IsForeignKey=true)]
+		public TeeTime TeeTime
+		{
+			get
+			{
+				return this._TeeTime.Entity;
+			}
+			set
+			{
+				TeeTime previousValue = this._TeeTime.Entity;
+				if (((previousValue != value) 
+							|| (this._TeeTime.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TeeTime.Entity = null;
+						previousValue.TeeTimeDetails.Remove(this);
+					}
+					this._TeeTime.Entity = value;
+					if ((value != null))
+					{
+						value.TeeTimeDetails.Add(this);
+						this._TeeTimeId = value.Id;
+					}
+					else
+					{
+						this._TeeTimeId = default(int);
+					}
+					this.SendPropertyChanged("TeeTime");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ScoreCards(ScoreCard entity)
+		{
+			this.SendPropertyChanging();
+			entity.TeeTimeDetail = this;
+		}
+		
+		private void detach_ScoreCards(ScoreCard entity)
+		{
+			this.SendPropertyChanging();
+			entity.TeeTimeDetail = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ScoreEntry")]
 	public partial class ScoreEntry : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1207,6 +2126,10 @@ namespace GolfDB2
 		private int _Score;
 		
 		private int _Ordinal;
+		
+		private int _EventId;
+		
+		private EntityRef<Event> _Event;
 		
 		private EntityRef<Hole> _Hole;
 		
@@ -1226,10 +2149,13 @@ namespace GolfDB2
     partial void OnScoreChanged();
     partial void OnOrdinalChanging(int value);
     partial void OnOrdinalChanged();
+    partial void OnEventIdChanging(int value);
+    partial void OnEventIdChanged();
     #endregion
 		
 		public ScoreEntry()
 		{
+			this._Event = default(EntityRef<Event>);
 			this._Hole = default(EntityRef<Hole>);
 			this._ScoreCard = default(EntityRef<ScoreCard>);
 			OnCreated();
@@ -1339,6 +2265,64 @@ namespace GolfDB2
 					this._Ordinal = value;
 					this.SendPropertyChanged("Ordinal");
 					this.OnOrdinalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventId", DbType="Int NOT NULL")]
+		public int EventId
+		{
+			get
+			{
+				return this._EventId;
+			}
+			set
+			{
+				if ((this._EventId != value))
+				{
+					if (this._Event.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEventIdChanging(value);
+					this.SendPropertyChanging();
+					this._EventId = value;
+					this.SendPropertyChanged("EventId");
+					this.OnEventIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_ScoreEntry", Storage="_Event", ThisKey="EventId", OtherKey="id", IsForeignKey=true)]
+		public Event Event
+		{
+			get
+			{
+				return this._Event.Entity;
+			}
+			set
+			{
+				Event previousValue = this._Event.Entity;
+				if (((previousValue != value) 
+							|| (this._Event.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Event.Entity = null;
+						previousValue.ScoreEntries.Remove(this);
+					}
+					this._Event.Entity = value;
+					if ((value != null))
+					{
+						value.ScoreEntries.Add(this);
+						this._EventId = value.id;
+					}
+					else
+					{
+						this._EventId = default(int);
+					}
+					this.SendPropertyChanged("Event");
 				}
 			}
 		}
@@ -1464,11 +2448,15 @@ namespace GolfDB2
 		
 		private string _SortOn;
 		
+		private decimal _SkinsAmount;
+		
+		private int _NumberOfFlights;
+		
+		private EntityRef<Event> _Event;
+		
 		private EntityRef<HoleList> _HoleList;
 		
 		private EntityRef<Hole> _Hole;
-		
-		private EntityRef<Event> _Event;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1500,13 +2488,17 @@ namespace GolfDB2
     partial void OnNumPerGroupChanged();
     partial void OnSortOnChanging(string value);
     partial void OnSortOnChanged();
+    partial void OnSkinsAmountChanging(decimal value);
+    partial void OnSkinsAmountChanged();
+    partial void OnNumberOfFlightsChanging(int value);
+    partial void OnNumberOfFlightsChanged();
     #endregion
 		
 		public EventDetail()
 		{
+			this._Event = default(EntityRef<Event>);
 			this._HoleList = default(EntityRef<HoleList>);
 			this._Hole = default(EntityRef<Hole>);
-			this._Event = default(EntityRef<Event>);
 			OnCreated();
 		}
 		
@@ -1782,6 +2774,80 @@ namespace GolfDB2
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SkinsAmount", DbType="Decimal(4,2) NOT NULL")]
+		public decimal SkinsAmount
+		{
+			get
+			{
+				return this._SkinsAmount;
+			}
+			set
+			{
+				if ((this._SkinsAmount != value))
+				{
+					this.OnSkinsAmountChanging(value);
+					this.SendPropertyChanging();
+					this._SkinsAmount = value;
+					this.SendPropertyChanged("SkinsAmount");
+					this.OnSkinsAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumberOfFlights", DbType="Int NOT NULL")]
+		public int NumberOfFlights
+		{
+			get
+			{
+				return this._NumberOfFlights;
+			}
+			set
+			{
+				if ((this._NumberOfFlights != value))
+				{
+					this.OnNumberOfFlightsChanging(value);
+					this.SendPropertyChanging();
+					this._NumberOfFlights = value;
+					this.SendPropertyChanged("NumberOfFlights");
+					this.OnNumberOfFlightsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_EventDetail", Storage="_Event", ThisKey="EventId", OtherKey="id", IsForeignKey=true)]
+		public Event Event
+		{
+			get
+			{
+				return this._Event.Entity;
+			}
+			set
+			{
+				Event previousValue = this._Event.Entity;
+				if (((previousValue != value) 
+							|| (this._Event.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Event.Entity = null;
+						previousValue.EventDetails.Remove(this);
+					}
+					this._Event.Entity = value;
+					if ((value != null))
+					{
+						value.EventDetails.Add(this);
+						this._EventId = value.id;
+					}
+					else
+					{
+						this._EventId = default(int);
+					}
+					this.SendPropertyChanged("Event");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HoleList_EventDetail", Storage="_HoleList", ThisKey="PlayListId", OtherKey="Id", IsForeignKey=true)]
 		public HoleList HoleList
 		{
@@ -1850,40 +2916,6 @@ namespace GolfDB2
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_EventDetail", Storage="_Event", ThisKey="EventId", OtherKey="id", IsForeignKey=true)]
-		public Event Event
-		{
-			get
-			{
-				return this._Event.Entity;
-			}
-			set
-			{
-				Event previousValue = this._Event.Entity;
-				if (((previousValue != value) 
-							|| (this._Event.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Event.Entity = null;
-						previousValue.EventDetails.Remove(this);
-					}
-					this._Event.Entity = value;
-					if ((value != null))
-					{
-						value.EventDetails.Add(this);
-						this._EventId = value.id;
-					}
-					else
-					{
-						this._EventId = default(int);
-					}
-					this.SendPropertyChanged("Event");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1905,61 +2937,26 @@ namespace GolfDB2
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ScoreCard")]
-	public partial class ScoreCard : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class IsScoreEntrySkinResult
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Id;
 		
+		private int _HoleId;
+		
+		private int _ScoreCardId;
+		
+		private int _Score;
+		
+		private int _Ordinal;
+		
 		private int _EventId;
 		
-		private int _StartingHole;
-		
-		private string _Division;
-		
-		private string _Names;
-		
-		private int _TeeTimeDetailId;
-		
-		private int _Handicap;
-		
-		private EntitySet<ScoreEntry> _ScoreEntries;
-		
-		private EntityRef<TeeTimeDetail> _TeeTimeDetail;
-		
-		private EntityRef<Event> _Event;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnEventIdChanging(int value);
-    partial void OnEventIdChanged();
-    partial void OnStartingHoleChanging(int value);
-    partial void OnStartingHoleChanged();
-    partial void OnDivisionChanging(string value);
-    partial void OnDivisionChanged();
-    partial void OnNamesChanging(string value);
-    partial void OnNamesChanged();
-    partial void OnTeeTimeDetailIdChanging(int value);
-    partial void OnTeeTimeDetailIdChanged();
-    partial void OnHandicapChanging(int value);
-    partial void OnHandicapChanged();
-    #endregion
-		
-		public ScoreCard()
+		public IsScoreEntrySkinResult()
 		{
-			this._ScoreEntries = new EntitySet<ScoreEntry>(new Action<ScoreEntry>(this.attach_ScoreEntries), new Action<ScoreEntry>(this.detach_ScoreEntries));
-			this._TeeTimeDetail = default(EntityRef<TeeTimeDetail>);
-			this._Event = default(EntityRef<Event>);
-			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
 		public int Id
 		{
 			get
@@ -1970,11 +2967,71 @@ namespace GolfDB2
 			{
 				if ((this._Id != value))
 				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
 					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoleId", DbType="Int NOT NULL")]
+		public int HoleId
+		{
+			get
+			{
+				return this._HoleId;
+			}
+			set
+			{
+				if ((this._HoleId != value))
+				{
+					this._HoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ScoreCardId", DbType="Int NOT NULL")]
+		public int ScoreCardId
+		{
+			get
+			{
+				return this._ScoreCardId;
+			}
+			set
+			{
+				if ((this._ScoreCardId != value))
+				{
+					this._ScoreCardId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int NOT NULL")]
+		public int Score
+		{
+			get
+			{
+				return this._Score;
+			}
+			set
+			{
+				if ((this._Score != value))
+				{
+					this._Score = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ordinal", DbType="Int NOT NULL")]
+		public int Ordinal
+		{
+			get
+			{
+				return this._Ordinal;
+			}
+			set
+			{
+				if ((this._Ordinal != value))
+				{
+					this._Ordinal = value;
 				}
 			}
 		}
@@ -1990,771 +3047,9 @@ namespace GolfDB2
 			{
 				if ((this._EventId != value))
 				{
-					if (this._Event.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnEventIdChanging(value);
-					this.SendPropertyChanging();
 					this._EventId = value;
-					this.SendPropertyChanged("EventId");
-					this.OnEventIdChanged();
 				}
 			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartingHole", DbType="Int NOT NULL")]
-		public int StartingHole
-		{
-			get
-			{
-				return this._StartingHole;
-			}
-			set
-			{
-				if ((this._StartingHole != value))
-				{
-					this.OnStartingHoleChanging(value);
-					this.SendPropertyChanging();
-					this._StartingHole = value;
-					this.SendPropertyChanged("StartingHole");
-					this.OnStartingHoleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Division", DbType="NChar(30) NOT NULL", CanBeNull=false)]
-		public string Division
-		{
-			get
-			{
-				return this._Division;
-			}
-			set
-			{
-				if ((this._Division != value))
-				{
-					this.OnDivisionChanging(value);
-					this.SendPropertyChanging();
-					this._Division = value;
-					this.SendPropertyChanged("Division");
-					this.OnDivisionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Names", DbType="NVarChar(128) NOT NULL", CanBeNull=false)]
-		public string Names
-		{
-			get
-			{
-				return this._Names;
-			}
-			set
-			{
-				if ((this._Names != value))
-				{
-					this.OnNamesChanging(value);
-					this.SendPropertyChanging();
-					this._Names = value;
-					this.SendPropertyChanged("Names");
-					this.OnNamesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeeTimeDetailId", DbType="Int NOT NULL")]
-		public int TeeTimeDetailId
-		{
-			get
-			{
-				return this._TeeTimeDetailId;
-			}
-			set
-			{
-				if ((this._TeeTimeDetailId != value))
-				{
-					if (this._TeeTimeDetail.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTeeTimeDetailIdChanging(value);
-					this.SendPropertyChanging();
-					this._TeeTimeDetailId = value;
-					this.SendPropertyChanged("TeeTimeDetailId");
-					this.OnTeeTimeDetailIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Handicap", DbType="Int NOT NULL")]
-		public int Handicap
-		{
-			get
-			{
-				return this._Handicap;
-			}
-			set
-			{
-				if ((this._Handicap != value))
-				{
-					this.OnHandicapChanging(value);
-					this.SendPropertyChanging();
-					this._Handicap = value;
-					this.SendPropertyChanged("Handicap");
-					this.OnHandicapChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ScoreCard_ScoreEntry", Storage="_ScoreEntries", ThisKey="Id", OtherKey="ScoreCardId")]
-		public EntitySet<ScoreEntry> ScoreEntries
-		{
-			get
-			{
-				return this._ScoreEntries;
-			}
-			set
-			{
-				this._ScoreEntries.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TeeTimeDetail_ScoreCard", Storage="_TeeTimeDetail", ThisKey="TeeTimeDetailId", OtherKey="Id", IsForeignKey=true)]
-		public TeeTimeDetail TeeTimeDetail
-		{
-			get
-			{
-				return this._TeeTimeDetail.Entity;
-			}
-			set
-			{
-				TeeTimeDetail previousValue = this._TeeTimeDetail.Entity;
-				if (((previousValue != value) 
-							|| (this._TeeTimeDetail.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._TeeTimeDetail.Entity = null;
-						previousValue.ScoreCards.Remove(this);
-					}
-					this._TeeTimeDetail.Entity = value;
-					if ((value != null))
-					{
-						value.ScoreCards.Add(this);
-						this._TeeTimeDetailId = value.Id;
-					}
-					else
-					{
-						this._TeeTimeDetailId = default(int);
-					}
-					this.SendPropertyChanged("TeeTimeDetail");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_ScoreCard", Storage="_Event", ThisKey="EventId", OtherKey="id", IsForeignKey=true)]
-		public Event Event
-		{
-			get
-			{
-				return this._Event.Entity;
-			}
-			set
-			{
-				Event previousValue = this._Event.Entity;
-				if (((previousValue != value) 
-							|| (this._Event.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Event.Entity = null;
-						previousValue.ScoreCards.Remove(this);
-					}
-					this._Event.Entity = value;
-					if ((value != null))
-					{
-						value.ScoreCards.Add(this);
-						this._EventId = value.id;
-					}
-					else
-					{
-						this._EventId = default(int);
-					}
-					this.SendPropertyChanged("Event");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ScoreEntries(ScoreEntry entity)
-		{
-			this.SendPropertyChanging();
-			entity.ScoreCard = this;
-		}
-		
-		private void detach_ScoreEntries(ScoreEntry entity)
-		{
-			this.SendPropertyChanging();
-			entity.ScoreCard = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TeeTimeDetail")]
-	public partial class TeeTimeDetail : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private bool _Cart;
-		
-		private bool _Pass;
-		
-		private decimal _AmountPaid;
-		
-		private int _TeeTimeId;
-		
-		private string _Division;
-		
-		private int _Handicap;
-		
-		private EntitySet<ScoreCard> _ScoreCards;
-		
-		private EntityRef<TeeTime> _TeeTime;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnCartChanging(bool value);
-    partial void OnCartChanged();
-    partial void OnPassChanging(bool value);
-    partial void OnPassChanged();
-    partial void OnAmountPaidChanging(decimal value);
-    partial void OnAmountPaidChanged();
-    partial void OnTeeTimeIdChanging(int value);
-    partial void OnTeeTimeIdChanged();
-    partial void OnDivisionChanging(string value);
-    partial void OnDivisionChanged();
-    partial void OnHandicapChanging(int value);
-    partial void OnHandicapChanged();
-    #endregion
-		
-		public TeeTimeDetail()
-		{
-			this._ScoreCards = new EntitySet<ScoreCard>(new Action<ScoreCard>(this.attach_ScoreCards), new Action<ScoreCard>(this.detach_ScoreCards));
-			this._TeeTime = default(EntityRef<TeeTime>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart", DbType="Bit NOT NULL")]
-		public bool Cart
-		{
-			get
-			{
-				return this._Cart;
-			}
-			set
-			{
-				if ((this._Cart != value))
-				{
-					this.OnCartChanging(value);
-					this.SendPropertyChanging();
-					this._Cart = value;
-					this.SendPropertyChanged("Cart");
-					this.OnCartChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pass", DbType="Bit NOT NULL")]
-		public bool Pass
-		{
-			get
-			{
-				return this._Pass;
-			}
-			set
-			{
-				if ((this._Pass != value))
-				{
-					this.OnPassChanging(value);
-					this.SendPropertyChanging();
-					this._Pass = value;
-					this.SendPropertyChanged("Pass");
-					this.OnPassChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AmountPaid", DbType="Money NOT NULL")]
-		public decimal AmountPaid
-		{
-			get
-			{
-				return this._AmountPaid;
-			}
-			set
-			{
-				if ((this._AmountPaid != value))
-				{
-					this.OnAmountPaidChanging(value);
-					this.SendPropertyChanging();
-					this._AmountPaid = value;
-					this.SendPropertyChanged("AmountPaid");
-					this.OnAmountPaidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeeTimeId", DbType="Int NOT NULL")]
-		public int TeeTimeId
-		{
-			get
-			{
-				return this._TeeTimeId;
-			}
-			set
-			{
-				if ((this._TeeTimeId != value))
-				{
-					if (this._TeeTime.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTeeTimeIdChanging(value);
-					this.SendPropertyChanging();
-					this._TeeTimeId = value;
-					this.SendPropertyChanged("TeeTimeId");
-					this.OnTeeTimeIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Division", DbType="NChar(30) NOT NULL", CanBeNull=false)]
-		public string Division
-		{
-			get
-			{
-				return this._Division;
-			}
-			set
-			{
-				if ((this._Division != value))
-				{
-					this.OnDivisionChanging(value);
-					this.SendPropertyChanging();
-					this._Division = value;
-					this.SendPropertyChanged("Division");
-					this.OnDivisionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Handicap", DbType="Int NOT NULL")]
-		public int Handicap
-		{
-			get
-			{
-				return this._Handicap;
-			}
-			set
-			{
-				if ((this._Handicap != value))
-				{
-					this.OnHandicapChanging(value);
-					this.SendPropertyChanging();
-					this._Handicap = value;
-					this.SendPropertyChanged("Handicap");
-					this.OnHandicapChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TeeTimeDetail_ScoreCard", Storage="_ScoreCards", ThisKey="Id", OtherKey="TeeTimeDetailId")]
-		public EntitySet<ScoreCard> ScoreCards
-		{
-			get
-			{
-				return this._ScoreCards;
-			}
-			set
-			{
-				this._ScoreCards.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TeeTime_TeeTimeDetail", Storage="_TeeTime", ThisKey="TeeTimeId", OtherKey="Id", IsForeignKey=true)]
-		public TeeTime TeeTime
-		{
-			get
-			{
-				return this._TeeTime.Entity;
-			}
-			set
-			{
-				TeeTime previousValue = this._TeeTime.Entity;
-				if (((previousValue != value) 
-							|| (this._TeeTime.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._TeeTime.Entity = null;
-						previousValue.TeeTimeDetails.Remove(this);
-					}
-					this._TeeTime.Entity = value;
-					if ((value != null))
-					{
-						value.TeeTimeDetails.Add(this);
-						this._TeeTimeId = value.Id;
-					}
-					else
-					{
-						this._TeeTimeId = default(int);
-					}
-					this.SendPropertyChanged("TeeTime");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ScoreCards(ScoreCard entity)
-		{
-			this.SendPropertyChanging();
-			entity.TeeTimeDetail = this;
-		}
-		
-		private void detach_ScoreCards(ScoreCard entity)
-		{
-			this.SendPropertyChanging();
-			entity.TeeTimeDetail = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Event")]
-	public partial class Event : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _CourseId;
-		
-		private string _text;
-		
-		private System.DateTime _start;
-		
-		private System.DateTime _end;
-		
-		private bool _locked;
-		
-		private EntitySet<EventDetail> _EventDetails;
-		
-		private EntitySet<ScoreCard> _ScoreCards;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnCourseIdChanging(int value);
-    partial void OnCourseIdChanged();
-    partial void OntextChanging(string value);
-    partial void OntextChanged();
-    partial void OnstartChanging(System.DateTime value);
-    partial void OnstartChanged();
-    partial void OnendChanging(System.DateTime value);
-    partial void OnendChanged();
-    partial void OnlockedChanging(bool value);
-    partial void OnlockedChanged();
-    #endregion
-		
-		public Event()
-		{
-			this._EventDetails = new EntitySet<EventDetail>(new Action<EventDetail>(this.attach_EventDetails), new Action<EventDetail>(this.detach_EventDetails));
-			this._ScoreCards = new EntitySet<ScoreCard>(new Action<ScoreCard>(this.attach_ScoreCards), new Action<ScoreCard>(this.detach_ScoreCards));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseId", DbType="Int NOT NULL")]
-		public int CourseId
-		{
-			get
-			{
-				return this._CourseId;
-			}
-			set
-			{
-				if ((this._CourseId != value))
-				{
-					this.OnCourseIdChanging(value);
-					this.SendPropertyChanging();
-					this._CourseId = value;
-					this.SendPropertyChanged("CourseId");
-					this.OnCourseIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_text", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string text
-		{
-			get
-			{
-				return this._text;
-			}
-			set
-			{
-				if ((this._text != value))
-				{
-					this.OntextChanging(value);
-					this.SendPropertyChanging();
-					this._text = value;
-					this.SendPropertyChanged("text");
-					this.OntextChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_start", DbType="DateTime NOT NULL")]
-		public System.DateTime start
-		{
-			get
-			{
-				return this._start;
-			}
-			set
-			{
-				if ((this._start != value))
-				{
-					this.OnstartChanging(value);
-					this.SendPropertyChanging();
-					this._start = value;
-					this.SendPropertyChanged("start");
-					this.OnstartChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[end]", Storage="_end", DbType="DateTime NOT NULL")]
-		public System.DateTime end
-		{
-			get
-			{
-				return this._end;
-			}
-			set
-			{
-				if ((this._end != value))
-				{
-					this.OnendChanging(value);
-					this.SendPropertyChanging();
-					this._end = value;
-					this.SendPropertyChanged("end");
-					this.OnendChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_locked", DbType="Bit NOT NULL")]
-		public bool locked
-		{
-			get
-			{
-				return this._locked;
-			}
-			set
-			{
-				if ((this._locked != value))
-				{
-					this.OnlockedChanging(value);
-					this.SendPropertyChanging();
-					this._locked = value;
-					this.SendPropertyChanged("locked");
-					this.OnlockedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_EventDetail", Storage="_EventDetails", ThisKey="id", OtherKey="EventId")]
-		public EntitySet<EventDetail> EventDetails
-		{
-			get
-			{
-				return this._EventDetails;
-			}
-			set
-			{
-				this._EventDetails.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_ScoreCard", Storage="_ScoreCards", ThisKey="id", OtherKey="EventId")]
-		public EntitySet<ScoreCard> ScoreCards
-		{
-			get
-			{
-				return this._ScoreCards;
-			}
-			set
-			{
-				this._ScoreCards.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_EventDetails(EventDetail entity)
-		{
-			this.SendPropertyChanging();
-			entity.Event = this;
-		}
-		
-		private void detach_EventDetails(EventDetail entity)
-		{
-			this.SendPropertyChanging();
-			entity.Event = null;
-		}
-		
-		private void attach_ScoreCards(ScoreCard entity)
-		{
-			this.SendPropertyChanging();
-			entity.Event = this;
-		}
-		
-		private void detach_ScoreCards(ScoreCard entity)
-		{
-			this.SendPropertyChanging();
-			entity.Event = null;
 		}
 	}
 }

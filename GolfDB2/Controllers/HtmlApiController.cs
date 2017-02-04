@@ -30,13 +30,14 @@ namespace GolfDB2.Controllers
                 try
                 {
                     int scoreCardId;
+                    int eventId = int.Parse(Request.RequestUri.ParseQueryString().Get("eventId"));
                     string elementName = Request.RequestUri.ParseQueryString().Get("Name");
                     int handicap = int.Parse(Request.RequestUri.ParseQueryString().Get("Handicap"));
                     scoreCardId = int.Parse(elementName.Split('_')[1]);
                     int playListId = int.Parse(Request.RequestUri.ParseQueryString().Get("playListId"));
-                    TeeTimeTools.UpdateScorecardHandicap(scoreCardId, handicap, null);
+                    TeeTimeTools.UpdateScorecardHandicap(eventId, scoreCardId, handicap, null);
 
-                    resp = LeaderBoardHtmlFactory.getRowTotals(scoreCardId, playListId, handicap, null);
+                    resp = LeaderBoardHtmlFactory.getRowTotals(eventId, scoreCardId, playListId, handicap, null);
                 }
                 catch (Exception ex)
                 {
@@ -52,7 +53,7 @@ namespace GolfDB2.Controllers
                 {
                     int scoreCardId;
                     int ordinal;
-
+                    int eventId = int.Parse(Request.RequestUri.ParseQueryString().Get("eventId"));
                     string elementName = Request.RequestUri.ParseQueryString().Get("Name");
                     int score = int.Parse(Request.RequestUri.ParseQueryString().Get("score"));
                     int playListId = int.Parse(Request.RequestUri.ParseQueryString().Get("playListId"));
@@ -68,10 +69,10 @@ namespace GolfDB2.Controllers
                         ordinal = int.Parse(elementName.Split('_')[2]);
                     }
 
-                    TeeTimeTools.UpdateScoreEntry(scoreCardId, ordinal, score, null);
+                    TeeTimeTools.UpdateScoreEntry(eventId, scoreCardId, ordinal, score, null);
 
                     ScoreCard card = TeeTimeTools.GetScoreCard(scoreCardId, null);
-                    resp = LeaderBoardHtmlFactory.getRowTotals(scoreCardId, playListId, card.Handicap, null);
+                    resp = LeaderBoardHtmlFactory.getRowTotals(eventId, scoreCardId, playListId, card.Handicap, null);
                 }
                 catch (Exception ex)
                 {

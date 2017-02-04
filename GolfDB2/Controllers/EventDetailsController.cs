@@ -82,6 +82,7 @@ namespace GolfDB2.Controllers
                             ttd.Name = GetFormValue(Request.Form, "golfers_{0}_{1}", tt.Id, i);
                             ttd.Cart = GetFormValue(Request.Form, "cart_{0}_{1}", tt.Id, i) == "on";
                             ttd.Pass = GetFormValue(Request.Form, "pass_{0}_{1}", tt.Id, i) == "on";
+                            ttd.Skins = GetFormValue(Request.Form, "skins_{0}_{1}", tt.Id, i) == "on";
                             ttd.AmountPaid = decimal.Parse(GetFormValue(Request.Form, "paid_{0}_{1}", tt.Id, i), System.Globalization.NumberStyles.Currency);
                             ttd.Division = GetFormValue(Request.Form, "division_{0}_{1}", tt.Id, i);
 

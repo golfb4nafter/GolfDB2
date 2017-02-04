@@ -350,14 +350,14 @@ namespace GolfDB2.Tools
             return null;
         }
 
-        public static ScoreEntry GetAddScoreEntry(int scoreCardId, int ordinal, int holeId, int score, string connectionString)
+        public static ScoreEntry GetAddScoreEntry(int eventId, int scoreCardId, int ordinal, int holeId, int score, string connectionString)
         {
             GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
             try
             {
                 var scoreEntry = db.ScoreEntries
-                    .Where(w => (w.ScoreCardId == scoreCardId && w.Ordinal == ordinal))
+                    .Where(w => (w.EventId == eventId && w.ScoreCardId == scoreCardId && w.Ordinal == ordinal))
                     .SingleOrDefault();
 
                 if (scoreEntry != null)
@@ -379,7 +379,8 @@ namespace GolfDB2.Tools
                         ScoreCardId = scoreCardId,
                         Score = 0,
                         Ordinal = ordinal,
-                        HoleId = holeId
+                        HoleId = holeId,
+                        EventId = eventId
                     };
 
                     db.ScoreEntries.InsertOnSubmit(entry);
@@ -395,14 +396,14 @@ namespace GolfDB2.Tools
             return null;
         }
 
-        public static ScoreCard UpdateScorecardHandicap(int scoreCardId, int handicap, string connectionString)
+        public static ScoreCard UpdateScorecardHandicap(int eventId, int scoreCardId, int handicap, string connectionString)
         {
             GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
             try
             {
                 var scoreCard = db.ScoreCards
-                    .Where(w => (w.Id == scoreCardId))
+                    .Where(w => (w.EventId == eventId && w.Id == scoreCardId))
                     .SingleOrDefault();
 
                 if (scoreCard != null)
@@ -420,14 +421,14 @@ namespace GolfDB2.Tools
             return null;
         }
 
-        public static ScoreEntry UpdateScoreEntry(int scoreCardId, int ordinal, int score, string connectionString)
+        public static ScoreEntry UpdateScoreEntry(int eventId, int scoreCardId, int ordinal, int score, string connectionString)
         {
             GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
 
             try
             {
                 var scoreEntry = db.ScoreEntries
-                    .Where(w => (w.ScoreCardId == scoreCardId && w.Ordinal == ordinal))
+                    .Where(w => (w.EventId == eventId && w.ScoreCardId == scoreCardId && w.Ordinal == ordinal))
                     .SingleOrDefault();
 
                 if (scoreEntry != null)

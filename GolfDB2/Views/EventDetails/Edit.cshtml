@@ -222,6 +222,20 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>Skins Amount</th>
+                    <td>
+                        @Html.EditorFor(model => model.SkinsAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SkinsAmount, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>Flights</th>
+                    <td>
+                        @Html.EditorFor(model => model.NumberOfFlights, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NumberOfFlights, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
                     <th>Actions</th>
                     <td>
                         <span><input type="submit" value="Save" class="btn btn-default"/></span>

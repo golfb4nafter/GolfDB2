@@ -23,7 +23,7 @@
         var val = document.getElementById(handicapElementId).value;
         //alert(val);
         $.ajax({
-            url: '/api/HtmlApi?action=updatehandicap&Name=' + handicapElementId + '&playListId=@Model.PlayListId' + '&Handicap=' + val,
+            url: '/api/HtmlApi?action=updatehandicap&Name=' + handicapElementId + '&eventId=@Model.EventId&playListId=@Model.PlayListId' + '&Handicap=' + val,
             dataType: 'html',
             success: function (response) {
                 updateRowRowTotals(response, handicapElementId);
@@ -35,7 +35,7 @@
         var val = document.getElementById(scoreElementId).value;
         //alert(val);
         $.ajax({
-            url: '/api/HtmlApi?action=updatescore&Name=' + scoreElementId + '&playListId=@Model.PlayListId' + '&score=' + val,
+            url: '/api/HtmlApi?action=updatescore&Name=' + scoreElementId + '&eventId=@Model.EventId&playListId=@Model.PlayListId' + '&score=' + val,
             dataType: 'html',
             success: function (response) {
                 updateRowRowTotals(response, scoreElementId);

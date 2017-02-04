@@ -32,7 +32,7 @@ namespace GolfDB2.Tools
 
         public static string MakeTeeTimeHeaderRow()
         {
-            return "        <tr><th>Tee Time</th><th>Start On</th><th>Golfer</th><th>Division</th><th>Cart</th><th>Pass</th><th>Amount</th></tr>\r\n";
+            return "        <tr><th>Tee Time</th><th>Start On</th><th>Golfer</th><th>Division</th><th>Cart</th><th>Pass</th><th>Skins</th><th>Amount</th></tr>\r\n";
         }
 
 
@@ -92,6 +92,11 @@ namespace GolfDB2.Tools
                     col3.Append(string.Format("        <td><input type=\"checkbox\" id=\"pass_{0}_{1}\" name=\"pass_{0}_{1}\" onchange=\"document.getElementById('dirty_{0}_{1}').value = 'true';\" /></td>\r\n", index, i));
                 else
                     col3.Append(string.Format("        <td><input type=\"checkbox\" id=\"pass_{0}_{1}\" name=\"pass_{0}_{1}\" {2} onchange=\"document.getElementById('dirty_{0}_{1}').value = 'true';\" /></td>\r\n", index, i, ttd.Pass ? "checked" : ""));
+
+                if (ttd == null)
+                    col3.Append(string.Format("        <td><input type=\"checkbox\" id=\"skins_{0}_{1}\" name=\"skins_{0}_{1}\" onchange=\"document.getElementById('dirty_{0}_{1}').value = 'true';\" /></td>\r\n", index, i));
+                else
+                    col3.Append(string.Format("        <td><input type=\"checkbox\" id=\"skins_{0}_{1}\" name=\"skins_{0}_{1}\" {2} onchange=\"document.getElementById('dirty_{0}_{1}').value = 'true';\" /></td>\r\n", index, i, ttd.Skins ? "checked" : ""));
 
                 if (ttd == null)
                     col3.Append(string.Format("        <td><input type =\"text\" style=\"color: #FFFFFF; font-family: Verdana; font-weight: bold; font-size: 12px; background-color: #72A4D2;\" id=\"paid_{0}_{1}\" name=\"paid_{0}_{1}\" value =\"{2}\"  size=\"8\" onchange=\"document.getElementById('dirty_{0}_{1}').value = 'true';\" /></td>\r\n", index, i, "0.00"));
