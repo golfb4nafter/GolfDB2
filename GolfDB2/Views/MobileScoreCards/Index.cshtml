@@ -33,8 +33,26 @@
 
     function updateCardSelect() {
         var eventId = 15;
+
+        // Todo: pull eventId from event select
+
         var url = "/api/SelectListApi?action=updatecardselect&eventId=" + eventId;
         ajaxCall(url, "#cardSelect");
+    }
+
+    function loadScoresDiv() {
+        var scoreCardId = 43;
+
+        // Todo: pull cardId from team-player select list
+
+        $.ajax({
+            url: '/api/HtmlApi?action=scoresdiv&scoreCardId=' + scoreCardId,
+            dataType: 'html',
+            success: function (response) {
+                $("#scoresDiv").html(response);
+            }
+        });
+
     }
 
     updateMobileScoresDiv();

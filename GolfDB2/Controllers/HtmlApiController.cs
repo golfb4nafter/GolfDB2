@@ -24,6 +24,12 @@ namespace GolfDB2.Controllers
 
             string resp = "<p>Hello world!</p>";
 
+            if (!string.IsNullOrEmpty(action) && action.Trim() == "scoresdiv")
+            {
+                int cardId = int.Parse(Request.RequestUri.ParseQueryString().Get("scoreCardId"));
+                resp = MobileScoresHtmlFactory.makeScoresDiv(cardId, null);
+            }
+
             if (!string.IsNullOrEmpty(action) && action.Trim() == "updatemobilescoresdiv")
             {
                 resp = MobileScoresHtmlFactory.makeMobileScoreCardHtml(null);

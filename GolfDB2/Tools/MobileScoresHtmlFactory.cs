@@ -127,7 +127,7 @@ namespace GolfDB2.Tools
         public static string makeTeamSelect(int eventId, string connectionString)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("    <select id=\"cardSelect\" name=\"cardSelect\">\r\n");
+            sb.Append("    <select onchange=\"loadScoresDiv();\" id=\"cardSelect\" name=\"cardSelect\">\r\n");
             sb.Append("        <option value=\"0\">--</ option >\r\n");
             sb.Append("    </select>\r\n");
             return sb.ToString();
