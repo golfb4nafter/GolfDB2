@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+
+    function updateMobileScoresDiv() {
+
+        $.ajax({
+            url: '/api/HtmlApi?action=updatemobilescoresdiv',
+            dataType: 'html',
+            success: function (response) {
+                $("#mobileScoresDiv").html(response);
+            }
+        });
+    }
+
+    function ajaxCall(url, fieldName) {
+        $.get(url, function (data) {
+            $(fieldName).empty();
+            try {
+                json = JSON.parse(JSON.stringify(data));
+            } catch (err) {
+                alert(err.message);
+            }
+            $.each(json, function (i, obj) {
+                $(fieldName).append($('<option>').text(json[i].Text).attr('value', json[i].Value));
+            });
+        });
+    }
+
+    function updateCardSelect() {
+        var eventId = 15;
+        var url = "/api/SelectListApi?action=updatecardselect&eventId=" + eventId;
+        ajaxCall(url, "#cardSelect");
+    }
+
+    updateMobileScoresDiv();
+</script>
+
+<h2>Index</h2>
+
+<div id="mobileScoresDiv" name="mobileScoresDiv" />

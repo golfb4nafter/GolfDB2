@@ -23,6 +23,14 @@ namespace GolfDB2.Controllers
             if (string.IsNullOrEmpty(action))
                 return null;
 
+            if (!string.IsNullOrEmpty(action) && action.ToLower(new CultureInfo("en-US", false)).Trim() == "updatecardselect")
+            {
+                int eventId = int.Parse(Request.RequestUri.ParseQueryString().Get("eventId"));
+                string resp = MobileScoresHtmlFactory.makeTeamSelectOptions(eventId, null);
+                List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(resp);
+                return Json(items);
+            }
+
             if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "teetime")
             {
                 string date = Request.RequestUri.ParseQueryString().Get("date"); // need error logic!

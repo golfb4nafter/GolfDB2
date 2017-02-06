@@ -348,9 +348,9 @@
     <Content Include="Views\TeeTimes\Index.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
-    <Content Include="Views\ScoreBoard\Index.cshtml" />
     <Content Include="Views\ScoreBoard\Edit.cshtml" />
     <Content Include="Views\UploadFiles\Index.cshtml" />
+    <Content Include="Views\MobileScoreCards\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -430,6 +430,7 @@
     <Compile Include="Controllers\GeoSpatialTablesController.cs" />
     <Compile Include="Controllers\GolfersController.cs" />
     <Compile Include="Controllers\HtmlApiController.cs" />
+    <Compile Include="Controllers\MobileScoreCardsController.cs" />
     <Compile Include="Controllers\ScoreBoardController.cs" />
     <Compile Include="Controllers\SelectListApiController.cs" />
     <Compile Include="Controllers\HolesController.cs" />
@@ -451,6 +452,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\MobileScoreCard.cs" />
     <Compile Include="Models\TeeTime.cs" />
     <Compile Include="Models\EventDetail.cs" />
     <Compile Include="Models\CalendarEvent.cs" />
@@ -473,6 +475,7 @@
     <Compile Include="Tools\LeaderBoardHtmlFactory.cs" />
     <Compile Include="Tools\MiscLists.cs" />
     <Compile Include="Models\SetupModel.cs" />
+    <Compile Include="Tools\MobileScoresHtmlFactory.cs" />
     <Compile Include="Tools\ShotgunHoleCalculator.cs" />
     <Compile Include="Tools\SortableRowObject.cs" />
     <Compile Include="Tools\SqlLists.cs" />
@@ -490,6 +493,7 @@
   <ItemGroup>
     <Folder Include="Content\Images\" />
     <Folder Include="Views\Backend\" />
+    <Folder Include="Views\ScoreCard\" />
     <Folder Include="Views\TeeTime\" />
   </ItemGroup>
   <ItemGroup>

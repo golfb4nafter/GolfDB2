@@ -24,6 +24,11 @@ namespace GolfDB2.Controllers
 
             string resp = "<p>Hello world!</p>";
 
+            if (!string.IsNullOrEmpty(action) && action.Trim() == "updatemobilescoresdiv")
+            {
+                resp = MobileScoresHtmlFactory.makeMobileScoreCardHtml(null);
+            }
+
             //  url: '/api/HtmlApi?action=updatehandicap&Name=' + handicapElementId + '&Handicap=' + val,
             if (!string.IsNullOrEmpty(action) && action.Trim() == "updatehandicap")
             {
