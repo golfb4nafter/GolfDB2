@@ -32,18 +32,18 @@
     }
 
     function updateCardSelect() {
-        var eventId = 15;
 
         // Todo: pull eventId from event select
+        var eventId = $('#eventSelect option:selected').val()
 
         var url = "/api/SelectListApi?action=updatecardselect&eventId=" + eventId;
         ajaxCall(url, "#cardSelect");
     }
 
     function loadScoresDiv() {
-        var scoreCardId = 43;
 
         // Todo: pull cardId from team-player select list
+        var scoreCardId = $('#cardSelect option:selected').val()
 
         $.ajax({
             url: '/api/HtmlApi?action=scoresdiv&scoreCardId=' + scoreCardId,
@@ -52,7 +52,6 @@
                 $("#scoresDiv").html(response);
             }
         });
-
     }
 
     updateMobileScoresDiv();
