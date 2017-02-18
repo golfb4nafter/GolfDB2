@@ -34,7 +34,7 @@ namespace GolfDB2.Controllers
             if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "teetime")
             {
                 string date = Request.RequestUri.ParseQueryString().Get("date"); // need error logic!
-                GolfDB2Logger.LogDebug("get", date);                                                                         // Now use id and customer
+                Logger.LogDebug("get", date);                                                                         // Now use id and customer
                 int holeId = int.Parse(Request.RequestUri.ParseQueryString().Get("holeId"));
                 int eventId = int.Parse(Request.RequestUri.ParseQueryString().Get("eventId"));
                 List<SelectListItem> items = MiscLists.MakeListOfAvailableTeeTimes(

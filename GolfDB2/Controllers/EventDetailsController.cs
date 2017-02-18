@@ -76,7 +76,7 @@ namespace GolfDB2.Controllers
 
                         if (!string.IsNullOrEmpty(test) && test == "true")
                         {
-                            GolfDB2Logger.LogDebug("Edit", "dirty_" + tt.Id.ToString() + "_" + i.ToString());
+                            Logger.LogDebug("Edit", "dirty_" + tt.Id.ToString() + "_" + i.ToString());
 
                             // Harvest this row and update table
                             ttd.Name = GetFormValue(Request.Form, "golfers_{0}_{1}", tt.Id, i);

@@ -61,7 +61,7 @@ namespace GolfDB2.Tools
                 connection.Close();
             } catch (Exception ex)
             {
-                GolfDB2Logger.LogError("InsertTeeTime", ex.ToString());
+                Logger.LogError("InsertTeeTime", ex.ToString());
                 return false;
             }
             finally

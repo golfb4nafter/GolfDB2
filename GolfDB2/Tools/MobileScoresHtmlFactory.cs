@@ -47,10 +47,9 @@ namespace GolfDB2.Tools
             foreach (ScoreEntry entry in scoreList)
             {
                 int holeNumber = MiscLists.GetHoleNumberByHoleId(entry.HoleId, connectionString);
-
                 sb.Append("      <tr>\r\n");
                 sb.Append(string.Format("        <th>{0}</th>\r\n", holeNumber));
-                sb.Append(string.Format("        <td>{0}</td>\r\n", entry.Score));
+                sb.Append(string.Format("        <td><input style=\"width: 20px!important;\" type=\"text\" maxlength=\"2\" id=\"Hole_{0}_{1}\" name=\"Hole_{0}_{1}\" value=\"{2}\" onchange=\"updateScore('Hole_{0}_{1}');\" /></td>\r\n", cardId, entry.Id, entry.Score));
                 sb.Append("      </tr>\r\n");
             }
 
@@ -71,7 +70,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("makeEventSelect", ex.ToString());
+                Logger.LogError("makeEventSelect", ex.ToString());
             }
 
             StringBuilder sb = new StringBuilder();
@@ -98,7 +97,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("makeTeamSelectOptions", ex.ToString());
+                Logger.LogError("makeTeamSelectOptions", ex.ToString());
             }
 
             StringBuilder sb = new StringBuilder();

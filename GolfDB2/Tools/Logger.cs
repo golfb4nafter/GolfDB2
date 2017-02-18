@@ -2,6 +2,7 @@
 using log4net;
 using log4net.Config;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 
 namespace GolfDB2.Tools
 {
@@ -14,9 +15,17 @@ namespace GolfDB2.Tools
         DEBUG = 5
     }
 
-    public class GolfDB2Logger
+    public class LogLine
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(GolfDB2Logger));
+        public string Method { get; set; }
+        public string Message { get; set; }
+        public string FilePath { get; set; }
+        public int LineNumber { get; set; }
+    }
+
+    public class Logger
+    {
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(Logger));
 
         private static bool bInitDone = false;
 
@@ -65,25 +74,32 @@ namespace GolfDB2.Tools
         public static void LogError(string method, string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
         {
             CheckInit();
-            Log.Error(method + "::" + message);
+            Log.Error(FormatLine(method, message, filePath, lineNumber));
         }
 
         public static void LogWarn(string method, string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
         {
             CheckInit();
-            Log.Warn(method + "::" + message);
+            Log.Warn(FormatLine(method, message, filePath, lineNumber));
         }
 
         public static void LogInfo(string method, string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
         {
             CheckInit();
-            Log.Info(method + "::" + message);
+            Log.Info(FormatLine(method, message, filePath, lineNumber));
         }
 
         public static void LogDebug(string method, string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
         {
             CheckInit();
-            Log.Debug(method + "::" + message);
+            Log.Debug(FormatLine(method, message, filePath, lineNumber));
         }
+
+        public static string FormatLine(string method, string message, string filePath, int lineNumber)
+        {
+            LogLine line = new LogLine() { Method = method, Message = message, FilePath = filePath, LineNumber = lineNumber };
+            return JsonConvert.SerializeObject(line);
+        }
+
     }
 }

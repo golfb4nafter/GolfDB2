@@ -105,14 +105,14 @@ namespace GolfDB2.Tools
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-            GolfDB2Logger.LogDebug("MakeTeeTimes", "(" + eventId.ToString() + ")");
+            Logger.LogDebug("MakeTeeTimes", "(" + eventId.ToString() + ")");
 
             List<TeeTime> items = new List<TeeTime>();
             Event evt = GetCalendarEvent(eventId, connectionString);
 
             if (evt == null)
             {
-                GolfDB2Logger.LogError("MakeTeeTimes", "Event not found.");
+                Logger.LogError("MakeTeeTimes", "Event not found.");
                 return items;
             }
 
@@ -121,7 +121,7 @@ namespace GolfDB2.Tools
 
             if (detail == null)
             {
-                GolfDB2Logger.LogError("MakeTeeTimes", "Event detail not found.");
+                Logger.LogError("MakeTeeTimes", "Event detail not found.");
                 return items;
             }
 
@@ -200,7 +200,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("InsertTeeTime", ex.ToString());
+                Logger.LogError("InsertTeeTime", ex.ToString());
             }
         }
 
@@ -218,7 +218,7 @@ namespace GolfDB2.Tools
                 return true;
             } catch(Exception ex)
             {
-                GolfDB2Logger.LogError("DeleteTeeTimes", ex.ToString());
+                Logger.LogError("DeleteTeeTimes", ex.ToString());
                 return false;
             }
         }
@@ -239,7 +239,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("DeleteTeeTimeDetailById", ex.ToString());
+                Logger.LogError("DeleteTeeTimeDetailById", ex.ToString());
                 return false;
             }
         }
@@ -261,7 +261,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("DeleteTeeTimeById", ex.ToString());
+                Logger.LogError("DeleteTeeTimeById", ex.ToString());
                 return false;
             }
         }
@@ -290,7 +290,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("UpdateTeeTimeDetail", ex.ToString());
+                Logger.LogError("UpdateTeeTimeDetail", ex.ToString());
             }
 
             return null;
@@ -308,7 +308,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("GetScoreCard", ex.ToString());
+                Logger.LogError("GetScoreCard", ex.ToString());
             }
 
             return null;
@@ -344,7 +344,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("InsertOrUpdateScoreCard", ex.ToString());
+                Logger.LogError("InsertOrUpdateScoreCard", ex.ToString());
             }
 
             return null;
@@ -390,7 +390,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("InsertOrUpdateScoreCard", ex.ToString());
+                Logger.LogError("InsertOrUpdateScoreCard", ex.ToString());
             }
 
             return null;
@@ -415,7 +415,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("UpdateScoreCardHandicap", ex.ToString());
+                Logger.LogError("UpdateScoreCardHandicap", ex.ToString());
             }
 
             return null;
@@ -443,7 +443,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("UpdateScoreEntry", ex.ToString());
+                Logger.LogError("UpdateScoreEntry", ex.ToString());
             }
 
             return null;
@@ -477,7 +477,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("UpdateTeeTime", ex.ToString());
+                Logger.LogError("UpdateTeeTime", ex.ToString());
             }
 
             return null;
@@ -515,7 +515,7 @@ namespace GolfDB2.Tools
                 }
                 catch (Exception ex)
                 {
-                    GolfDB2Logger.LogError("GetTeeTimeDetailList", ex.ToString());
+                    Logger.LogError("GetTeeTimeDetailList", ex.ToString());
                 }
             }
 
@@ -557,7 +557,7 @@ namespace GolfDB2.Tools
                     }
                     catch (Exception ex)
                     {
-                        GolfDB2Logger.LogError("GetTeeTimeDetailList", ex.ToString());
+                        Logger.LogError("GetTeeTimeDetailList", ex.ToString());
                     }
                 }
             }

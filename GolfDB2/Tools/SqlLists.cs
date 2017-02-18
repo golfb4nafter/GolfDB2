@@ -36,7 +36,7 @@ namespace GolfDB2.Tools
 
         private static string FormatAsJson(SqlDataReader rdr, List<SqlListParam> parms)
         {
-            GolfDB2Logger.LogDebug("FormatAsJson", DumpParmList(parms));
+            Logger.LogDebug("FormatAsJson", DumpParmList(parms));
 
             StringBuilder jsonString = new StringBuilder();
             string seperator = "";
@@ -81,7 +81,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("FormatAsJson", ex.ToString());
+                Logger.LogError("FormatAsJson", ex.ToString());
             }
 
             jsonString.Append("}");
@@ -91,7 +91,7 @@ namespace GolfDB2.Tools
 
         public static string SqlQuery(string query, List<SqlListParam> parms, string connectionString)
         {
-            GolfDB2Logger.LogDebug("SqlQuery", string.Format("Query: {0}", query));
+            Logger.LogDebug("SqlQuery", string.Format("Query: {0}", query));
 
             StringBuilder jsonString = new StringBuilder();
             int count = 0;
@@ -122,7 +122,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("SqlQuery", ex.ToString());
+                Logger.LogError("SqlQuery", ex.ToString());
             }
 
             if (count > 1)

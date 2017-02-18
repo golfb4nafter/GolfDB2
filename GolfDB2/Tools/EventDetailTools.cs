@@ -41,7 +41,7 @@ namespace GolfDB2.Tools
                 }
             } catch (Exception ex)
             {
-                GolfDB2Logger.LogError("LookupOrCreateEventDetailRecord", ex.ToString());
+                Logger.LogError("LookupOrCreateEventDetailRecord", ex.ToString());
             }
 
             return -1;
@@ -127,7 +127,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                GolfDB2Logger.LogError("AddEventDetail", ex.ToString());
+                Logger.LogError("AddEventDetail", ex.ToString());
             }
 
             return -1;
@@ -160,7 +160,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception exInner)
             {
-                GolfDB2Logger.LogError("EventDetailUpdate", exInner.ToString());
+                Logger.LogError("EventDetailUpdate", exInner.ToString());
                 return false;
             }
 

@@ -17,6 +17,10 @@ namespace GolfDB2.Tools
 
         private static GlobalSettingsApi _instance = null;
 
+        /// <summary>
+        /// Get an instance of this Api
+        /// </summary>
+        /// <returns></returns>
         public static GlobalSettingsApi GetInstance()
         {
             if (_instance == null)
@@ -25,6 +29,11 @@ namespace GolfDB2.Tools
             return _instance;
         }
 
+        /// <summary>
+        /// Get an instance of globa settings api with connection string
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         public static GlobalSettingsApi GetInstance(string connectionString)
         {
             if (connectionString == null)
@@ -44,9 +53,12 @@ namespace GolfDB2.Tools
 
         public bool bInitDone = false;
 
+        /// <summary>
+        /// Initialization of global settings from repo.
+        /// </summary>
         public void InitGlobalSettings()
         {
-            GolfDB2Logger.LogDebug("InitGlobalSettings", "Initialize GlobalSettingsApi");
+            Logger.LogDebug("GlobalSettingsApi.InitGlobalSettings", "");
 
             if (!bInitDone)
             {
@@ -55,24 +67,41 @@ namespace GolfDB2.Tools
             }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public GlobalSettingsApi()
         {
-            GolfDB2Logger.LogDebug("GlobalSettingsApi", "Constructor.");
+            Logger.LogDebug("GlobalSettingsApi.GlobalSettingsApi", "");
 
             InitGlobalSettings();
         }
 
+        /// <summary>
+        /// Constructor with connection string
+        /// </summary>
+        /// <param name="connectionString"></param>
         public GlobalSettingsApi(string connectionString)
         {
-            GolfDB2Logger.LogDebug("GlobalSettingsApi", "Constructor. connectionString=" + connectionString);
+            Logger.LogDebug("GlobalSettingsApi.GlobalSettingsApi", connectionString);
 
             _connectionString = connectionString;
 
             InitGlobalSettings();
         }
 
+        /// <summary>
+        /// Get global setting.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="settingName"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
         public string GetSetting(int userId, string settingName, string defaultValue)
         {
+            Logger.LogDebug("GlobalSettingsApi.GetSetting", 
+                string.Format("userId={0}, settingName={1}, defaultValue{2}", userId, settingName, defaultValue));
+
             if (db == null)
                 db = EventDetailTools.GetDB(_connectionString);
 
@@ -96,8 +125,19 @@ namespace GolfDB2.Tools
             return result[0].Value;
         }
 
+        /// <summary>
+        /// Add new global setting.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="settingName"></param>
+        /// <param name="value"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
         public bool AddSetting(int userId, string settingName, string value, string defaultValue)
         {
+            Logger.LogDebug("GlobalSettingsApi.AddSetting",
+                string.Format("userId={0}, settingName={1}, value={2}, defaultValue{3}", userId, settingName, value, defaultValue));
+
             if (db == null)
                 db = EventDetailTools.GetDB(_connectionString);
 
@@ -112,15 +152,25 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                Console.Out.WriteLine(ex.ToString());
+                Logger.LogError("GlobalSettingsApi.AddSetting", ex.ToString());
             }
 
             return false;
         }
 
-
+        /// <summary>
+        /// Update global setting.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="settingName"></param>
+        /// <param name="value"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
         public bool UpdateSetting(int userId, string settingName, string value, string defaultValue)
         {
+            Logger.LogDebug("GlobalSettingsApi.UpdateSetting",
+                string.Format("userId={0}, settingName={1}, value={2}, defaultValue{3}", userId, settingName, value, defaultValue));
+
             if (db == null)
                 db = EventDetailTools.GetDB(_connectionString);
 
@@ -135,7 +185,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                Console.Out.WriteLine(ex.ToString());
+                Logger.LogError("GlobalSettingsApi.UpdateSetting", ex.ToString());
             }
 
             return false;

@@ -52,7 +52,7 @@ namespace GolfDB2.Controllers
                 }
                 catch (Exception ex)
                 {
-                    GolfDB2Logger.LogError("HtmlApiController.Get", ex.ToString());
+                    Logger.LogError("HtmlApiController.Get", ex.ToString());
                     resp = "<p style=\"font-weight: bold!important; color: red; \">Error: " + ex.Message + "</p>";
                 }
             }
@@ -87,7 +87,7 @@ namespace GolfDB2.Controllers
                 }
                 catch (Exception ex)
                 {
-                    GolfDB2Logger.LogError("HtmlApiController.Get", ex.ToString());
+                    Logger.LogError("HtmlApiController.Get", ex.ToString());
                     resp = "<p style=\"font-weight: bold!important; color: red; \">Error: " + ex.Message + "</p>";
                 }
             }
