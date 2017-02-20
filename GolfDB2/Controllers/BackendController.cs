@@ -26,7 +26,7 @@ namespace GolfDB2.Controllers
 
         public ActionResult Events(DateTime? start, DateTime? end)
         {
-            Logger.LogDebug("Events", "Return list of events from SQL server using LINQ.");
+            Logger.LogDebug("BackendController.Events", "Return list of events from SQL server using LINQ.");
 
             // SQL: SELECT * FROM [event] WHERE NOT (([end] <= @start) OR ([start] >= @end))
             var events = from ev in db.Events.AsEnumerable() where !(ev.end <= start || ev.start >= end) select ev;
@@ -47,7 +47,7 @@ namespace GolfDB2.Controllers
 
         public ActionResult Create(string start, string end, string name)
         {
-            Logger.LogDebug("Create", "Add new event to SQL server using LINQ.");
+            Logger.LogDebug("BackendController.Create", "Add new event to SQL server using LINQ.");
 
             var toBeCreated = new Event
             {
@@ -65,7 +65,7 @@ namespace GolfDB2.Controllers
 
         public ActionResult Move(int id, string newStart, string newEnd)
         {
-            Logger.LogDebug("Move", "Update event start and end times in SQL server using LINQ.");
+            Logger.LogDebug("BackendController.Move", "Update event start and end times in SQL server using LINQ.");
 
             var toBeResized = (from ev in db.Events where ev.id == id select ev).First();
             toBeResized.start = Convert.ToDateTime(newStart);
@@ -77,7 +77,7 @@ namespace GolfDB2.Controllers
 
         public ActionResult Resize(int id, string newStart, string newEnd)
         {
-            Logger.LogDebug("Resize", "Update event start and end times in SQL server using LINQ.");
+            Logger.LogDebug("BackendController.Resize", "Update event start and end times in SQL server using LINQ.");
 
             var toBeResized = (from ev in db.Events where ev.id == id select ev).First();
             toBeResized.start = Convert.ToDateTime(newStart);

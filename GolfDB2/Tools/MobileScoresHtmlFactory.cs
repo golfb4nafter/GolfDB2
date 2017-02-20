@@ -42,6 +42,7 @@ namespace GolfDB2.Tools
             sb.Append("      <tr>\r\n");
             sb.Append("        <th>Hole</th>\r\n");
             sb.Append("        <th>Score</th>\r\n");
+            sb.Append("        <th>Net</th>\r\n");
             sb.Append("      </tr>\r\n");
 
             foreach (ScoreEntry entry in scoreList)
@@ -70,7 +71,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                Logger.LogError("makeEventSelect", ex.ToString());
+                Logger.LogError("MobileScoresHtmlFactory.makeEventSelect", ex.ToString());
             }
 
             StringBuilder sb = new StringBuilder();
@@ -97,7 +98,7 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                Logger.LogError("makeTeamSelectOptions", ex.ToString());
+                Logger.LogError("MobileScoresHtmlFactory.makeTeamSelectOptions", ex.ToString());
             }
 
             StringBuilder sb = new StringBuilder();

@@ -102,10 +102,10 @@ namespace GolfDB2.Tools
             }
             catch (Exception ex)
             {
-                Logger.LogError("GetNineNameByCourseIdAndZeroBasedOrdinal", ex.ToString());
+                Logger.LogError("MiscLists.GetNineNameByCourseIdAndZeroBasedOrdinal", ex.ToString());
             }
 
-            Logger.LogDebug("GetNineNameByCourseIdAndZeroBasedOrdinal",
+            Logger.LogDebug("MiscLists.GetNineNameByCourseIdAndZeroBasedOrdinal",
                 string.Format("CourseId={0}, ordinal={1}, connectionString={2}", courseId, ordinal, connectionString));
 
             return "unknown";
