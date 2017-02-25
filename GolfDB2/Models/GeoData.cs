@@ -13,8 +13,6 @@ namespace GolfDB2.Models
 
         public int GeoSpatialDataId { get; set; }
 
-        [Column(TypeName = "text")]
-        [Required]
         public string GeoObjectDescription { get; set; }
 
         public int GeoObjectType { get; set; }

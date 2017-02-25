@@ -49,8 +49,6 @@ namespace GolfDB2.Models
 
         public System.Data.Entity.DbSet<GolfDB2.Models.TeeTime> TeeTimes { get; set; }
 
-        public System.Data.Entity.DbSet<GolfDB2.Models.UploadFiles> UploadFiles { get; set; }
-
         public System.Data.Entity.DbSet<GolfDB2.Models.MobileScoreCard> MobileScoreCards { get; set; }
     }
 }

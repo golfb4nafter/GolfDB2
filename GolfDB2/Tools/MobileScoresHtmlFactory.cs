@@ -23,7 +23,12 @@ namespace GolfDB2.Tools
             sb.Append(makeTeamSelect(0, connectionString));
             sb.Append("        </td>\r\n");
             sb.Append("      </tr>\r\n");
+            sb.Append("      <tr>\r\n");
+            sb.Append("        <th>Tee Box</th>\r\n");
+            sb.Append("        <td>" + makeTeeBoxSelect(null) + "</td>\r\n");
+            sb.Append("      </tr>\r\n");
             sb.Append("    </table>\r\n");
+            sb.Append("    <br />\r\n");
             sb.Append("    <div id=\"scoresDiv\"/>\r\n");
 
             return sb.ToString();
@@ -41,8 +46,9 @@ namespace GolfDB2.Tools
 
             sb.Append("      <tr>\r\n");
             sb.Append("        <th>Hole</th>\r\n");
+            sb.Append("        <th>Yards</th>\r\n");
+            sb.Append("        <th>HCP</th>\r\n");
             sb.Append("        <th>Score</th>\r\n");
-            sb.Append("        <th>Net</th>\r\n");
             sb.Append("      </tr>\r\n");
 
             foreach (ScoreEntry entry in scoreList)
@@ -50,11 +56,30 @@ namespace GolfDB2.Tools
                 int holeNumber = MiscLists.GetHoleNumberByHoleId(entry.HoleId, connectionString);
                 sb.Append("      <tr>\r\n");
                 sb.Append(string.Format("        <th>{0}</th>\r\n", holeNumber));
+                sb.Append(string.Format("        <th>{0}</th>\r\n", holeNumber));  // yards
+                sb.Append(string.Format("        <th>{0}</th>\r\n", holeNumber));  // handicap
                 sb.Append(string.Format("        <td><input style=\"width: 20px!important;\" type=\"text\" maxlength=\"2\" id=\"Hole_{0}_{1}\" name=\"Hole_{0}_{1}\" value=\"{2}\" onchange=\"updateScore('Hole_{0}_{1}');\" /></td>\r\n", cardId, entry.Id, entry.Score));
                 sb.Append("      </tr>\r\n");
             }
 
             sb.Append("    </table>\r\n");
+
+            return sb.ToString();
+        }
+
+
+        public static string makeTeeBoxSelect(string connectionString)
+        {
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[");
+
+
+
+
+
+
+            sb.Append("]");
 
             return sb.ToString();
         }
