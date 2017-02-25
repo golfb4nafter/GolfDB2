@@ -34,5 +34,23 @@ namespace GolfDB2.Models
         }
 
         public System.Data.Entity.DbSet<GolfDB2.Models.Labels> Labels { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.CourseRating> CourseRatings { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.Golfer> Golfers { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.ScoreCard> ScoreCards { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.ScoreCardPlayer> ScoreCardPlayers { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.CalendarEvent> Event { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.EventDetail> EventDetails { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.TeeTime> TeeTimes { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.UploadFiles> UploadFiles { get; set; }
+
+        public System.Data.Entity.DbSet<GolfDB2.Models.MobileScoreCard> MobileScoreCards { get; set; }
     }
 }

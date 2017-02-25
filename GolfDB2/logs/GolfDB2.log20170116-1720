@@ -1,0 +1,370 @@
+2017-01-16 17:20:09,646 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT Id, Sponsor from EventDetail WHERE EventId=8
+2017-01-16 17:20:09,662 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Value
+ordinal=1, type=charString, name=Text
+}
+
+2017-01-16 17:20:09,666 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT Id from EventDetail WHERE EventId=8
+2017-01-16 17:20:09,667 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Value
+}
+
+2017-01-16 17:20:09,671 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT Id, CourseName FROM CourseData WHERE Id=1
+2017-01-16 17:20:09,672 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=charString, name=Value
+}
+
+2017-01-16 17:20:09,892 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =12
+2017-01-16 17:20:09,893 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:09,927 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =12
+2017-01-16 17:20:09,927 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:09,958 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =12
+2017-01-16 17:20:09,958 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,000 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =12
+2017-01-16 17:20:10,000 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,023 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =14
+2017-01-16 17:20:10,024 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,045 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =14
+2017-01-16 17:20:10,045 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,064 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =14
+2017-01-16 17:20:10,064 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,079 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =14
+2017-01-16 17:20:10,079 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,110 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =15
+2017-01-16 17:20:10,110 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,141 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =15
+2017-01-16 17:20:10,141 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,157 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =15
+2017-01-16 17:20:10,157 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,172 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =15
+2017-01-16 17:20:10,188 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,204 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =16
+2017-01-16 17:20:10,204 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,235 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =16
+2017-01-16 17:20:10,235 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,257 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =16
+2017-01-16 17:20:10,257 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,273 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =16
+2017-01-16 17:20:10,273 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,288 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =17
+2017-01-16 17:20:10,288 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,319 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =17
+2017-01-16 17:20:10,319 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,342 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =17
+2017-01-16 17:20:10,342 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,373 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =17
+2017-01-16 17:20:10,373 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,388 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =18
+2017-01-16 17:20:10,388 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,420 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =18
+2017-01-16 17:20:10,420 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,441 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =18
+2017-01-16 17:20:10,441 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,457 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =18
+2017-01-16 17:20:10,457 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,488 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =19
+2017-01-16 17:20:10,488 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,504 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =19
+2017-01-16 17:20:10,504 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,537 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =19
+2017-01-16 17:20:10,537 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:10,557 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =19
+2017-01-16 17:20:10,557 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:39,966 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT Id, Sponsor from EventDetail WHERE EventId=8
+2017-01-16 17:20:39,967 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Value
+ordinal=1, type=charString, name=Text
+}
+
+2017-01-16 17:20:39,969 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT Id from EventDetail WHERE EventId=8
+2017-01-16 17:20:39,970 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Value
+}
+
+2017-01-16 17:20:39,972 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT Id, CourseName FROM CourseData WHERE Id=1
+2017-01-16 17:20:39,972 [12] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=charString, name=Value
+}
+
+2017-01-16 17:20:40,169 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =12
+2017-01-16 17:20:40,170 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,197 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =12
+2017-01-16 17:20:40,198 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,227 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =12
+2017-01-16 17:20:40,227 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,266 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =12
+2017-01-16 17:20:40,267 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,302 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =14
+2017-01-16 17:20:40,303 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,331 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =14
+2017-01-16 17:20:40,331 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,350 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =14
+2017-01-16 17:20:40,350 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,366 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =14
+2017-01-16 17:20:40,366 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,398 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =15
+2017-01-16 17:20:40,398 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,414 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =15
+2017-01-16 17:20:40,414 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,429 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =15
+2017-01-16 17:20:40,429 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,460 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =15
+2017-01-16 17:20:40,460 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,476 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =16
+2017-01-16 17:20:40,476 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,498 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =16
+2017-01-16 17:20:40,498 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,530 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =16
+2017-01-16 17:20:40,530 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,545 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =16
+2017-01-16 17:20:40,545 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,577 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =17
+2017-01-16 17:20:40,577 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,599 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =17
+2017-01-16 17:20:40,599 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,614 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =17
+2017-01-16 17:20:40,614 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,646 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =17
+2017-01-16 17:20:40,646 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,661 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =18
+2017-01-16 17:20:40,661 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,677 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =18
+2017-01-16 17:20:40,693 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,714 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =18
+2017-01-16 17:20:40,714 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,730 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =18
+2017-01-16 17:20:40,730 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,761 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =19
+2017-01-16 17:20:40,761 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,777 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =19
+2017-01-16 17:20:40,777 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,799 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =19
+2017-01-16 17:20:40,799 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+
+2017-01-16 17:20:40,830 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT id, Number FROM Hole WHERE Id =19
+2017-01-16 17:20:40,830 [13] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - FormatAsJson::{
+ordinal=0, type=int32, name=Key
+ordinal=1, type=int32, name=Value
+}
+

@@ -1,0 +1,1 @@
+﻿Added DayPilot Nuget package. See: https://www.codeproject.com/Articles/404647/AJAX-Event-Calendar-Scheduler-for-ASP-NET-MVC-in

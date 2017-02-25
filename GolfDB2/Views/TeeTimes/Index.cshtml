@@ -1,0 +1,72 @@
+﻿@model IEnumerable<GolfDB2.Models.TeeTime>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Tee-Time")
+        </th>
+        <th>
+            @Html.DisplayName("Event/open")
+        </th>
+        <th>
+            @Html.DisplayName("Reserved-By")
+        </th>
+        <th>
+            @Html.DisplayName("Phone#/E-Mail")
+        </th>
+        <th>
+            @Html.DisplayName("Hole")
+        </th>
+        <th>
+            @Html.DisplayName("Num-Playing")
+        </th>
+        <th>
+            @Html.DisplayName("Player-Names")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tee_Time)
+        </td>
+        <td>
+            @{string eventText = GolfDB2.Tools.MiscLists.GetEventTextByEventId(item.EventId, null);}
+            @eventText
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReservedByName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelephoneNumber)
+        </td>
+        <td>
+            @{string holeNumber = GolfDB2.Tools.MiscLists.GetHoleNumberByHoleId(item.HoleId, null).ToString();}
+            @holeNumber
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfPlayers)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerNames)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

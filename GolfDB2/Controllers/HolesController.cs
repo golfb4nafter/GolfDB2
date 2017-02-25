@@ -17,17 +17,23 @@ namespace GolfDB2.Controllers
         // GET: Holes
         public ActionResult Index()
         {
-            return View(db.Holes.ToList());
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
+            return View(db.Holes.OrderBy(s => s.Number).OrderBy(s => s.CourseId).ToList());
         }
 
         // GET: Holes/Details/5
         public ActionResult Details(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
+            GolfDB2.Models.Hole hole = db.Holes.Find(id);
             if (hole == null)
             {
                 return HttpNotFound();
@@ -38,6 +44,9 @@ namespace GolfDB2.Controllers
         // GET: Holes/Create
         public ActionResult Create()
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             return View();
         }
 
@@ -46,8 +55,11 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CourseId,Nine,Number,PhotoUrl,Description")] Hole hole)
+        public ActionResult Create([Bind(Include = "Id,CourseId,Nine,Number,PhotoUrl,Description")] GolfDB2.Models.Hole hole)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.Holes.Add(hole);
@@ -61,11 +73,14 @@ namespace GolfDB2.Controllers
         // GET: Holes/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
+            GolfDB2.Models.Hole hole = db.Holes.Find(id);
             if (hole == null)
             {
                 return HttpNotFound();
@@ -81,6 +96,9 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,CourseId,Nine,Number,PhotoUrl,Description")] Hole hole)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (ModelState.IsValid)
             {
                 db.Entry(hole).State = EntityState.Modified;
@@ -94,11 +112,14 @@ namespace GolfDB2.Controllers
         // GET: Holes/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hole hole = db.Holes.Find(id);
+            GolfDB2.Models.Hole hole = db.Holes.Find(id);
             if (hole == null)
             {
                 return HttpNotFound();
@@ -111,7 +132,10 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Hole hole = db.Holes.Find(id);
+            if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
+                return RedirectToAction("../Account/Login");
+
+            GolfDB2.Models.Hole hole = db.Holes.Find(id);
             db.Holes.Remove(hole);
             db.SaveChanges();
             return RedirectToAction("Index");

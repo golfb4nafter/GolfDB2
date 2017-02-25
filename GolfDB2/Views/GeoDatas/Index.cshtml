@@ -21,53 +21,79 @@
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.GeoObjectType)*@
-            @Html.DisplayName("GPS")
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.HoleId)*@
-            @Html.DisplayName("Object Type")
-        </th>
-        <th>
-            @*@Html.DisplayName("Hole Number")*@
-            @Html.DisplayNameFor(model => model.OrderNumber)
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.CourseId)*@
-            @Html.DisplayName("Order Number (back to front)")
+            @Html.DisplayName("Detail")
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.CourseId)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetCourseNameById(item.CourseId))
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GeoObjectDescription)
-        </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.GeoSpatialDataId)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetGeoSpatialDataPointDescriptionById(item.GeoSpatialDataId))
-        </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.GeoObjectType)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetObjectTypeById(item.GeoObjectType))
-        </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.HoleId)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetHoleNumberByHoleId(item.HoleId).ToString())
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.CourseId)*@
+                @Html.DisplayName(GolfDB2.Tools.MiscLists.GetCourseNameById(item.CourseId, null))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GeoObjectDescription)
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <th>GPS</th>
+                        <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
+                            @*@Html.DisplayFor(modelItem => item.GeoSpatialDataId)*@
+                            @Html.DisplayName(GolfDB2.Tools.MiscLists.GetGeoSpatialDataPointDescriptionById(item.GeoSpatialDataId, null))
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
+                            @*@Html.DisplayFor(modelItem => item.GeoObjectType)*@
+                            @Html.DisplayName(GolfDB2.Tools.MiscLists.GetObjectTypeById(item.GeoObjectType, null))
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Hole Number</th>
+                        <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
+                            @*@Html.DisplayFor(modelItem => item.HoleId)*@
+                            @Html.DisplayName(GolfDB2.Tools.MiscLists.GetHoleNumberByHoleId(item.HoleId, null).ToString())
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Ordinal</th>
+                        <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
+                            @Html.DisplayFor(modelItem => item.OrderNumber)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Yards to front</th>
+                        <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
+                            @Html.DisplayFor(modelItem => item.YardsToFront)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Yards to middle</th>
+                        <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
+                            @Html.DisplayFor(modelItem => item.YardsToMiddle)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Yards to back</th>
+                        <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
+                            @Html.DisplayFor(modelItem => item.YardsToBack)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Actions</th>
+                        <td style="margin:10px;text-align:left;vertical-align:top;padding:5px">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    }
 
 </table>

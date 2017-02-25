@@ -12,13 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CourseId)
+            @Html.DisplayName("Course")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Nine)
+            @Html.DisplayName("Nine")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Number)
+            @Html.DisplayName("Hole Number")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PhotoUrl)
@@ -33,11 +33,11 @@
     <tr>
         <td>
             @*@Html.DisplayFor(modelItem => item.CourseId)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetCourseNameById(item.CourseId))
+            @Html.DisplayName(GolfDB2.Tools.MiscLists.GetCourseNameById(item.CourseId, null))
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.Nine)*@
-            @Html.DisplayName(GolfDB2.Models.MiscLists.GetNineNameById(item.Nine))
+            @Html.DisplayName(GolfDB2.Tools.MiscLists.GetNineNameByCourseIdAndZeroBasedOrdinal(item.CourseId, item.Nine, null))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Number)

@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Score Card";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+
+    function updateMobileScoresDiv() {
+
+        $.ajax({
+            url: '/api/HtmlApi?action=updatemobilescoresdiv',
+            dataType: 'html',
+            success: function (response) {
+                $("#mobileScoresDiv").html(response);
+            }
+        });
+    }
+
+    function ajaxCall(url, fieldName) {
+        $.get(url, function (data) {
+            $(fieldName).empty();
+            try {
+                json = JSON.parse(JSON.stringify(data));
+            } catch (err) {
+                alert(err.message);
+            }
+            $.each(json, function (i, obj) {
+                $(fieldName).append($('<option>').text(json[i].Text).attr('value', json[i].Value));
+            });
+        });
+    }
+
+    function updateCardSelect() {
+
+        // Todo: pull eventId from event select
+        var eventId = $('#eventSelect option:selected').val()
+
+        var url = "/api/SelectListApi?action=updatecardselect&eventId=" + eventId;
+        ajaxCall(url, "#cardSelect");
+    }
+
+    function loadScoresDiv() {
+
+        // Todo: pull cardId from team-player select list
+        var scoreCardId = $('#cardSelect option:selected').val()
+
+        $.ajax({
+            url: '/api/HtmlApi?action=scoresdiv&scoreCardId=' + scoreCardId,
+            dataType: 'html',
+            success: function (response) {
+                $("#scoresDiv").html(response);
+            }
+        });
+    }
+
+    updateMobileScoresDiv();
+</script>
+
+<h2>Index</h2>
+
+<div id="mobileScoresDiv" name="mobileScoresDiv" />

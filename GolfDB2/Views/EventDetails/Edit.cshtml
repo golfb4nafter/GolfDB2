@@ -1,0 +1,253 @@
+﻿@model GolfDB2.EventDetail
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Translate Event.Id to EventDetail.Id
+    int eventId = GolfDB2.Tools.MiscLists.GetIdFromEventDetailByEventDetailId(Model.EventId, null);
+    string courseId = GolfDB2.Tools.GlobalSettingsApi.GetInstance().CourseId.ToString();
+    int numHoles = Model.NumberOfHoles;
+
+    GolfDB2.Event evt = GolfDB2.Tools.EventDetailTools.GetEventRecord(Model.EventId, null);
+    string startTime = evt.start.ToString("MM/dd/yyyy hh:mm");
+    string endTime = evt.end.ToString("MM/dd/yyyy hh:mm");
+    string eventName = evt.text;
+}
+
+<script type="text/javascript">
+    function updateHoleInfoFields(source) {
+
+        if (source == 'NumberOfHoles') {
+        }
+
+        if (source == 'NumberOfGroups') {
+        }
+
+        if (source == 'IsShotgunStart') {
+            updateStartHoleId();
+        }
+
+        if (source == 'PlayListId') {
+            updateStartHoleId();
+        }
+
+        //if (source == 'StartHoleId') {
+        //    //updatePlayListId();
+        //    //updateStartHoleId()
+        //}
+    }
+
+    function updateStartHoleId()
+    {
+        var courseId = document.getElementById('CourseId').value;
+        if (!courseId) {
+            document.getElementById('CourseId').value = '@courseId';
+        }
+        var playlistId = document.getElementById('PlayListId').value;
+        var isShotgunStart = "false";
+        if (document.getElementById('IsShotgunStart').checked)
+        {
+            isShotgunStart = "true";
+        }
+
+        var url = "/api/SelectListApi?action=startingholeselectlist&courseId=" + courseId + "&playlistId=" + playlistId + "&isShotgunStart=" + isShotgunStart;
+        ajaxCall(url, "#StartHoleId")
+    }
+
+    function updatePlayListId()
+    {
+        var courseId = document.getElementById('CourseId').value;
+
+        if (!courseId) {
+            document.getElementById('CourseId').value = '@courseId';
+        }
+
+        var url = "/api/SelectListApi?action=holelistselectlist&courseId=" + courseId;
+
+        ajaxCall(url, "#PlayListId")
+    }
+
+    function updateNumberOfHoles()
+    {
+        var courseId = document.getElementById('CourseId').value;
+        if (!courseId) {
+            document.getElementById('CourseId').value = '@courseId';
+        }
+
+        var selection = document.getElementById('NumberOfHoles').value;
+        var url = "/api/SelectListApi?action=numholesselectlist&courseId=" + courseId + "&selection=" + selection;
+        ajaxCall(url, "#NumberOfHoles")
+    }
+
+    function ajaxCall(url, fieldName) {
+        $.get(url, function (data) {
+            $(fieldName).empty();
+            try {
+                json = JSON.parse(JSON.stringify(data));
+            } catch (err) {
+                alert(err.message);
+            }
+            $.each(json, function (i, obj) {
+                $(fieldName).append($('<option>').text(json[i].Text).attr('value', json[i].Value));
+            });
+        });
+    }
+
+    function setAction(val) {
+        document.getElementById('ActionType').value = val;
+    }
+
+    function saveTeeTimes() {
+    }
+
+    function onSaveClicked(index) {
+        
+    }
+
+    function doScorecard() {
+        $('#Scorecard').val('true');
+    }
+
+    jQuery(function($) {
+        $('#NumGroups').change(function () { }).change();
+    });
+
+    function makeLoadTeeTimes()
+    {
+        $.ajax({
+            url: '/api/HtmlApi?action=teetimes&eventId=@Model.EventId',
+            dataType: 'html',
+            success: function (response) {
+                $('#myListDiv').html(response);
+            }
+        });
+    }
+
+    var num = @numHoles;
+
+    if (num > 0)
+        makeLoadTeeTimes();
+
+    // Fixup id since we are calling by eventId.
+    var id = document.getElementById('Id');
+    id.value = @eventId;
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="bottom">
+        <div class="form-horizontal" style="float: left; width: 35%; text-align: left; vertical-align: top;">
+            <hr />
+            <input type="hidden" id="ActionType" name="ActionType"value="Save" />
+            <input type="hidden" id="Scorecard" name="Scorecard" value="false" />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id, new { @Value = Model.Id })
+            @Html.HiddenFor(model => model.CourseId)
+            @Html.HiddenFor(model => model.EventId)
+
+            <table border="1">
+                <tr><th>Course name</th><td>@Html.Label(GolfDB2.Tools.MiscLists.GetCourseNameById(Model.CourseId, null))</td></tr>
+                <tr><th>Event Name</th><td>@Html.Label(@eventName)</td></tr>
+                <tr><th>Start</th><td>@Html.Label(@startTime)</td></tr>
+                <tr><th>End</th><td>@Html.Label(@endTime)</td></tr>
+                <tr>
+                    <th>@Html.LabelFor(model => model.PlayFormat)</th>
+                    <td>@Html.DropDownListFor(model => model.PlayFormat, GolfDB2.Tools.MiscLists.GetPlayFormatListByCourseIdAndType(Model.CourseId, null))@Html.ValidationMessageFor(model => model.PlayFormat, "", new { @class = "text-danger" })</td>
+                </tr>
+                <tr>
+                    <th>@Html.LabelFor(model => model.NumberOfHoles)</th>
+                    <td>
+                        @Html.DropDownListFor(model => model.NumberOfHoles,
+                              GolfDB2.Tools.MiscLists.GetNumberOfHolesSelectListByCourseIdAndType(Model.CourseId, Model.NumberOfHoles, null),
+                              new { @onchange = "updateHoleInfoFields('NumberOfHoles')" })
+                        @Html.ValidationMessageFor(model => model.NumberOfHoles, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.LabelFor(model => model.IsShotgunStart)</th>
+                    <td>
+                        @Html.CheckBoxFor(model => model.IsShotgunStart,
+                            new { @onchange = "updateHoleInfoFields('IsShotgunStart')" })
+                        @Html.ValidationMessageFor(model => model.IsShotgunStart, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.LabelFor(model => model.OrgId)</th>
+                    <td>
+                        @Html.DropDownListFor(model => model.OrgId, GolfDB2.Tools.MiscLists.OrgSelectList(null))
+                        @Html.ValidationMessageFor(model => model.OrgId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.LabelFor(model => model.Sponsor)</th>
+                    <td>
+                        @Html.EditorFor(model => model.Sponsor, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Sponsor, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>Holes to Play</th>
+                    <td>
+                        @Html.DropDownListFor(model => model.PlayListId,
+                                      GolfDB2.Tools.MiscLists.GetHoleListSelectListByCourseId(Model.CourseId, null),
+                                      new { @onchange = "updateHoleInfoFields('PlayListId')" })
+                        @Html.ValidationMessageFor(model => model.PlayListId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>Starting Hole</th>
+                    <td>
+                        @Html.DropDownListFor(model => model.StartHoleId,
+                                      GolfDB2.Tools.MiscLists.StartingHoleSelectList(Model.CourseId, Model.PlayListId, Model.IsShotgunStart, null),
+                                      new { @onchange = "updateHoleInfoFields('StartHoleId')" })
+                        @Html.ValidationMessageFor(model => model.StartHoleId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>Number of Groups</th>
+                    <td>
+                        @Html.EditorFor(model => model.NumGroups,
+                            new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NumGroups, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>Number-In-Group</th>
+                    <td>
+                        @Html.EditorFor(model => model.NumPerGroup, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NumPerGroup, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>Skins Amount</th>
+                    <td>
+                        @Html.EditorFor(model => model.SkinsAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SkinsAmount, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>Flights</th>
+                    <td>
+                        @Html.EditorFor(model => model.NumberOfFlights, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NumberOfFlights, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>Actions</th>
+                    <td>
+                        <span><input type="submit" value="Save" class="btn btn-default"/></span>
+                        <span><input type="submit" value="Scores" onclick="doScorecard();" class="btn btn-default" /></span>
+                    </td>
+
+                </tr>
+            </table>
+            <div>
+                <br />@Html.ActionLink("Home", "Index", "Home")
+            </div>
+        </div>
+        <div id="myListDiv" style="float: left; width: 65%; text-align: left; vertical-align: top;"></div>
+    </div>
+}

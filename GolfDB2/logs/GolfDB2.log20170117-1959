@@ -1,0 +1,1 @@
+2017-01-17 19:59:22,438 [38] DEBUG GolfDB2.Tools.GolfDB2Logger [(null)] - SqlQuery::Query: SELECT Id from EventDetail WHERE EventId=0
