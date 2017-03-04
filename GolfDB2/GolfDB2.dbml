@@ -29,6 +29,7 @@
       <Association Name="Hole_TeeTime" Member="TeeTimes" ThisKey="Id" OtherKey="HoleId" Type="TeeTime" />
       <Association Name="Hole_ScoreEntry" Member="ScoreEntries" ThisKey="Id" OtherKey="HoleId" Type="ScoreEntry" />
       <Association Name="Hole_EventDetail" Member="EventDetails" ThisKey="Id" OtherKey="StartHoleId" Type="EventDetail" />
+      <Association Name="Hole_GeoData" Member="GeoDatas" ThisKey="Id" OtherKey="HoleId" Type="GeoData" />
     </Type>
   </Table>
   <Table Name="dbo.HoleList" Member="HoleLists">
@@ -125,6 +126,29 @@
       <Association Name="Event_EventDetail" Member="Event" ThisKey="EventId" OtherKey="id" Type="Event" IsForeignKey="true" />
       <Association Name="HoleList_EventDetail" Member="HoleList" ThisKey="PlayListId" OtherKey="Id" Type="HoleList" IsForeignKey="true" />
       <Association Name="Hole_EventDetail" Member="Hole" ThisKey="StartHoleId" OtherKey="Id" Type="Hole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TeeBoxMenuColors" Member="TeeBoxMenuColors">
+    <Type Name="TeeBoxMenuColor">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="courseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ordinal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="color" Type="System.String" DbType="NChar(40) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GeoData" Member="GeoDatas">
+    <Type Name="GeoData">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GeoSpatialDataId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GeoObjectDescription" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="GeoObjectType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HoleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CourseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YardsToFront" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YardsToMiddle" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YardsToBack" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Hole_GeoData" Member="Hole" ThisKey="HoleId" OtherKey="Id" Type="Hole" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.IsScoreEntrySkin" Method="IsScoreEntrySkin">

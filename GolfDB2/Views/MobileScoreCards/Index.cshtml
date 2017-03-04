@@ -6,10 +6,10 @@
 
 <script type="text/javascript">
 
-    function updateMobileScoresDiv() {
+    function updateMobileScoresDiv(isVertical) {
 
         $.ajax({
-            url: '/api/HtmlApi?action=updatemobilescoresdiv',
+            url: '/api/HtmlApi?action=updatemobilescoresdiv&isVertical=' + isVertical,
             dataType: 'html',
             success: function (response) {
                 $("#mobileScoresDiv").html(response);
@@ -44,9 +44,11 @@
 
         // Todo: pull cardId from team-player select list
         var scoreCardId = $('#cardSelect option:selected').val()
+        var ordinal = $('#teeSelect option:selected').val()
+        var gender = $('#genderSelect option:selected').val()
 
         $.ajax({
-            url: '/api/HtmlApi?action=scoresdiv&scoreCardId=' + scoreCardId,
+            url: '/api/HtmlApi?action=scoresdiv&scoreCardId=' + scoreCardId + "&ordinal=" + ordinal + "&gender=" + gender,
             dataType: 'html',
             success: function (response) {
                 $("#scoresDiv").html(response);
@@ -54,7 +56,30 @@
         });
     }
 
-    updateMobileScoresDiv();
+    var isVertical = "true";
+
+    function setOrientation() {
+        if (screen.orientation.type === "landscape-primary")
+            isVertical = "false";
+        else
+            isVertical = "true";
+    }
+
+    function showOrientation(type) {
+        console.log('new orientation is ', type);
+        setOrientation();
+        updateMobileScoresDiv(isVertical);
+    }
+
+    if (window.DeviceOrientationEvent) {
+        // Our browser supports DeviceOrientation
+        screen.orientation.addEventListener('change', showOrientation(screen.orientation.type));
+        setOrientation();
+    } else {
+        console.log("Sorry, your browser doesn't support Device Orientation");
+        updateMobileScoresDiv(isVertical);
+    }
+
 </script>
 
 <h2>Index</h2>

@@ -33,7 +33,7 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GeoData geoData = db.GeoDatas.Find(id);
+            GolfDB2.Models.GeoData geoData = db.GeoDatas.Find(id);
             if (geoData == null)
             {
                 return HttpNotFound();
@@ -55,7 +55,7 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,GeoSpatialDataId,GeoObjectDescription,GeoObjectType,HoleId,OrderNumber,CourseId,YardsToFront,YardsToMiddle,YardsToBack")] GeoData geoData)
+        public ActionResult Create([Bind(Include = "Id,GeoSpatialDataId,GeoObjectDescription,GeoObjectType,HoleId,OrderNumber,CourseId,YardsToFront,YardsToMiddle,YardsToBack")] GolfDB2.Models.GeoData geoData)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
@@ -80,7 +80,7 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GeoData geoData = db.GeoDatas.Find(id);
+            GolfDB2.Models.GeoData geoData = db.GeoDatas.Find(id);
             if (geoData == null)
             {
                 return HttpNotFound();
@@ -117,7 +117,7 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GeoData geoData = db.GeoDatas.Find(id);
+            GolfDB2.Models.GeoData geoData = db.GeoDatas.Find(id);
             if (geoData == null)
             {
                 return HttpNotFound();
@@ -130,7 +130,7 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            GeoData geoData = db.GeoDatas.Find(id);
+            GolfDB2.Models.GeoData geoData = db.GeoDatas.Find(id);
             db.GeoDatas.Remove(geoData);
             db.SaveChanges();
             return RedirectToAction("Index");

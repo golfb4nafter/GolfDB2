@@ -27,12 +27,17 @@ namespace GolfDB2.Controllers
             if (!string.IsNullOrEmpty(action) && action.Trim() == "scoresdiv")
             {
                 int cardId = int.Parse(Request.RequestUri.ParseQueryString().Get("scoreCardId"));
-                resp = MobileScoresHtmlFactory.makeScoresDiv(cardId, null);
+                int ordinal = int.Parse(Request.RequestUri.ParseQueryString().Get("ordinal"));
+                string gender = Request.RequestUri.ParseQueryString().Get("gender");
+                string isVertical = Request.RequestUri.ParseQueryString().Get("isVertical");
+                resp = MobileScoresHtmlFactory.makeScoresDiv(isVertical == "true", cardId, ordinal, gender, null);
             }
 
             if (!string.IsNullOrEmpty(action) && action.Trim() == "updatemobilescoresdiv")
             {
-                resp = MobileScoresHtmlFactory.makeMobileScoreCardHtml(null);
+                string isVertical = Request.RequestUri.ParseQueryString().Get("isVertical");
+
+                resp = MobileScoresHtmlFactory.makeMobileScoreCardHtml(isVertical == "true", null);
             }
 
             //  url: '/api/HtmlApi?action=updatehandicap&Name=' + handicapElementId + '&Handicap=' + val,

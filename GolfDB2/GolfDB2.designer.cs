@@ -57,6 +57,12 @@ namespace GolfDB2
     partial void InsertEventDetail(EventDetail instance);
     partial void UpdateEventDetail(EventDetail instance);
     partial void DeleteEventDetail(EventDetail instance);
+    partial void InsertTeeBoxMenuColor(TeeBoxMenuColor instance);
+    partial void UpdateTeeBoxMenuColor(TeeBoxMenuColor instance);
+    partial void DeleteTeeBoxMenuColor(TeeBoxMenuColor instance);
+    partial void InsertGeoData(GeoData instance);
+    partial void UpdateGeoData(GeoData instance);
+    partial void DeleteGeoData(GeoData instance);
     #endregion
 		
 		public GolfDB2DataContext() : 
@@ -158,6 +164,22 @@ namespace GolfDB2
 			get
 			{
 				return this.GetTable<EventDetail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TeeBoxMenuColor> TeeBoxMenuColors
+		{
+			get
+			{
+				return this.GetTable<TeeBoxMenuColor>();
+			}
+		}
+		
+		public System.Data.Linq.Table<GeoData> GeoDatas
+		{
+			get
+			{
+				return this.GetTable<GeoData>();
 			}
 		}
 		
@@ -620,6 +642,8 @@ namespace GolfDB2
 		
 		private EntitySet<EventDetail> _EventDetails;
 		
+		private EntitySet<GeoData> _GeoDatas;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -643,6 +667,7 @@ namespace GolfDB2
 			this._TeeTimes = new EntitySet<TeeTime>(new Action<TeeTime>(this.attach_TeeTimes), new Action<TeeTime>(this.detach_TeeTimes));
 			this._ScoreEntries = new EntitySet<ScoreEntry>(new Action<ScoreEntry>(this.attach_ScoreEntries), new Action<ScoreEntry>(this.detach_ScoreEntries));
 			this._EventDetails = new EntitySet<EventDetail>(new Action<EventDetail>(this.attach_EventDetails), new Action<EventDetail>(this.detach_EventDetails));
+			this._GeoDatas = new EntitySet<GeoData>(new Action<GeoData>(this.attach_GeoDatas), new Action<GeoData>(this.detach_GeoDatas));
 			OnCreated();
 		}
 		
@@ -805,6 +830,19 @@ namespace GolfDB2
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Hole_GeoData", Storage="_GeoDatas", ThisKey="Id", OtherKey="HoleId")]
+		public EntitySet<GeoData> GeoDatas
+		{
+			get
+			{
+				return this._GeoDatas;
+			}
+			set
+			{
+				this._GeoDatas.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -856,6 +894,18 @@ namespace GolfDB2
 		}
 		
 		private void detach_EventDetails(EventDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Hole = null;
+		}
+		
+		private void attach_GeoDatas(GeoData entity)
+		{
+			this.SendPropertyChanging();
+			entity.Hole = this;
+		}
+		
+		private void detach_GeoDatas(GeoData entity)
 		{
 			this.SendPropertyChanging();
 			entity.Hole = null;
@@ -2910,6 +2960,459 @@ namespace GolfDB2
 					else
 					{
 						this._StartHoleId = default(int);
+					}
+					this.SendPropertyChanged("Hole");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TeeBoxMenuColors")]
+	public partial class TeeBoxMenuColor : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _courseId;
+		
+		private int _ordinal;
+		
+		private string _color;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OncourseIdChanging(int value);
+    partial void OncourseIdChanged();
+    partial void OnordinalChanging(int value);
+    partial void OnordinalChanged();
+    partial void OncolorChanging(string value);
+    partial void OncolorChanged();
+    #endregion
+		
+		public TeeBoxMenuColor()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_courseId", DbType="Int NOT NULL")]
+		public int courseId
+		{
+			get
+			{
+				return this._courseId;
+			}
+			set
+			{
+				if ((this._courseId != value))
+				{
+					this.OncourseIdChanging(value);
+					this.SendPropertyChanging();
+					this._courseId = value;
+					this.SendPropertyChanged("courseId");
+					this.OncourseIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ordinal", DbType="Int NOT NULL")]
+		public int ordinal
+		{
+			get
+			{
+				return this._ordinal;
+			}
+			set
+			{
+				if ((this._ordinal != value))
+				{
+					this.OnordinalChanging(value);
+					this.SendPropertyChanging();
+					this._ordinal = value;
+					this.SendPropertyChanged("ordinal");
+					this.OnordinalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_color", DbType="NChar(40) NOT NULL", CanBeNull=false)]
+		public string color
+		{
+			get
+			{
+				return this._color;
+			}
+			set
+			{
+				if ((this._color != value))
+				{
+					this.OncolorChanging(value);
+					this.SendPropertyChanging();
+					this._color = value;
+					this.SendPropertyChanged("color");
+					this.OncolorChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GeoData")]
+	public partial class GeoData : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _GeoSpatialDataId;
+		
+		private string _GeoObjectDescription;
+		
+		private int _GeoObjectType;
+		
+		private int _HoleId;
+		
+		private int _OrderNumber;
+		
+		private System.Nullable<int> _CourseId;
+		
+		private System.Nullable<int> _YardsToFront;
+		
+		private System.Nullable<int> _YardsToMiddle;
+		
+		private System.Nullable<int> _YardsToBack;
+		
+		private EntityRef<Hole> _Hole;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnGeoSpatialDataIdChanging(int value);
+    partial void OnGeoSpatialDataIdChanged();
+    partial void OnGeoObjectDescriptionChanging(string value);
+    partial void OnGeoObjectDescriptionChanged();
+    partial void OnGeoObjectTypeChanging(int value);
+    partial void OnGeoObjectTypeChanged();
+    partial void OnHoleIdChanging(int value);
+    partial void OnHoleIdChanged();
+    partial void OnOrderNumberChanging(int value);
+    partial void OnOrderNumberChanged();
+    partial void OnCourseIdChanging(System.Nullable<int> value);
+    partial void OnCourseIdChanged();
+    partial void OnYardsToFrontChanging(System.Nullable<int> value);
+    partial void OnYardsToFrontChanged();
+    partial void OnYardsToMiddleChanging(System.Nullable<int> value);
+    partial void OnYardsToMiddleChanged();
+    partial void OnYardsToBackChanging(System.Nullable<int> value);
+    partial void OnYardsToBackChanged();
+    #endregion
+		
+		public GeoData()
+		{
+			this._Hole = default(EntityRef<Hole>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GeoSpatialDataId", DbType="Int NOT NULL")]
+		public int GeoSpatialDataId
+		{
+			get
+			{
+				return this._GeoSpatialDataId;
+			}
+			set
+			{
+				if ((this._GeoSpatialDataId != value))
+				{
+					this.OnGeoSpatialDataIdChanging(value);
+					this.SendPropertyChanging();
+					this._GeoSpatialDataId = value;
+					this.SendPropertyChanged("GeoSpatialDataId");
+					this.OnGeoSpatialDataIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GeoObjectDescription", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string GeoObjectDescription
+		{
+			get
+			{
+				return this._GeoObjectDescription;
+			}
+			set
+			{
+				if ((this._GeoObjectDescription != value))
+				{
+					this.OnGeoObjectDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._GeoObjectDescription = value;
+					this.SendPropertyChanged("GeoObjectDescription");
+					this.OnGeoObjectDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GeoObjectType", DbType="Int NOT NULL")]
+		public int GeoObjectType
+		{
+			get
+			{
+				return this._GeoObjectType;
+			}
+			set
+			{
+				if ((this._GeoObjectType != value))
+				{
+					this.OnGeoObjectTypeChanging(value);
+					this.SendPropertyChanging();
+					this._GeoObjectType = value;
+					this.SendPropertyChanged("GeoObjectType");
+					this.OnGeoObjectTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoleId", DbType="Int NOT NULL")]
+		public int HoleId
+		{
+			get
+			{
+				return this._HoleId;
+			}
+			set
+			{
+				if ((this._HoleId != value))
+				{
+					if (this._Hole.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnHoleIdChanging(value);
+					this.SendPropertyChanging();
+					this._HoleId = value;
+					this.SendPropertyChanged("HoleId");
+					this.OnHoleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderNumber", DbType="Int NOT NULL")]
+		public int OrderNumber
+		{
+			get
+			{
+				return this._OrderNumber;
+			}
+			set
+			{
+				if ((this._OrderNumber != value))
+				{
+					this.OnOrderNumberChanging(value);
+					this.SendPropertyChanging();
+					this._OrderNumber = value;
+					this.SendPropertyChanged("OrderNumber");
+					this.OnOrderNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseId", DbType="Int")]
+		public System.Nullable<int> CourseId
+		{
+			get
+			{
+				return this._CourseId;
+			}
+			set
+			{
+				if ((this._CourseId != value))
+				{
+					this.OnCourseIdChanging(value);
+					this.SendPropertyChanging();
+					this._CourseId = value;
+					this.SendPropertyChanged("CourseId");
+					this.OnCourseIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YardsToFront", DbType="Int")]
+		public System.Nullable<int> YardsToFront
+		{
+			get
+			{
+				return this._YardsToFront;
+			}
+			set
+			{
+				if ((this._YardsToFront != value))
+				{
+					this.OnYardsToFrontChanging(value);
+					this.SendPropertyChanging();
+					this._YardsToFront = value;
+					this.SendPropertyChanged("YardsToFront");
+					this.OnYardsToFrontChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YardsToMiddle", DbType="Int")]
+		public System.Nullable<int> YardsToMiddle
+		{
+			get
+			{
+				return this._YardsToMiddle;
+			}
+			set
+			{
+				if ((this._YardsToMiddle != value))
+				{
+					this.OnYardsToMiddleChanging(value);
+					this.SendPropertyChanging();
+					this._YardsToMiddle = value;
+					this.SendPropertyChanged("YardsToMiddle");
+					this.OnYardsToMiddleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YardsToBack", DbType="Int")]
+		public System.Nullable<int> YardsToBack
+		{
+			get
+			{
+				return this._YardsToBack;
+			}
+			set
+			{
+				if ((this._YardsToBack != value))
+				{
+					this.OnYardsToBackChanging(value);
+					this.SendPropertyChanging();
+					this._YardsToBack = value;
+					this.SendPropertyChanged("YardsToBack");
+					this.OnYardsToBackChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Hole_GeoData", Storage="_Hole", ThisKey="HoleId", OtherKey="Id", IsForeignKey=true)]
+		public Hole Hole
+		{
+			get
+			{
+				return this._Hole.Entity;
+			}
+			set
+			{
+				Hole previousValue = this._Hole.Entity;
+				if (((previousValue != value) 
+							|| (this._Hole.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Hole.Entity = null;
+						previousValue.GeoDatas.Remove(this);
+					}
+					this._Hole.Entity = value;
+					if ((value != null))
+					{
+						value.GeoDatas.Add(this);
+						this._HoleId = value.Id;
+					}
+					else
+					{
+						this._HoleId = default(int);
 					}
 					this.SendPropertyChanged("Hole");
 				}

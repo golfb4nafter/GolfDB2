@@ -9,6 +9,27 @@ namespace GolfDB2.Tools
 {
     public static class TeeTimeTools
     {
+
+        public static GeoData GetGeoData(int geoObjectType, 
+                                         int holeId, 
+                                         int courseId, 
+                                         int orderNumber, 
+                                         string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+
+            return (from ed in db.GetTable<GeoData>() where ((ed.GeoObjectType == geoObjectType) && 
+                                                             (ed.HoleId == holeId) && 
+                                                             (ed.CourseId == courseId) && 
+                                                             (ed.OrderNumber == orderNumber)) select ed).SingleOrDefault();
+        }
+
+        public static List<TeeBoxMenuColor> GetTeeBoxMenuColorList(int courseId, string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+            return (from e in db.GetTable<TeeBoxMenuColor>() where e.courseId == courseId select e).ToList();
+        }
+
         public static EventDetail GetEventDetail(int eventId, string connectionString)
         {
             GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);

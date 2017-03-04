@@ -470,10 +470,12 @@
     <Compile Include="Models\Hole.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Tools\HorizontalMobileScoreCardFactory.cs" />
     <Compile Include="Tools\HtmlFactory.cs" />
     <Compile Include="Tools\LeaderBoardHtmlFactory.cs" />
     <Compile Include="Tools\MiscLists.cs" />
     <Compile Include="Models\SetupModel.cs" />
+    <Compile Include="Tools\MobileScoreCardFactoryBase.cs" />
     <Compile Include="Tools\MobileScoresHtmlFactory.cs" />
     <Compile Include="Tools\ShotgunHoleCalculator.cs" />
     <Compile Include="Tools\SortableRowObject.cs" />
@@ -488,6 +490,7 @@
     <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\StoredProcedures.cs" />
     <Compile Include="Tools\TeeTimeTools.cs" />
+    <Compile Include="Tools\VerticalMobileScoreCardFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />

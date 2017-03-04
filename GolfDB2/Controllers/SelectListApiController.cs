@@ -26,7 +26,7 @@ namespace GolfDB2.Controllers
             if (!string.IsNullOrEmpty(action) && action.ToLower(new CultureInfo("en-US", false)).Trim() == "updatecardselect")
             {
                 int eventId = int.Parse(Request.RequestUri.ParseQueryString().Get("eventId"));
-                string resp = MobileScoresHtmlFactory.makeTeamSelectOptions(eventId, null);
+                string resp = new MobileScoreCardFactoryBase().makeTeamSelectOptions(eventId, null);
                 List<SelectListItem> items = JsonConvert.DeserializeObject<List<SelectListItem>>(resp);
                 return Json(items);
             }
@@ -34,7 +34,7 @@ namespace GolfDB2.Controllers
             if (action.ToLower(new CultureInfo("en-US", false)).Trim() == "teetime")
             {
                 string date = Request.RequestUri.ParseQueryString().Get("date"); // need error logic!
-                Logger.LogDebug("get", date);                                                                         // Now use id and customer
+                Logger.LogDebug("get", date);
                 int holeId = int.Parse(Request.RequestUri.ParseQueryString().Get("holeId"));
                 int eventId = int.Parse(Request.RequestUri.ParseQueryString().Get("eventId"));
                 List<SelectListItem> items = MiscLists.MakeListOfAvailableTeeTimes(
