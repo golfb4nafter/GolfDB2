@@ -26,11 +26,13 @@ namespace GolfDB2.Controllers
 
             if (!string.IsNullOrEmpty(action) && action.Trim() == "scoresdiv")
             {
+                int eventId = int.Parse(Request.RequestUri.ParseQueryString().Get("eventId"));
                 int cardId = int.Parse(Request.RequestUri.ParseQueryString().Get("scoreCardId"));
                 int ordinal = int.Parse(Request.RequestUri.ParseQueryString().Get("ordinal"));
                 string gender = Request.RequestUri.ParseQueryString().Get("gender");
                 string isVertical = Request.RequestUri.ParseQueryString().Get("isVertical");
-                resp = MobileScoresHtmlFactory.makeScoresDiv(isVertical == "true", cardId, ordinal, gender, null);
+
+                resp = MobileScoresHtmlFactory.makeScoresDiv(isVertical == "true", eventId, cardId, ordinal, gender, null);
             }
 
             if (!string.IsNullOrEmpty(action) && action.Trim() == "updatemobilescoresdiv")

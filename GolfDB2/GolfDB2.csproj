@@ -485,7 +485,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Tools\EventDetailTools.cs" />
-    <Compile Include="Tools\CourseRatingsCache.cs" />
     <Compile Include="Tools\GlobalSettingsApi.cs" />
     <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\StoredProcedures.cs" />

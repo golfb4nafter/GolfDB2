@@ -292,20 +292,6 @@ namespace GolfDB2.Tools
             return SqlLists.SqlQuery(query + " " + filter, parms, connectionString);
         }
 
-        public static List<CourseRating> GetCourseRatingsList(string connectionString)
-        {
-            string json = GetCourseRatings("", connectionString);
-            List<CourseRating> items = JsonConvert.DeserializeObject<List<CourseRating>>(json);
-            return items;
-        }
-
-        public static int GetHoleHandicap(int courseId, string tee, string gender, string holesListDescription, int holeNumber, string connectionString)
-        {
-            CourseRatingsCache cache = new CourseRatingsCache(connectionString);
-            CourseRating r = cache.GetCourseRatingByCourseIdTeeAndGender(courseId, tee, gender, holesListDescription);
-            return int.Parse(r.HandicapByHole.Split(',')[holeNumber - 1]);
-        }
-
         public static List<SelectListItem> GetLogLevelSelectList()
         {
             List<SelectListItem> items = new List<SelectListItem>();

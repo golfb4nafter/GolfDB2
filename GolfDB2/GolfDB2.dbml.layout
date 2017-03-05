@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15.875, 8.5" name="GolfDB2">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 18.5, 8.5" name="GolfDB2">
   <DataContextMoniker Name="/GolfDB2DataContext" />
   <nestedChildShapes>
     <classShape Id="b80372e9-bdf1-4ffc-a3bb-9dce6c5af96f" absoluteBounds="0.5, 0.5, 2, 2.7324039713541666">
@@ -85,14 +85,14 @@
         <elementListCompartment Id="d26cdcd2-6e12-4d13-ace3-3fd18fa4e34d" absoluteBounds="9.14, 4.585, 2.8449999999999998, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.34375 : 2.5881982421875); (5.34375 : 5.13544840494792); (9.125 : 5.13544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.34375 : 2.5881982421875); (5.34375 : 5.13544840494792); (9.125 : 5.13544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/GolfDB2DataContext/Event/Event_ScoreEntry" />
       <nodes>
         <classShapeMoniker Id="3a6c0b12-75ac-496e-a152-bf92d6ad5400" />
         <classShapeMoniker Id="96169ae5-76e6-48cc-880e-c92aa3f4d92b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.125 : 5.34897420247396); (3.88541866666667 : 5.34897420247396 : JumpStart); (4.05208533333333 : 5.34897420247396 : JumpEnd); (9.125 : 5.34897420247396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.125 : 5.34897420247396); (3.88541866666667 : 5.34897420247396 : JumpStart); (4.05208533333333 : 5.34897420247396 : JumpEnd); (9.125 : 5.34897420247396)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/GolfDB2DataContext/Hole/Hole_ScoreEntry" />
       <nodes>
         <classShapeMoniker Id="59d6bf81-1b6b-48cd-89ee-65850fcba6f1" />
@@ -145,11 +145,44 @@
         <elementListCompartment Id="e2c42649-95f1-48f7-8c2d-dd3c4f3caba1" absoluteBounds="13.64, 1.46, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.125 : 4.81772470247396); (3.88541866666667 : 4.81772470247396 : JumpStart); (4.05208533333333 : 4.81772470247396 : JumpEnd); (5.26041666666667 : 4.81772470247396 : JumpStart); (5.42708333333333 : 4.81772470247396 : JumpEnd); (5.5 : 4.81772470247396); (5.5 : 5); (8.875 : 5); (8.875 : 3.98240397135417); (9.29166666666667 : 3.98240397135417 : JumpStart); (9.45833333333333 : 3.98240397135417 : JumpEnd); (14.625 : 3.98240397135417); (14.625 : 3.73240397135417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.125 : 4.81772470247396); (3.88541866666667 : 4.81772470247396 : JumpStart); (4.05208533333333 : 4.81772470247396 : JumpEnd); (5.26041666666667 : 4.81772470247396 : JumpStart); (5.42708333333333 : 4.81772470247396 : JumpEnd); (5.5 : 4.81772470247396); (5.5 : 5); (8.875 : 5); (8.875 : 3.98240397135417); (9.29166666666667 : 3.98240397135417 : JumpStart); (9.45833333333333 : 3.98240397135417 : JumpEnd); (14.625 : 3.98240397135417); (14.625 : 3.73240397135417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/GolfDB2DataContext/Hole/Hole_GeoData" />
       <nodes>
         <classShapeMoniker Id="59d6bf81-1b6b-48cd-89ee-65850fcba6f1" />
         <classShapeMoniker Id="4edd4035-1183-4509-9c37-3ed0b2746a15" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="288afec3-529f-45a6-8aeb-c4381ad96041" absoluteBounds="16.25, 1, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/GolfDB2DataContext/TeeBoxMenuColor1" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1c1c5ff3-4b6f-428f-aebd-fa2efacb6bff" absoluteBounds="16.265, 1.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="041dcc55-6af1-439b-afa6-53bcf043b872" absoluteBounds="16.25, 3.125, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/GolfDB2DataContext/CourseRating" />
+      <nestedChildShapes>
+        <elementListCompartment Id="39524cda-1bb5-4180-bf6b-ca5510a3d87f" absoluteBounds="16.265, 3.585, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.625 : 3.82615397135417); (9.29166666666667 : 3.82615397135417 : JumpStart); (9.45833333333333 : 3.82615397135417 : JumpEnd); (14.5416666666667 : 3.82615397135417 : JumpStart); (14.7083333333333 : 3.82615397135417 : JumpEnd); (16.25 : 3.82615397135417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/GolfDB2DataContext/HoleList/HoleList_CourseRating" />
+      <nodes>
+        <classShapeMoniker Id="6c2fb3e3-0182-4b2e-8baf-2ded596535c2" />
+        <classShapeMoniker Id="041dcc55-6af1-439b-afa6-53bcf043b872" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(14.75 : 5.03929768880208); (16.25 : 5.03929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/GolfDB2DataContext/TeeBoxMenuColor/TeeBoxMenuColor_CourseRating" />
+      <nodes>
+        <classShapeMoniker Id="5e00fc23-047e-4ff2-a617-5ad320eb7939" />
+        <classShapeMoniker Id="041dcc55-6af1-439b-afa6-53bcf043b872" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(17.25 : 2.57859537760417); (17.25 : 3.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/GolfDB2DataContext/TeeBoxMenuColor1/TeeBoxMenuColor1_CourseRating" />
+      <nodes>
+        <classShapeMoniker Id="288afec3-529f-45a6-8aeb-c4381ad96041" />
+        <classShapeMoniker Id="041dcc55-6af1-439b-afa6-53bcf043b872" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

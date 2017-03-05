@@ -40,6 +40,7 @@
       <Column Name="HoleList" Member="HoleList1" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
       <Column Name="BList" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Association Name="HoleList_EventDetail" Member="EventDetails" ThisKey="Id" OtherKey="PlayListId" Type="EventDetail" />
+      <Association Name="HoleList_CourseRating" Member="CourseRatings" ThisKey="Id" OtherKey="HoleListId" Type="CourseRating" />
     </Type>
   </Table>
   <Table Name="dbo.GlobalSettings" Member="GlobalSettings">
@@ -134,6 +135,7 @@
       <Column Name="courseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ordinal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="color" Type="System.String" DbType="NChar(40) NOT NULL" CanBeNull="false" />
+      <Association Name="TeeBoxMenuColor_CourseRating" Member="CourseRatings" ThisKey="Id" OtherKey="teeBoxMenuColorsId" Type="CourseRating" />
     </Type>
   </Table>
   <Table Name="dbo.GeoData" Member="GeoDatas">
@@ -149,6 +151,33 @@
       <Column Name="YardsToMiddle" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="YardsToBack" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Hole_GeoData" Member="Hole" ThisKey="HoleId" OtherKey="Id" Type="Hole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TeeBoxMenuColors" Member="TeeBoxMenuColor1s">
+    <Type Name="TeeBoxMenuColor1">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="courseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ordinal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="color" Type="System.String" DbType="NChar(40) NOT NULL" CanBeNull="false" />
+      <Association Name="TeeBoxMenuColor1_CourseRating" Member="CourseRatings" ThisKey="Id" OtherKey="teeBoxMenuColorsId" Type="CourseRating" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CourseRatings" Member="CourseRatings">
+    <Type Name="CourseRating">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CourseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Course_Rating" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SlopeRating18" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Front9" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Back9" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BogeyRating" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Gender" Type="System.Char" DbType="NChar(1)" CanBeNull="true" />
+      <Column Name="HandicapByHole" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="teeBoxMenuColorsId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HoleListId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="HoleList_CourseRating" Member="HoleList" ThisKey="HoleListId" OtherKey="Id" Type="HoleList" IsForeignKey="true" />
+      <Association Name="TeeBoxMenuColor_CourseRating" Member="TeeBoxMenuColor" ThisKey="teeBoxMenuColorsId" OtherKey="Id" Type="TeeBoxMenuColor" IsForeignKey="true" />
+      <Association Name="TeeBoxMenuColor1_CourseRating" Member="TeeBoxMenuColor1" ThisKey="teeBoxMenuColorsId" OtherKey="Id" Type="TeeBoxMenuColor1" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.IsScoreEntrySkin" Method="IsScoreEntrySkin">

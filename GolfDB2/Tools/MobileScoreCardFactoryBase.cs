@@ -26,10 +26,14 @@ namespace GolfDB2.Tools
             StringBuilder sb = new StringBuilder();
 
             sb.Append("      <select onchange=\"updateCardSelect();\" id=\"teeSelect\" name=\"teeSelect\" >\r\n");
-            sb.Append("        <option value=\"-1\">--</ option >\r\n");
 
             foreach (TeeBoxMenuColor t in colorList)
-                sb.Append(string.Format("        <option value=\"{0}\">{1}</ option >\r\n", t.ordinal, t.color));
+            {
+                if (t.ordinal == 0)
+                    sb.Append(string.Format("        <option selected value=\"{0}\">{1}</ option >\r\n", t.ordinal, t.color));
+                else
+                    sb.Append(string.Format("        <option value=\"{0}\">{1}</ option >\r\n", t.ordinal, t.color));
+            }
 
             sb.Append("      </select>\r\n");
             return sb.ToString();

@@ -105,21 +105,6 @@ namespace GolfDB2FunctionalTests
         }
 
         [TestMethod]
-        public void GetCourseRatingsList()
-        {
-            CourseRatingsCache crCache = new CourseRatingsCache(connectionString);
-            Assert.IsTrue(crCache.RatingsList.Count > 3);
-        }
-
-        [TestMethod]
-        public void GetHoleHandicap()
-        {
-            int handicap = MiscLists.GetHoleHandicap(1, "white", "f", "10-27", 12, connectionString);
-
-            Assert.IsTrue(handicap == 4);
-        }
-
-        [TestMethod]
         public void GetSetting()
         {
             GlobalSettingsApi gs = new GlobalSettingsApi(connectionString);

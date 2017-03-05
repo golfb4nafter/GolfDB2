@@ -24,6 +24,53 @@ namespace GolfDB2.Tools
                                                              (ed.OrderNumber == orderNumber)) select ed).SingleOrDefault();
         }
 
+        public static int GetHoleHandicap(int courseId, int teeBoxMenuColorsId, string gender, int holeListId, int holeNumber, ref string handicapByHoleList, string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+
+            try
+            {
+                CourseRating r = (from crl in db.GetTable<CourseRating>()
+                                  where (crl.CourseId == courseId &&
+                                         crl.teeBoxMenuColorsId == teeBoxMenuColorsId &&
+                                         crl.Gender == gender[0] &&
+                                         crl.HoleListId == holeListId)
+                                  select crl).SingleOrDefault();
+
+                handicapByHoleList = r.HandicapByHole;
+
+                return int.Parse(r.HandicapByHole.Split(',')[holeNumber - 1]);
+            } catch (Exception ex)
+            {
+                Logger.LogError("TeeTimeTools.GetHoleHandicap", ex.ToString());
+                return 0;
+            }
+        }
+
+        public static int CalculateNetFromScore(int strokesGiven, int score, int holeNumber, string handicapByHoleList)
+        {
+            int hcpScore = score;
+
+            // get the handicap for this hole first.
+            int thisHandicap = int.Parse(handicapByHoleList.Split(',')[holeNumber - 1]);
+
+            while (strokesGiven > 0)
+            {
+                if (thisHandicap <= strokesGiven)
+                    hcpScore -= 1;
+
+                strokesGiven -= handicapByHoleList.Length;
+           }
+
+            return hcpScore;
+        }
+
+        public static List<CourseRating> GetCourseRatingsList(string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+            return (from crl in db.GetTable<CourseRating>() select crl).ToList();
+        }
+
         public static List<TeeBoxMenuColor> GetTeeBoxMenuColorList(int courseId, string connectionString)
         {
             GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
@@ -34,6 +81,13 @@ namespace GolfDB2.Tools
         {
             GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
             return (from ed in db.GetTable<EventDetail>() where ed.EventId == eventId select ed).SingleOrDefault();
+        }
+
+        // SELECT Id FROM TeeBoxMenuColors WHERE courseId = CourseId AND ordinal = ordinal
+        public static TeeBoxMenuColor GetTeeBoxMenuColors(int courseId, int ordinal, string connectionString)
+        {
+            GolfDB2DataContext db = EventDetailTools.GetDB(connectionString);
+            return (from tmc in db.GetTable<TeeBoxMenuColor>() where (tmc.courseId == courseId && tmc.ordinal == ordinal) select tmc).SingleOrDefault();
         }
 
         public static Event GetCalendarEvent(int id, string connectionString)

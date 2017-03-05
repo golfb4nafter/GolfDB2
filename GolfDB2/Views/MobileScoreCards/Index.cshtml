@@ -46,9 +46,12 @@
         var scoreCardId = $('#cardSelect option:selected').val()
         var ordinal = $('#teeSelect option:selected').val()
         var gender = $('#genderSelect option:selected').val()
+        var eventId = $('#eventSelect option:selected').val()
+
+        var url = "/api/SelectListApi?action=updatecardselect&eventId=" + eventId;
 
         $.ajax({
-            url: '/api/HtmlApi?action=scoresdiv&scoreCardId=' + scoreCardId + "&ordinal=" + ordinal + "&gender=" + gender,
+            url: '/api/HtmlApi?action=scoresdiv&scoreCardId=' + scoreCardId + "&ordinal=" + ordinal + "&gender=" + gender + "&eventId=" + eventId,
             dataType: 'html',
             success: function (response) {
                 $("#scoresDiv").html(response);

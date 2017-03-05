@@ -63,6 +63,9 @@ namespace GolfDB2
     partial void InsertGeoData(GeoData instance);
     partial void UpdateGeoData(GeoData instance);
     partial void DeleteGeoData(GeoData instance);
+    partial void InsertTeeBoxMenuColor1(TeeBoxMenuColor1 instance);
+    partial void UpdateTeeBoxMenuColor1(TeeBoxMenuColor1 instance);
+    partial void DeleteTeeBoxMenuColor1(TeeBoxMenuColor1 instance);
     #endregion
 		
 		public GolfDB2DataContext() : 
@@ -180,6 +183,22 @@ namespace GolfDB2
 			get
 			{
 				return this.GetTable<GeoData>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TeeBoxMenuColor1> TeeBoxMenuColor1s
+		{
+			get
+			{
+				return this.GetTable<TeeBoxMenuColor1>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CourseRating> CourseRatings
+		{
+			get
+			{
+				return this.GetTable<CourseRating>();
 			}
 		}
 		
@@ -3436,6 +3455,347 @@ namespace GolfDB2
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TeeBoxMenuColors")]
+	public partial class TeeBoxMenuColor1 : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _courseId;
+		
+		private int _ordinal;
+		
+		private string _color;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OncourseIdChanging(int value);
+    partial void OncourseIdChanged();
+    partial void OnordinalChanging(int value);
+    partial void OnordinalChanged();
+    partial void OncolorChanging(string value);
+    partial void OncolorChanged();
+    #endregion
+		
+		public TeeBoxMenuColor1()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_courseId", DbType="Int NOT NULL")]
+		public int courseId
+		{
+			get
+			{
+				return this._courseId;
+			}
+			set
+			{
+				if ((this._courseId != value))
+				{
+					this.OncourseIdChanging(value);
+					this.SendPropertyChanging();
+					this._courseId = value;
+					this.SendPropertyChanged("courseId");
+					this.OncourseIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ordinal", DbType="Int NOT NULL")]
+		public int ordinal
+		{
+			get
+			{
+				return this._ordinal;
+			}
+			set
+			{
+				if ((this._ordinal != value))
+				{
+					this.OnordinalChanging(value);
+					this.SendPropertyChanging();
+					this._ordinal = value;
+					this.SendPropertyChanged("ordinal");
+					this.OnordinalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_color", DbType="NChar(40) NOT NULL", CanBeNull=false)]
+		public string color
+		{
+			get
+			{
+				return this._color;
+			}
+			set
+			{
+				if ((this._color != value))
+				{
+					this.OncolorChanging(value);
+					this.SendPropertyChanging();
+					this._color = value;
+					this.SendPropertyChanged("color");
+					this.OncolorChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CourseRatings")]
+	public partial class CourseRating
+	{
+		
+		private int _Id;
+		
+		private int _CourseId;
+		
+		private decimal _Course_Rating;
+		
+		private int _SlopeRating18;
+		
+		private string _Front9;
+		
+		private string _Back9;
+		
+		private decimal _BogeyRating;
+		
+		private System.Nullable<char> _Gender;
+		
+		private string _HandicapByHole;
+		
+		private int _teeBoxMenuColorsId;
+		
+		private int _HoleListId;
+		
+		public CourseRating()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseId", DbType="Int NOT NULL")]
+		public int CourseId
+		{
+			get
+			{
+				return this._CourseId;
+			}
+			set
+			{
+				if ((this._CourseId != value))
+				{
+					this._CourseId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Course_Rating", DbType="Decimal(5,2) NOT NULL")]
+		public decimal Course_Rating
+		{
+			get
+			{
+				return this._Course_Rating;
+			}
+			set
+			{
+				if ((this._Course_Rating != value))
+				{
+					this._Course_Rating = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SlopeRating18", DbType="Int NOT NULL")]
+		public int SlopeRating18
+		{
+			get
+			{
+				return this._SlopeRating18;
+			}
+			set
+			{
+				if ((this._SlopeRating18 != value))
+				{
+					this._SlopeRating18 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Front9", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Front9
+		{
+			get
+			{
+				return this._Front9;
+			}
+			set
+			{
+				if ((this._Front9 != value))
+				{
+					this._Front9 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Back9", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Back9
+		{
+			get
+			{
+				return this._Back9;
+			}
+			set
+			{
+				if ((this._Back9 != value))
+				{
+					this._Back9 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BogeyRating", DbType="Decimal(5,2) NOT NULL")]
+		public decimal BogeyRating
+		{
+			get
+			{
+				return this._BogeyRating;
+			}
+			set
+			{
+				if ((this._BogeyRating != value))
+				{
+					this._BogeyRating = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gender", DbType="NChar(1)")]
+		public System.Nullable<char> Gender
+		{
+			get
+			{
+				return this._Gender;
+			}
+			set
+			{
+				if ((this._Gender != value))
+				{
+					this._Gender = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HandicapByHole", DbType="NVarChar(MAX)")]
+		public string HandicapByHole
+		{
+			get
+			{
+				return this._HandicapByHole;
+			}
+			set
+			{
+				if ((this._HandicapByHole != value))
+				{
+					this._HandicapByHole = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_teeBoxMenuColorsId", DbType="Int NOT NULL")]
+		public int teeBoxMenuColorsId
+		{
+			get
+			{
+				return this._teeBoxMenuColorsId;
+			}
+			set
+			{
+				if ((this._teeBoxMenuColorsId != value))
+				{
+					this._teeBoxMenuColorsId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoleListId", DbType="Int NOT NULL")]
+		public int HoleListId
+		{
+			get
+			{
+				return this._HoleListId;
+			}
+			set
+			{
+				if ((this._HoleListId != value))
+				{
+					this._HoleListId = value;
+				}
 			}
 		}
 	}

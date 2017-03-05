@@ -14,9 +14,6 @@ namespace GolfDB2.Models
 
         public int CourseId { get; set; }
 
-        [StringLength(50)]
-        public string TeeName { get; set; }
-
         public Decimal? Course_Rating { get; set; }
 
         public int SlopeRating18 { get; set; }
@@ -32,8 +29,10 @@ namespace GolfDB2.Models
         [StringLength(1)]
         public string Gender { get; set; }
 
-        public string HolesListDescription { get; set; }
-
         public string HandicapByHole { get; set; }
+
+        public int TeeBoxMenuColorsId { get; set; }
+
+        public int HoleListId { get; set; }
     }
 }

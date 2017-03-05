@@ -33,7 +33,7 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseRating courseRating = db.CourseRatings.Find(id);
+            GolfDB2.Models.CourseRating courseRating = db.CourseRatings.Find(id);
             if (courseRating == null)
             {
                 return HttpNotFound();
@@ -53,7 +53,7 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CourseId,TeeName,Course_Rating,SlopeRating18,Front9,Back9,BogeyRating,Gender,HolesListDescription,HandicapByHole")] CourseRating courseRating)
+        public ActionResult Create([Bind(Include = "Id,CourseId,TeeName,Course_Rating,SlopeRating18,Front9,Back9,BogeyRating,Gender,HandicapByHole,teeBoxMenuColorsId,HoleListId")] GolfDB2.Models.CourseRating courseRating)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
@@ -78,7 +78,7 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseRating courseRating = db.CourseRatings.Find(id);
+            GolfDB2.Models.CourseRating courseRating = db.CourseRatings.Find(id);
             if (courseRating == null)
             {
                 return HttpNotFound();
@@ -91,7 +91,7 @@ namespace GolfDB2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CourseId,TeeName,Course_Rating,SlopeRating18,Front9,Back9,BogeyRating,Gender,HolesListDescription,HandicapByHole")] CourseRating courseRating)
+        public ActionResult Edit([Bind(Include = "Id,CourseId,TeeName,Course_Rating,SlopeRating18,Front9,Back9,BogeyRating,Gender,HandicapByHole,teeBoxMenuColorsId,HoleListId")] CourseRating courseRating)
         {
             if (!(User.IsInRole("CourseAdmin") || User.IsInRole("Admin")))
                 return RedirectToAction("../Account/Login");
@@ -115,7 +115,7 @@ namespace GolfDB2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseRating courseRating = db.CourseRatings.Find(id);
+            GolfDB2.Models.CourseRating courseRating = db.CourseRatings.Find(id);
             if (courseRating == null)
             {
                 return HttpNotFound();
@@ -128,7 +128,7 @@ namespace GolfDB2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CourseRating courseRating = db.CourseRatings.Find(id);
+            GolfDB2.Models.CourseRating courseRating = db.CourseRatings.Find(id);
             db.CourseRatings.Remove(courseRating);
             db.SaveChanges();
             return RedirectToAction("Index");

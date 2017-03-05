@@ -16,12 +16,12 @@ namespace GolfDB2.Tools
                 return new HorizontalMobileScoreCardFactory().makeHorizontalMobileScoreCardHtml(connectionString);
         }
 
-        public static String makeScoresDiv(bool isVertical, int cardId, int ordinal, string gender, string connectionString)
+        public static String makeScoresDiv(bool isVertical, int eventId, int cardId, int ordinal, string gender, string connectionString)
         {
-            if (isVertical)
-                return new VerticalMobileScoreCardFactory().makeScoresDiv(cardId, ordinal, gender, connectionString);
-            else
-                return new HorizontalMobileScoreCardFactory().makeScoresDiv(cardId, ordinal, gender, connectionString);
+            //if (isVertical)
+            //    return new VerticalMobileScoreCardFactory().makeScoresDiv(cardId, ordinal, gender, teeColorId, playListId, connectionString);
+            //else
+                return new HorizontalMobileScoreCardFactory().makeScoresDiv(cardId, eventId, ordinal, gender, connectionString);
         }
     }
 }
