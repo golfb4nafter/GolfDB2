@@ -10,17 +10,14 @@ namespace GolfDB2.Tools
     {
         public static string makeMobileScoreCardHtml(bool isVertical, string connectionString)
         {
-            if (isVertical)
-                return new VerticalMobileScoreCardFactory().makeVerticalMobileScoreCardHtml(connectionString);
-            else
-                return new HorizontalMobileScoreCardFactory().makeHorizontalMobileScoreCardHtml(connectionString);
+            return new HorizontalMobileScoreCardFactory().makeHorizontalMobileScoreCardHtml(connectionString);
         }
 
         public static String makeScoresDiv(bool isVertical, int eventId, int cardId, int ordinal, string gender, string connectionString)
         {
-            //if (isVertical)
-            //    return new VerticalMobileScoreCardFactory().makeScoresDiv(cardId, ordinal, gender, teeColorId, playListId, connectionString);
-            //else
+            if (!isVertical)
+                return new VerticalMobileScoreCardFactory().makeScoresDiv(cardId, eventId, ordinal, gender, connectionString);
+            else
                 return new HorizontalMobileScoreCardFactory().makeScoresDiv(cardId, eventId, ordinal, gender, connectionString);
         }
     }

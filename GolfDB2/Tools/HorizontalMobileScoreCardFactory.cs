@@ -13,7 +13,7 @@ namespace GolfDB2.Tools
             StringBuilder sb = new StringBuilder();
 
             sb.Append("    <table border=\"1\">\r\n");
-            sb.Append("      <tr><th>Event</th><th>Team/Player</th><th>Tee Box</th><th>Gender</th><th>Handicap</th></tr>\r\n");
+            sb.Append("      <tr><th>Event</th><th>Team/Player</th><th>Tee Box</th><th>Gender</th></tr>\r\n");
             sb.Append("      <tr><td>" + makeEventSelect(null) + 
                                          "</td><td>" + 
                                          makeTeamSelect(0, connectionString) + 
@@ -21,7 +21,7 @@ namespace GolfDB2.Tools
                                          makeTeeBoxSelect(null) + 
                                          "</td><td>" + 
                                          makeGenderSelect() +
-                                         "</td><td style=\"text-align:center\"><input style=\"width: 20px!important;\" type=\"text\" maxlength=\"2\" id=\"Handicap\" name=\"Handicap\"/></td></tr>\r\n");
+                                         "</td></tr>\r\n");
             sb.Append("    </table>\r\n");
             sb.Append("    <br />\r\n");
             sb.Append("    <div id=\"scoresDiv\"/>\r\n");
